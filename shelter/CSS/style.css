@@ -117,12 +117,14 @@ body {
 .about {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   padding: 80px 40px 100px;
 }
 .about .about-container {
   width: 430px;
   margin-left: 120px;
+  padding-top: 14px;
+  padding-bottom: 14px;
 }
 .about .about-heading {
   padding-bottom: 25px;
