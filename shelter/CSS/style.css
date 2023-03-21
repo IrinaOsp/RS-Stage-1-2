@@ -19,8 +19,12 @@ body {
   width: 100%;
   padding: 30px 40px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   background-color: transparent;
+}
+.header .logo {
+  padding-bottom: 10px;
 }
 .header .logo-link {
   text-decoration: none;
@@ -44,10 +48,12 @@ body {
 .header ul {
   list-style: none;
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 .header ul .header-nav-item {
   margin-right: 35px;
+  cursor: pointer;
 }
 .header ul .header-nav-item:last-child {
   margin-right: 0;
@@ -62,12 +68,20 @@ body {
 }
 
 .intro {
-  padding-top: 180px;
-  height: 100vh;
+  padding: 180px 40px 0;
+  display: flex;
+  justify-content: space-between;
   background: url(../assets/imgs/start-screen-gradient-background.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%);
 }
 
+.intro-container {
+  padding-top: 163px;
+  margin-right: 42px;
+  width: 460px;
+}
+
 .intro-heading {
+  margin-bottom: 42px;
   font-family: "Georgia";
   font-style: normal;
   font-weight: 400;
@@ -76,7 +90,30 @@ body {
   color: #FFFFFF;
 }
 
-.intro-text {
+.intro-p {
   font: normal 400 15px/24px Arial;
   color: #CDCDCD;
+}
+
+.button {
+  margin-top: 42px;
+  width: 207px;
+  height: 52px;
+  background: #F1CDB3;
+  border-radius: 100px;
+}
+.button a {
+  text-decoration: none;
+  font-family: "Georgia";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 22px;
+  letter-spacing: 0.06em;
+  color: #292929;
+}
+
+.about {
+  display: flex;
+  justify-content: space-between;
 }/*# sourceMappingURL=style.css.map */
