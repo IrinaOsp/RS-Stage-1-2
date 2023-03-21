@@ -1,3 +1,85 @@
-* {
+$font-p: normal 400 15px/24px Arial;
+
+html {
     box-sizing: border-box;
+}
+*, *::before, *::after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font: normal 400 15px/24px Arial;
+}
+
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 40px;
+    display: flex;
+    justify-content: space-between;
+    background-color: transparent;
+    .logo-link {
+            text-decoration: none;
+            font-family: 'Georgia';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 32px;
+            line-height: 35px;
+            letter-spacing: 0.06em;
+            color: #F1CDB3;
+        &:hover {
+
+        }
+    }
+    .logo-subtitle {
+        font-family: 'Arial';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 15px;
+        letter-spacing: 0.1em;
+        color: #FFFFFF;
+    }
+    ul {
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+
+    .header-nav-item {
+        margin-right: 35px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+    }
+    .header-nav-link {
+        text-decoration: none;
+        font: $font-p;
+        color: #CDCDCD;
+        &:hover {
+            color: #FAFAFA;
+        }
+    }
+}
+.intro {
+    padding-top: 180px;
+    height: 100vh;
+    background: url(../assets/imgs/start-screen-gradient-background.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%);
+}
+
+.intro-heading {
+    font-family: 'Georgia';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 44px;
+    line-height: 130%;  /* or 57px */
+    color: #FFFFFF;
+}
+.intro-text {
+    font: $font-p;
+    color: #CDCDCD;
 }
