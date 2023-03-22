@@ -9,6 +9,10 @@ html {
   padding: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 body {
   font: normal 400 15px/24px Arial;
 }
@@ -24,14 +28,23 @@ body {
   justify-content: center;
   background-color: transparent;
 }
+@media screen and (max-width: 1280px) {
+  .header {
+    justify-content: space-between;
+  }
+}
 .header .logo-block {
   margin-right: 574px;
+}
+@media screen and (max-width: 1280px) {
+  .header .logo-block {
+    margin-right: 10px;
+  }
 }
 .header .logo {
   padding-bottom: 10px;
 }
 .header .logo-link {
-  text-decoration: none;
   font-family: "Georgia";
   font-style: normal;
   font-weight: 400;
@@ -72,12 +85,15 @@ body {
   margin-right: 0;
 }
 .header .header-nav-link {
-  text-decoration: none;
   font: normal 400 15px/24px Arial;
   color: #CDCDCD;
   cursor: pointer;
 }
 .header .header-nav-link:hover {
+  color: #FAFAFA;
+}
+.header .header-nav-link:active {
+  border-bottom: solid 3px #F1CDB3;
   color: #FAFAFA;
 }
 
@@ -88,11 +104,35 @@ body {
   background: url(../assets/imgs/start-screen-gradient-background.png);
   background: no-repeat url(), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%);
 }
+@media screen and (max-width: 998px) {
+  .intro {
+    padding-top: 150px;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+@media screen and (max-width: 1129px) {
+  .intro .intro-img {
+    width: 569px;
+    margin-right: 30px;
+    align-self: flex-end;
+  }
+}
 
 .intro-container {
   padding-top: 163px;
   margin-right: 42px;
   width: 460px;
+}
+@media screen and (max-width: 1050px) {
+  .intro-container {
+    padding-top: 80px;
+  }
+}
+@media screen and (max-width: 998px) {
+  .intro-container {
+    padding-top: 0;
+  }
 }
 .intro-container .button {
   margin-top: 42px;
@@ -102,8 +142,12 @@ body {
   border: none;
   border-radius: 100px;
 }
+@media screen and (max-width: 998px) {
+  .intro-container .button {
+    margin-bottom: 100px;
+  }
+}
 .intro-container .button a {
-  text-decoration: none;
   font-family: "Georgia";
   font-style: normal;
   font-weight: 400;
@@ -168,6 +212,7 @@ body {
   display: flex;
   justify-content: space-between;
   width: 100vw;
+  max-width: 1280px;
 }
 .friends .friends-slider-wrapper .slider-arrow {
   border: none;
@@ -180,11 +225,27 @@ body {
   margin-left: 53px;
   transform: rotate(180deg);
 }
+@media screen and (max-width: 1250px) {
+  .friends .friends-slider-wrapper .slider-arrow {
+    margin-right: 12px;
+    margin-left: 30px;
+  }
+  .friends .friends-slider-wrapper .slider-arrow:last-child {
+    margin-right: 30px;
+    margin-left: 12px;
+  }
+}
 .friends .friends-slider {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   -moz-column-gap: 90px;
        column-gap: 90px;
+}
+@media screen and (max-width: 1180px) {
+  .friends .friends-slider {
+    -moz-column-gap: 40px;
+         column-gap: 40px;
+  }
 }
 .friends .friends-slider-item {
   display: flex;
@@ -216,7 +277,6 @@ body {
   background-color: transparent;
 }
 .friends .slider-button a {
-  text-decoration: none;
   text-align: center;
   font-family: "Georgia";
   font-style: normal;
@@ -236,7 +296,6 @@ body {
   border-radius: 100px;
 }
 .friends .button a {
-  text-decoration: none;
   font-family: "Georgia";
   font-style: normal;
   font-weight: 400;
@@ -256,7 +315,8 @@ body {
   letter-spacing: 0.06em;
 }
 .help .help-container {
-  margin: 60px 67px 100px;
+  margin: 60px auto 100px;
+  max-width: 1280px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -277,8 +337,18 @@ body {
 .help .help-item:nth-child(6) {
   margin-left: 84px;
 }
+@media screen and (max-width: 1101px) {
+  .help .help-item:nth-child(6) {
+    margin-left: 0;
+  }
+}
 .help .help-item:last-child {
   margin-right: 84px;
+}
+@media screen and (max-width: 1101px) {
+  .help .help-item:last-child {
+    margin-right: 0;
+  }
 }
 
 .donation {
@@ -334,7 +404,6 @@ body {
   content: "";
 }
 .donation-container .donation-card-number a {
-  text-decoration: none;
   font-family: "Georgia";
   font-style: normal;
   font-weight: 400;
@@ -351,7 +420,6 @@ body {
   background: url(../assets/imgs/start-screen-background.jpg), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
 }
 .footer a {
-  text-decoration: none;
   font-family: "Georgia";
   font-style: normal;
   font-weight: 400;
