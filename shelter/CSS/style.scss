@@ -15,6 +15,7 @@ $mobile-width: 320px;
 
 html {
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 *, *::before, *::after {
     box-sizing: inherit;
@@ -326,14 +327,15 @@ body {
         padding: 10px 15px;
         width: 349px;
         &::before {
-            margin-right: 12px;
+            margin-right: 10px;
             width: 33px;
             height: 23px;
             background-image: url(../assets/svg/credit-card.svg);
             background-repeat: no-repeat;
             content: "";
         }
-        p {
+        a {
+            text-decoration: none;
             font-family: 'Georgia';
             font-style: normal;
             font-weight: 400;
@@ -350,9 +352,8 @@ body {
     justify-content: center;
     padding: 40px 40px 0;
     background: url(../assets/imgs/start-screen-background.jpg), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
-    .email, .phone, address {
-        display: flex;
-        margin-bottom: 40px;
+    a {
+        text-decoration: none;
         font-family: 'Georgia';
         font-style: normal;
         font-weight: 400;
@@ -360,6 +361,10 @@ body {
         line-height: 23px;
         letter-spacing: 0.06em;
         color: #F1CDB3;
+    }
+    .email, .phone, address {
+        display: flex;
+        margin-bottom: 40px;
         &::before {
             margin-right: 19px;
             width: 47px;

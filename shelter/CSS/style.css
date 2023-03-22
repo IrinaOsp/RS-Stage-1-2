@@ -1,5 +1,6 @@
 html {
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 *, *::before, *::after {
@@ -325,14 +326,15 @@ body {
   width: 349px;
 }
 .donation-container .donation-card-number::before {
-  margin-right: 12px;
+  margin-right: 10px;
   width: 33px;
   height: 23px;
   background-image: url(../assets/svg/credit-card.svg);
   background-repeat: no-repeat;
   content: "";
 }
-.donation-container .donation-card-number p {
+.donation-container .donation-card-number a {
+  text-decoration: none;
   font-family: "Georgia";
   font-style: normal;
   font-weight: 400;
@@ -348,9 +350,8 @@ body {
   padding: 40px 40px 0;
   background: url(../assets/imgs/start-screen-background.jpg), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
 }
-.footer .email, .footer .phone, .footer address {
-  display: flex;
-  margin-bottom: 40px;
+.footer a {
+  text-decoration: none;
   font-family: "Georgia";
   font-style: normal;
   font-weight: 400;
@@ -358,6 +359,10 @@ body {
   line-height: 23px;
   letter-spacing: 0.06em;
   color: #F1CDB3;
+}
+.footer .email, .footer .phone, .footer address {
+  display: flex;
+  margin-bottom: 40px;
 }
 .footer .email::before, .footer .phone::before, .footer address::before {
   margin-right: 19px;
