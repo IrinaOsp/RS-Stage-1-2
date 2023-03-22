@@ -5,6 +5,14 @@ $desktop-width: 1280px;
 $tablet-width: 768px;
 $mobile-width: 320px;
 
+@mixin button($width-but, $height-but) {
+    width: $width-but;
+    height: $height-but;
+    background: #F1CDB3;
+    border: none;
+    border-radius: 100px;
+}
+
 html {
     box-sizing: border-box;
 }
@@ -25,8 +33,11 @@ body {
     padding: 30px 40px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     background-color: transparent;
+    .logo-block {
+        margin-right: 574px;
+    }
     .logo {
         padding-bottom: 10px;
     }
@@ -49,16 +60,24 @@ body {
         letter-spacing: 0.1em;
         color: #FFFFFF;
     }
+    .nav-block {
+        margin-top: -1px;
+    }
     ul {
         list-style: none;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-end;
+        text-align: right;
 
     .header-nav-item {
         margin-right: 35px;
-        cursor: pointer;
-
+        text-align: right;
+        font: $font-p;
+        color: #FAFAFA;
+        &:first-child {
+            border-bottom: solid 3px #F1CDB3;
+        }
         &:last-child {
             margin-right: 0;
         }
@@ -68,6 +87,7 @@ body {
         text-decoration: none;
         font: $font-p;
         color: #CDCDCD;
+        cursor: pointer;
         &:hover {
             color: #FAFAFA;
         }
@@ -76,8 +96,9 @@ body {
 .intro {
     padding: 180px 40px 0;
     display: flex;
-    justify-content: space-between;
-    background: url(../assets/imgs/start-screen-gradient-background.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%);
+    justify-content: center;
+    background: url(../assets/imgs/start-screen-gradient-background.png);
+    background: no-repeat url(), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%);
 }
 @function calcWidth($width) {
     @return 460/1280*$width
@@ -86,6 +107,20 @@ body {
     padding-top: 163px;
     margin-right: 42px;
     width: calcWidth($desktop-width);
+    .button {
+        margin-top: 42px;
+        @include button(207px, 52px);
+        a {
+            text-decoration: none;
+            font-family: 'Georgia';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 17px;
+            line-height: 22px;
+            letter-spacing: 0.06em;
+            color: #292929;
+        }
+    }
 }
 .intro-heading {
     margin-bottom: 42px;
@@ -99,24 +134,6 @@ body {
 .intro-p {
     font: $font-p;
     color: #CDCDCD;
-}
-.button {
-    margin-top: 42px;
-    width: 207px;
-    height: 52px;
-    background: #F1CDB3;
-    border: none;
-    border-radius: 100px;
-    a {
-        text-decoration: none;
-        font-family: 'Georgia';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 17px;
-        line-height: 22px;
-        letter-spacing: 0.06em;
-        color: #292929;
-    }
 }
 
 .about {
@@ -144,30 +161,81 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #F6F6F6;;
     .friends-heading {
+        margin-top: 55px;
+        margin-bottom: 60px;
         font: $font-h2;
+        letter-spacing: 0.06em;
+        text-align: center;
         color: #545454;
+    }
+    .friends-slider-wrapper {
+        display: flex;
+        justify-content: space-between;
+        width: 100vw;
+        .slider-arrow {
+            border: none;
+            margin-right: 53px;
+            margin-left: 40px;
+            background-color: transparent;
+            &:last-child {
+                margin-right: 40px;
+                margin-left: 53px;
+                transform: rotate(180deg);
+            }
+        }
+    }
+    .friends-slider {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 90px;
     }
     .friends-slider-item {
         display: flex;
         flex-direction: column;
         align-items: center;
-    }
-    figcaption{
-        font-family: 'Georgia';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 20px;
-        line-height: 23px;
-        letter-spacing: 0.06em;
-        color: #545454;
-        text-align: center;
+        background-color: #FAFAFA;
+        border-radius: 9px;
+        img {
+            margin-bottom: 23px;
+        }
+
+        figcaption{
+            padding-bottom: 30px;
+            font-family: 'Georgia';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 23px;
+            letter-spacing: 0.06em;
+            color: #545454;
+            text-align: center;
+        }
     }
     .slider-button {
         width: 187px;
         height: 52px;
+        margin-bottom: 30px;
         border: 2px solid #F1CDB3;
         border-radius: 100px;
+        background-color: transparent;
+        a {
+            text-decoration: none;
+            text-align: center;
+            font-family: 'Georgia';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 17px;
+            line-height: 22px;
+            letter-spacing: 0.06em;
+            color: #292929;
+        }
+    }
+    .button {
+        margin-bottom: 100px;
+        margin-top: 60px;
+        @include button(261px, 52px);
         a {
             text-decoration: none;
             font-family: 'Georgia';
@@ -187,6 +255,7 @@ body {
         margin-top: 80px;
         margin-bottom: 60px;
         font: $font-h2;
+        letter-spacing: 0.06em;
     }
     .help-container{
         margin: 60px 67px 100px;
@@ -197,9 +266,9 @@ body {
         flex-wrap: wrap;
     }
     .help-item {
-        padding: 0 55px 55px;
+        padding: 0 54px 55px;
         img {
-            padding-bottom: 30px;
+            padding-bottom: 22px;
         }
         figcaption {
             font: $font-figcaption;
@@ -215,3 +284,120 @@ body {
     }
 }
 
+.donation {
+    padding: 25px 182px 100px 183px;
+    background-color: #F6F6F6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.donation-container {
+    margin-left: 30px;
+    .donation-heading {
+        margin-bottom: 20px;
+        font: $font-h2;
+        letter-spacing: 0.06em;
+        color: #545454;
+    }
+    .donation-bank-info {
+        margin-bottom: 20px;
+        font-family: 'Georgia';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 17px;
+        letter-spacing: 0.06em;
+        color: #545454;
+    }
+    .donation-text {
+        font-family: 'Arial';
+        font-style: italic;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+        color: #B2B2B2;
+    }
+    .donation-card-number {
+        display: flex;
+        justify-content: space-between;
+        background-color: #F1CDB3;
+        border-radius: 9px;
+        margin-bottom: 20px;
+        padding: 10px 15px;
+        width: 349px;
+        &::before {
+            margin-right: 12px;
+            width: 33px;
+            height: 23px;
+            background-image: url(../assets/svg/credit-card.svg);
+            background-repeat: no-repeat;
+            content: "";
+        }
+        p {
+            font-family: 'Georgia';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 23px;
+            letter-spacing: 0.06em;
+            color: #545454;
+        }
+    }
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    padding: 40px 40px 0;
+    background: url(../assets/imgs/start-screen-background.jpg), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
+    .email, .phone, address {
+        display: flex;
+        margin-bottom: 40px;
+        font-family: 'Georgia';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 23px;
+        letter-spacing: 0.06em;
+        color: #F1CDB3;
+        &::before {
+            margin-right: 19px;
+            width: 47px;
+            height: 32px;
+            background-repeat: no-repeat;
+            content: "";
+            background-image: url(../assets/svg/icon-marker.svg);
+        }
+    }
+    .contacts-heading, .address-heading {
+        display: flex;
+        align-items: center;
+        margin-bottom: 40px;
+        min-width: 279px;
+        font-family: 'Georgia';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 35px;
+        line-height: 45px;
+        letter-spacing: 0.06em;
+        color: #FFFFFF;
+    }
+    .footer-contacts {
+        margin-right: 160px;
+        padding-top: 16px;
+        .email::before {
+            background-image: url(../assets/svg/icon-email.svg);
+        }
+        .phone::before {
+            background-image: url(../assets/svg/icon-phone.svg);
+        }
+    }
+    .footer-address {
+        margin-right: 160px;
+        max-width: 302px;
+        padding-top: 16px;
+        address {
+            margin-bottom: 32px;
+        }
+    }
+}
