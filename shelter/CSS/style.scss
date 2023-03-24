@@ -1,5 +1,6 @@
 $font-p: normal 400 15px/24px Arial;
 $font-h2: normal 400 35px/45px Georgia;
+$font-a-btn: normal 400 17px/22px Georgia;
 $font-figcaption: normal 400 20px/23px Georgia;
 $desktop-width: 1280px;
 $tablet-width: 768px;
@@ -22,6 +23,9 @@ html {
     margin: 0;
     padding: 0;
 }
+a {
+    text-decoration: none;
+}
 body {
     font: normal 400 15px/24px Arial;
 }
@@ -36,14 +40,21 @@ body {
     align-items: center;
     justify-content: center;
     background-color: transparent;
-    .logo-block {
+    @media screen and (max-width: $desktop-width) {
+        justify-content: space-between;
+   }
+}
+
+    .logo-block{
         margin-right: 574px;
+        @media screen and (max-width: $desktop-width) {
+            margin-right: 10px;
+       }
     }
     .logo {
         padding-bottom: 10px;
     }
     .logo-link {
-            text-decoration: none;
             font-family: 'Georgia';
             font-style: normal;
             font-weight: 400;
@@ -85,42 +96,63 @@ body {
     }
     }
     .header-nav-link {
-        text-decoration: none;
         font: $font-p;
         color: #CDCDCD;
         cursor: pointer;
         &:hover {
             color: #FAFAFA;
         }
+        &:active {
+            border-bottom: solid 3px #F1CDB3;
+            color: #FAFAFA;
+        }
     }
-}
+
 .intro {
     padding: 180px 40px 0;
     display: flex;
     justify-content: center;
-    background: url(../assets/imgs/start-screen-gradient-background.png);
-    background: no-repeat url(), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%);
+    background: url(../assets/imgs/noise_lines.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */, #211F20;
+    @media screen and (max-width: 998px) {
+        padding-top: 150px;
+        flex-direction: column;
+        align-items: center;
+    }
+    .intro-img {
+        @media screen and (max-width: 1129px) {
+            width: 569px;
+            margin-right: 30px;
+            align-self: flex-end;
+       }
+    }
 }
+
 @function calcWidth($width) {
     @return 460/1280*$width
 }
 .intro-container {
     padding-top: 163px;
+    @media screen and (max-width: 1050px) {
+        padding-top: 80px;
+   }
     margin-right: 42px;
+    @media screen and (max-width: 998px) {
+        padding-top: 0;
+    }
     width: calcWidth($desktop-width);
     .button {
+        display: inline-block;
         margin-top: 42px;
-        @include button(207px, 52px);
-        a {
-            text-decoration: none;
-            font-family: 'Georgia';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 17px;
-            line-height: 22px;
-            letter-spacing: 0.06em;
-            color: #292929;
+        padding-top: 15px;
+        text-align: center;
+        font: $font-a-btn;
+        font-style: normal;
+        letter-spacing: 0.06em;
+        color: #292929;
+        @media screen and (max-width: 998px) {
+            margin-bottom: 100px;
         }
+        @include button(207px, 52px);
     }
 }
 .intro-heading {
@@ -162,19 +194,12 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #F6F6F6;;
-    .friends-heading {
-        margin-top: 55px;
-        margin-bottom: 60px;
-        font: $font-h2;
-        letter-spacing: 0.06em;
-        text-align: center;
-        color: #545454;
-    }
+    background-color: #F6F6F6;
     .friends-slider-wrapper {
         display: flex;
         justify-content: space-between;
         width: 100vw;
+        max-width: $desktop-width;
         .slider-arrow {
             border: none;
             margin-right: 53px;
@@ -185,12 +210,23 @@ body {
                 margin-left: 53px;
                 transform: rotate(180deg);
             }
+            @media screen and (max-width: 1250px) {
+                margin-right: 12px;
+                margin-left: 30px;
+                &:last-child {
+                    margin-right: 30px;
+                    margin-left: 12px;
+                }
+           }
         }
     }
     .friends-slider {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         column-gap: 90px;
+        @media screen and (max-width: 1180px) {
+            column-gap: 40px;
+        }
     }
     .friends-slider-item {
         display: flex;
@@ -218,39 +254,37 @@ body {
         width: 187px;
         height: 52px;
         margin-bottom: 30px;
+        padding-top: 15px;
         border: 2px solid #F1CDB3;
         border-radius: 100px;
         background-color: transparent;
-        a {
-            text-decoration: none;
-            text-align: center;
-            font-family: 'Georgia';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 17px;
-            line-height: 22px;
-            letter-spacing: 0.06em;
-            color: #292929;
-        }
+        font: $font-a-btn;
+        text-align: center;
+        letter-spacing: 0.06em;
+        color: #292929;
     }
     .button {
         margin-bottom: 100px;
         margin-top: 60px;
+        padding-top: 15px;
         @include button(261px, 52px);
-        a {
-            text-decoration: none;
-            font-family: 'Georgia';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 17px;
-            line-height: 22px;
-            letter-spacing: 0.06em;
-            color: #292929;
-        }
+        text-align: center;
+        font: $font-a-btn;
+        letter-spacing: 0.06em;
+        color: #292929;
     }
+}
+.friends-heading {
+    margin-top: 55px;
+    margin-bottom: 60px;
+    font: $font-h2;
+    letter-spacing: 0.06em;
+    text-align: center;
+    color: #545454;
 }
 
 .help {
+    padding: 0 15px 0;
     text-align: center;
     .help-heading {
         margin-top: 80px;
@@ -259,15 +293,18 @@ body {
         letter-spacing: 0.06em;
     }
     .help-container{
-        margin: 60px 67px 100px;
+        margin: 60px auto 45px;
+        max-width: 1029px;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
         align-self: center;
         flex-wrap: wrap;
     }
     .help-item {
-        padding: 0 54px 55px;
+        //padding: 0 54px 55px;
+        padding-bottom: 55px;
+        margin-right: 120px;
         img {
             padding-bottom: 22px;
         }
@@ -276,21 +313,40 @@ body {
             letter-spacing: 0.06em;
             color: #545454;
         }
+        &:nth-child(5) {
+            margin-right: 0;
+            @media screen and (max-width: 1101px) {
+                margin-left: 0;
+           }
+        }
         &:nth-child(6) {
             margin-left: 84px;
         }
         &:last-child {
-            margin-right: 84px;
+            margin-right: 0;
+            @media screen and (max-width: 1101px) {
+                margin-right: 0;
+           }
         }
     }
 }
 
 .donation {
-    padding: 25px 182px 100px 183px;
+    padding: 80px 0 100px;
     background-color: #F6F6F6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    .donation-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: auto;
+        margin-left: auto;
+        padding-left: 183px;
+        padding-right: 182px;
+        max-width: 1280px;
+        .donation-img {
+            align-self: center;
+        }
+    }
 }
 .donation-container {
     margin-left: 30px;
@@ -335,7 +391,6 @@ body {
             content: "";
         }
         a {
-            text-decoration: none;
             font-family: 'Georgia';
             font-style: normal;
             font-weight: 400;
@@ -348,12 +403,15 @@ body {
 }
 
 .footer {
-    display: flex;
-    justify-content: center;
     padding: 40px 40px 0;
-    background: url(../assets/imgs/start-screen-background.jpg), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
+    background: url(../assets/imgs/noise_lines.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;    .footer-container {
+        margin-right: auto;
+        margin-left: auto;
+        display: flex;
+        justify-content: space-between;
+        max-width: 1200px;
+    }
     a {
-        text-decoration: none;
         font-family: 'Georgia';
         font-style: normal;
         font-weight: 400;
@@ -406,3 +464,105 @@ body {
         }
     }
 }
+
+/*Page 2 - Pets*/
+.pet-header {
+    width: 100%;
+    padding: 30px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    @media screen and (max-width: $desktop-width) {
+        justify-content: space-between;
+   }
+   .pet-logo-link, .pet-header-nav-link {
+    color: #545454;
+   }
+   .pet-logo-subtitle {
+    color: #292929;
+   }
+   .header-nav-item {
+    &:first-child {
+        border-bottom: none;
+    }
+    &:nth-child(2) {
+        border-bottom: solid 3px #F1CDB3;
+    }
+    }
+    .header-nav-link {
+        &:hover {
+            color: #292929;
+        }
+        &:active {
+            border-bottom: solid 3px #F1CDB3;
+            color: #292929;
+        }
+    }
+}
+
+
+.our-friends {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F6F6F6;
+    .friends-heading {
+        margin-top: 80px;
+    }
+    .our-friends-wrapper {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        row-gap: 30px;
+        column-gap: 40px;
+        margin-bottom: 60px;
+        .friends-slider-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #FAFAFA;
+            border-radius: 9px;
+            img {
+                margin-bottom: 23px;
+            }
+            figcaption{
+                padding-bottom: 30px;
+                font-family: 'Georgia';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 20px;
+                line-height: 23px;
+                letter-spacing: 0.06em;
+                color: #545454;
+                text-align: center;
+            }
+        }
+        .slider-button {
+            width: 187px;
+            height: 52px;
+            margin-bottom: 30px;
+            padding-top: 15px;
+            border: 2px solid #F1CDB3;
+            border-radius: 100px;
+            background-color: transparent;
+            font: $font-a-btn;
+            text-align: center;
+            letter-spacing: 0.06em;
+            color: #292929;
+        }
+    }
+    .buttons-container {
+        margin-bottom: 93px;
+        .pets-buttons {
+            background-color: transparent;
+            border: none;
+            margin-right: 16px;
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+}
+
+
