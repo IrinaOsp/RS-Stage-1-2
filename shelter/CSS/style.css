@@ -57,6 +57,11 @@ body {
   letter-spacing: 0.06em;
   color: #F1CDB3;
 }
+@media (hover: hover) {
+  .logo-link:hover {
+    color: white;
+  }
+}
 
 .logo-subtitle {
   font-family: "Arial";
@@ -295,6 +300,7 @@ ul .disabled-link {
 @media (hover: hover) {
   .friends .friends-slider-item:hover {
     cursor: pointer;
+    box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
   }
   .friends .friends-slider-item:hover .slider-button {
     background-color: #FDDCC4;
@@ -490,6 +496,11 @@ ul .disabled-link {
   letter-spacing: 0.06em;
   color: #F1CDB3;
 }
+@media (hover: hover) {
+  .footer a:hover {
+    color: #FAFAFA;
+  }
+}
 .footer .email, .footer .phone {
   display: flex;
   align-items: center;
@@ -639,6 +650,7 @@ ul .disabled-link {
 @media (hover: hover) {
   .our-friends .our-friends-wrapper .friends-slider-item:hover {
     cursor: pointer;
+    box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
   }
   .our-friends .our-friends-wrapper .friends-slider-item:hover .slider-button {
     background-color: #FDDCC4;

@@ -63,6 +63,11 @@ body {
             line-height: 35px;
             letter-spacing: 0.06em;
             color: #F1CDB3;
+            @media (hover: hover) {
+                &:hover{
+                color: lighten(#F1CDB3, 20%);
+                }
+            }
     }
     .logo-subtitle {
         font-family: 'Arial';
@@ -281,6 +286,7 @@ body {
         @media (hover: hover) {
         &:hover {
             cursor: pointer;
+            box-shadow: 0 0 11px rgba(33,33,33,.2);
             .slider-button {
                 background-color: #FDDCC4;
             }
@@ -465,6 +471,11 @@ body {
         line-height: 23px;
         letter-spacing: 0.06em;
         color: #F1CDB3;
+        @media (hover: hover) {
+        &:hover {
+            color: #FAFAFA;
+        }
+        }
     }
     .email, .phone {
         display: flex;
@@ -615,6 +626,7 @@ body {
             @media (hover: hover) {
             &:hover {
                 cursor: pointer;
+                box-shadow: 0 0 11px rgba(33,33,33,.2);
                 .slider-button {
                     background-color: #FDDCC4;
                 }
