@@ -1,5 +1,6 @@
 $font-p: normal 400 15px/24px Arial;
 $font-h2: normal 400 35px/45px Georgia;
+$font-a-btn: normal 400 17px/22px Georgia;
 $font-figcaption: normal 400 20px/23px Georgia;
 $desktop-width: 1280px;
 $tablet-width: 768px;
@@ -140,20 +141,18 @@ body {
     }
     width: calcWidth($desktop-width);
     .button {
+        display: inline-block;
         margin-top: 42px;
+        padding-top: 15px;
+        text-align: center;
+        font: $font-a-btn;
+        font-style: normal;
+        letter-spacing: 0.06em;
+        color: #292929;
         @media screen and (max-width: 998px) {
             margin-bottom: 100px;
         }
         @include button(207px, 52px);
-        a {
-            font-family: 'Georgia';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 17px;
-            line-height: 22px;
-            letter-spacing: 0.06em;
-            color: #292929;
-        }
     }
 }
 .intro-heading {
@@ -255,33 +254,24 @@ body {
         width: 187px;
         height: 52px;
         margin-bottom: 30px;
+        padding-top: 15px;
         border: 2px solid #F1CDB3;
         border-radius: 100px;
         background-color: transparent;
-        a {
-            text-align: center;
-            font-family: 'Georgia';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 17px;
-            line-height: 22px;
-            letter-spacing: 0.06em;
-            color: #292929;
-        }
+        font: $font-a-btn;
+        text-align: center;
+        letter-spacing: 0.06em;
+        color: #292929;
     }
     .button {
         margin-bottom: 100px;
         margin-top: 60px;
+        padding-top: 15px;
         @include button(261px, 52px);
-        a {
-            font-family: 'Georgia';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 17px;
-            line-height: 22px;
-            letter-spacing: 0.06em;
-            color: #292929;
-        }
+        text-align: center;
+        font: $font-a-btn;
+        letter-spacing: 0.06em;
+        color: #292929;
     }
 }
 .friends-heading {
@@ -552,19 +542,14 @@ body {
             width: 187px;
             height: 52px;
             margin-bottom: 30px;
+            padding-top: 15px;
             border: 2px solid #F1CDB3;
             border-radius: 100px;
             background-color: transparent;
-            a {
-                text-align: center;
-                font-family: 'Georgia';
-                font-style: normal;
-                font-weight: 400;
-                font-size: 17px;
-                line-height: 22px;
-                letter-spacing: 0.06em;
-                color: #292929;
-            }
+            font: $font-a-btn;
+            text-align: center;
+            letter-spacing: 0.06em;
+            color: #292929;
         }
     }
     .buttons-container {

@@ -141,7 +141,14 @@ ul .header-nav-item:last-child {
   }
 }
 .intro-container .button {
+  display: inline-block;
   margin-top: 42px;
+  padding-top: 15px;
+  text-align: center;
+  font: normal 400 17px/22px Georgia;
+  font-style: normal;
+  letter-spacing: 0.06em;
+  color: #292929;
   width: 207px;
   height: 52px;
   background: #F1CDB3;
@@ -152,15 +159,6 @@ ul .header-nav-item:last-child {
   .intro-container .button {
     margin-bottom: 100px;
   }
-}
-.intro-container .button a {
-  font-family: "Georgia";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 17px;
-  line-height: 22px;
-  letter-spacing: 0.06em;
-  color: #292929;
 }
 
 .intro-heading {
@@ -270,35 +268,26 @@ ul .header-nav-item:last-child {
   width: 187px;
   height: 52px;
   margin-bottom: 30px;
+  padding-top: 15px;
   border: 2px solid #F1CDB3;
   border-radius: 100px;
   background-color: transparent;
-}
-.friends .slider-button a {
+  font: normal 400 17px/22px Georgia;
   text-align: center;
-  font-family: "Georgia";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 17px;
-  line-height: 22px;
   letter-spacing: 0.06em;
   color: #292929;
 }
 .friends .button {
   margin-bottom: 100px;
   margin-top: 60px;
+  padding-top: 15px;
   width: 261px;
   height: 52px;
   background: #F1CDB3;
   border: none;
   border-radius: 100px;
-}
-.friends .button a {
-  font-family: "Georgia";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 17px;
-  line-height: 22px;
+  text-align: center;
+  font: normal 400 17px/22px Georgia;
   letter-spacing: 0.06em;
   color: #292929;
 }
@@ -576,17 +565,12 @@ ul .header-nav-item:last-child {
   width: 187px;
   height: 52px;
   margin-bottom: 30px;
+  padding-top: 15px;
   border: 2px solid #F1CDB3;
   border-radius: 100px;
   background-color: transparent;
-}
-.our-friends .our-friends-wrapper .slider-button a {
+  font: normal 400 17px/22px Georgia;
   text-align: center;
-  font-family: "Georgia";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 17px;
-  line-height: 22px;
   letter-spacing: 0.06em;
   color: #292929;
 }
