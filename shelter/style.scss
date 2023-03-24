@@ -1,3 +1,15 @@
+@font-face {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    src: url(./assets/fonts/georgia/georgia-regular.ttf);
+    font-weight: 400;
+}
+@font-face {
+    font-family: Arial, Helvetica, sans-serif;
+    src: url(./assets/fonts/arial/arial-regular.ttf);
+    font-weight: 400;
+}
+
+
 $font-p: normal 400 15px/24px Arial;
 $font-h2: normal 400 35px/45px Georgia;
 $font-a-btn: normal 400 17px/22px Georgia;
