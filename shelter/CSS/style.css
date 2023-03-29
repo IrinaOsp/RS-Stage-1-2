@@ -44,6 +44,11 @@ body {
     justify-content: space-between;
   }
 }
+@media screen and (max-width: 800px) {
+  .header {
+    padding: 30px;
+  }
+}
 
 .logo-block {
   margin-right: 574px;
@@ -185,6 +190,7 @@ ul .disabled-link {
   .intro-container {
     max-width: 460px;
     padding-top: 0;
+    margin-right: 0;
   }
 }
 .intro-container .button {
@@ -205,6 +211,11 @@ ul .disabled-link {
 @media screen and (max-width: 998px) {
   .intro-container .button {
     margin-bottom: 100px;
+  }
+}
+@media screen and (max-width: 998px) {
+  .intro-container .button {
+    margin-left: 27%;
   }
 }
 @media (hover: hover) {
@@ -232,6 +243,7 @@ ul .disabled-link {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  flex-wrap: wrap-reverse;
   padding: 80px 40px 100px;
 }
 .about .about-container {
@@ -239,6 +251,18 @@ ul .disabled-link {
   margin-left: 120px;
   padding-top: 14px;
   padding-bottom: 14px;
+}
+@media screen and (max-width: 900px) {
+  .about .about-container {
+    margin-left: 50px;
+  }
+}
+@media screen and (max-width: 860px) {
+  .about .about-container {
+    padding: 0;
+    margin-bottom: 80px;
+    margin-left: 0;
+  }
 }
 .about .about-heading {
   padding-bottom: 25px;
@@ -403,6 +427,11 @@ ul .disabled-link {
   padding: 80px 15px 100px;
   text-align: center;
 }
+@media screen and (max-width: 850px) {
+  .help {
+    padding: 80px 69px 100px;
+  }
+}
 .help .help-heading {
   margin-bottom: 60px;
   font: normal 400 35px/45px Georgia;
@@ -431,6 +460,14 @@ ul .disabled-link {
   .help .help-container {
     -moz-column-gap: 60px;
          column-gap: 60px;
+  }
+}
+@media screen and (max-width: 850px) {
+  .help .help-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    row-gap: 55px;
   }
 }
 .help .help-item img {
@@ -476,9 +513,13 @@ ul .disabled-link {
   align-items: center;
   margin-right: auto;
   margin-left: auto;
-  padding-left: 183px;
-  padding-right: 182px;
   max-width: 1280px;
+  flex-wrap: wrap-reverse;
+}
+@media screen and (max-width: 915px) {
+  .donation .donation-wrapper {
+    margin-right: 0;
+  }
 }
 .donation .donation-wrapper .donation-img {
   align-self: center;
@@ -486,6 +527,13 @@ ul .disabled-link {
 
 .donation-container {
   margin-left: 30px;
+  max-width: 380px;
+}
+@media screen and (max-width: 900px) {
+  .donation-container {
+    margin-left: 0;
+    margin-bottom: 60px;
+  }
 }
 .donation-container .donation-heading {
   margin-bottom: 20px;
@@ -546,6 +594,11 @@ ul .disabled-link {
 .footer {
   padding: 40px 40px 0;
   background: url(../assets/imgs/noise_lines.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
+}
+@media screen and (max-width: 1000px) {
+  .footer {
+    padding-top: 30px;
+  }
 }
 .footer .footer-container {
   margin-right: auto;
@@ -636,6 +689,7 @@ ul .disabled-link {
   .footer .footer-contacts {
     margin-right: 60px;
     margin-bottom: 25px;
+    padding-top: 0;
   }
 }
 .footer .footer-address {
@@ -645,6 +699,11 @@ ul .disabled-link {
 }
 .footer .footer-address address {
   margin-bottom: 32px;
+}
+@media screen and (max-width: 1000px) {
+  .footer .footer-address {
+    padding-top: 0;
+  }
 }
 
 /*Page 2 - Pets*/

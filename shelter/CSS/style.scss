@@ -56,6 +56,9 @@ body {
     @media screen and (max-width: 1282px) {
         justify-content: space-between;
    }
+    @media screen and (max-width: 800px) {
+        padding: 30px;
+    }
 }
 
     .logo-block{
@@ -180,6 +183,7 @@ body {
     @media screen and (max-width: 998px) {
         max-width: 460px;
         padding-top: 0;
+        margin-right: 0;
     }
     width: calcWidth($desktop-width);
     .button {
@@ -195,6 +199,9 @@ body {
             margin-bottom: 100px;
         }
         @include button(207px, 52px);
+        @media screen and (max-width: 998px) {
+            margin-left: 27%;
+        }
         @media (hover: hover) {
         &:hover {
             background-color: #FDDCC4;
@@ -220,12 +227,21 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    flex-wrap: wrap-reverse;
     padding: 80px 40px 100px;
     .about-container {
         width: 430px;
         margin-left: 120px;
         padding-top: 14px;
         padding-bottom: 14px;
+        @media screen and (max-width: 900px) {
+            margin-left: 50px;
+        }
+        @media screen and (max-width: 860px) {
+            padding: 0;
+            margin-bottom: 80px;
+            margin-left: 0;
+        }
     }
     .about-heading {
         padding-bottom: 25px;
@@ -374,6 +390,9 @@ body {
 .help {
     padding: 80px 15px 100px;
     text-align: center;
+    @media screen and (max-width: 850px) {
+        padding: 80px 69px 100px;
+    }
     .help-heading {
         margin-bottom: 60px;
         font: $font-h2;
@@ -395,6 +414,12 @@ body {
         }
         @media screen and (max-width: 950px) {
             column-gap: 60px;
+        }
+        @media screen and (max-width: 850px) {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            row-gap: 55px;
         }
     }
     .help-item {
@@ -436,9 +461,11 @@ body {
         align-items: center;
         margin-right: auto;
         margin-left: auto;
-        padding-left: 183px;
-        padding-right: 182px;
         max-width: 1280px;
+        flex-wrap: wrap-reverse;
+        @media screen and (max-width: 915px) {
+            margin-right: 0;
+       }
         .donation-img {
             align-self: center;
         }
@@ -446,6 +473,11 @@ body {
 }
 .donation-container {
     margin-left: 30px;
+    max-width: 380px;
+    @media screen and (max-width: 900px) {
+        margin-left: 0;
+        margin-bottom: 60px;
+    }
     .donation-heading {
         margin-bottom: 20px;
         font: $font-h2;
@@ -506,6 +538,9 @@ body {
 .footer {
     padding: 40px 40px 0;
     background: url(../assets/imgs/noise_lines.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;    
+    @media screen and (max-width: 1000px) {
+        padding-top: 30px;
+    }
     .footer-container {
         margin-right: auto;
         margin-left: auto;
@@ -591,6 +626,7 @@ body {
         @media screen and (max-width: 1000px) {
             margin-right: 60px;
             margin-bottom: 25px;
+            padding-top: 0;
         }
     }
     .footer-address {
@@ -599,6 +635,9 @@ body {
         margin-left: -6px;
         address {
             margin-bottom: 32px;
+        }
+        @media screen and (max-width: 1000px) {
+            padding-top: 0;
         }
     }
 }
