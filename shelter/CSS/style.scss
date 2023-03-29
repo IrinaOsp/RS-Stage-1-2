@@ -12,6 +12,7 @@
 
 $font-p: normal 400 15px/24px Arial;
 $font-h2: normal 400 35px/45px Georgia;
+$font-h2-mobile: normal 400 25px/32px Georgia;
 $font-a-btn: normal 400 17px/22px Georgia;
 $font-figcaption: normal 400 20px/23px Georgia;
 $desktop-width: 1280px;
@@ -59,6 +60,9 @@ body {
     @media screen and (max-width: 800px) {
         padding: 30px;
     }
+    @media screen and (max-width: 730px) {
+        padding: 30px 20px;
+    }
 }
 
     .logo-block{
@@ -85,6 +89,7 @@ body {
             }
     }
     .logo-subtitle {
+        padding-left: 4px;
         font-family: 'Arial';
         font-style: normal;
         font-weight: 400;
@@ -95,18 +100,26 @@ body {
     }
     .nav-block {
         margin-right: 2px;
+        @media screen and (max-width: 710px) {
+            margin-right: 0;
+        }
     }
     ul {
         list-style: none;
         display: flex;
         justify-content: flex-end;
         text-align: right;
-
+        @media screen and (max-width: 650px) {
+            display: block;
+        }
     .header-nav-item {
         margin-right: 35px;
         text-align: right;
         font: $font-p;
         color: #FAFAFA;
+        @media screen and (max-width: 710px) {
+            margin-right: 20px;
+        }
         &:first-child {
             border-bottom: solid 3px #F1CDB3;
         }
@@ -134,6 +147,56 @@ body {
             color: #FAFAFA;
         }
     }
+    .header-burger {
+        display: none;
+        width: 30px;
+        height: 22px;
+        position: relative;
+        z-index: 11;
+        margin-right: 0;
+        margin-left: auto;
+        @media screen and (max-width: 650px) {
+            display: block;
+        }
+        .burger-line {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: #F1CDB3;
+            position: absolute;
+            left: 0;
+        }
+        .burger-line-1 {
+            top: 0;
+        }
+        .burger-line-2 {
+            top: 10px;
+        }
+        .burger-line-3 {
+            bottom: 0;
+        }
+    }
+    .header-burger-active {
+        transform: rotate(90deg);
+    }
+    @media screen and (max-width: 650px) {
+        .header-nav {
+            width: 85%;
+            height: fit-content;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            padding: 248px 38px;
+            transform: translateX(130%);
+            background-color: #292929;
+        }
+        .header-nav-active {
+            transform: translateX(20%);
+        }
+    }
+
+
 
 .intro {
     padding: 180px 40px 0;
@@ -152,6 +215,7 @@ body {
         margin: 0;
         @media screen and (max-width: 998px) {
             align-self: flex-end;
+            text-align: right;
         }
     }
     .intro-img {
@@ -160,6 +224,9 @@ body {
             width: 569px;
             height: auto;
        }
+       @media screen and (max-width: 750px) {
+        width: 90%;
+    }
     }
 }
 
@@ -183,6 +250,10 @@ body {
         padding-top: 0;
         margin-right: 0;
     }
+    @media screen and (max-width: 500px) {
+        text-align: center;
+        max-width: 90%;
+    }
     width: calcWidth($desktop-width);
     .button {
         display: inline-block;
@@ -200,6 +271,9 @@ body {
         @media screen and (max-width: 998px) {
             margin-left: 27%;
         }
+        @media screen and (max-width: 500px) {
+            margin-left: 0;
+        }
         @media (hover: hover) {
         &:hover {
             background-color: #FDDCC4;
@@ -215,6 +289,10 @@ body {
     font-size: 44px;
     line-height: 57px;
     color: #FFFFFF;
+    @media screen and (max-width: 500px) {
+        font: $font-h2-mobile;
+        letter-spacing: 0.06em;
+    }
 }
 .intro-p {
     font: $font-p;
@@ -264,6 +342,9 @@ body {
         @media screen and (max-width: 1078px) {
             justify-content: space-around;
         }
+        @media screen and (max-width: 460px) {
+            flex-wrap: wrap;
+        }
         .slider-arrow {
             border: none;
             width: 52px;
@@ -273,6 +354,11 @@ body {
             margin-left: 40px;
             background: url(../assets/svg/button_arrow.svg) no-repeat;
             cursor: pointer;
+            @media screen and (max-width: 460px) {
+                order: 2;
+                margin-left: 68px;
+                margin-right: auto;
+            }
             @media (hover: hover) {
             &:hover {
                 background: url(../assets/svg/button_arrow_active.svg) no-repeat;
@@ -282,6 +368,10 @@ body {
                 margin-right: 40px;
                 margin-left: 53px;
                 transform: rotate(180deg);
+                @media screen and (max-width: 460px) {
+                    margin-right: 68px;
+                    margin-left: auto;
+                }
                 @media (hover: hover) {
                 &:hover {
                     background: url(../assets/svg/button_arrow_active.svg) no-repeat;
@@ -310,6 +400,14 @@ body {
             grid-template-columns: repeat(2, 1fr);
             column-gap: 40px;
         }
+        @media screen and (max-width: 770px) {
+            grid-template-columns: repeat(1, 1fr);
+            column-gap: 0;
+        }
+        @media screen and (max-width: 460px) {
+            margin-left: auto;
+            margin-right: auto;
+        }
     }
     .friends-slider-item {
         display: flex;
@@ -334,6 +432,11 @@ body {
         }
         @media screen and (max-width: 1078px) {
             &:last-child {
+                display: none;
+            }
+        }
+        @media screen and (max-width: 770px) {
+            &:nth-child(2) {
                 display: none;
             }
         }
@@ -419,15 +522,25 @@ body {
             grid-template-rows: repeat(3, 1fr);
             row-gap: 55px;
         }
+        @media screen and (max-width: 530px) {
+            column-gap: 30px;
+            row-gap: 30px;
+        }
     }
     .help-item {
         img {
             padding-bottom: 22.8px;
+            @media screen and (max-width: 530px) {
+                padding-bottom: 20px;
+            }
         }
         figcaption {
             font: $font-figcaption;
             letter-spacing: 0.06em;
             color: #545454;
+            @media screen and (max-width: 530px) {
+                font: normal 400 15px/16.5px Georgia;
+            }
         }
         &:nth-child(5) {
             margin-right: 0;
@@ -464,8 +577,14 @@ body {
         @media screen and (max-width: 915px) {
             margin-right: 0;
        }
+       @media screen and (max-width: 500px) {
+        text-align: center;
+        }
         .donation-img {
             align-self: center;
+            @media screen and (max-width: 545px) {
+                width: 81.25%;
+           }
         }
     }
 }
@@ -549,6 +668,10 @@ body {
         @media screen and (max-width: 1000px) {
             justify-content: center;
         }
+        @media screen and (max-width: 1000px) {
+            flex-direction: column;
+            align-items: center;
+        }
     }
     a {
         font-family: 'Georgia';
@@ -625,6 +748,10 @@ body {
             margin-right: 60px;
             margin-bottom: 25px;
             padding-top: 0;
+        }
+        @media screen and (max-width: 1000px) {
+            margin-right: 0;
+            margin-bottom: 0;
         }
     }
     .footer-address {
