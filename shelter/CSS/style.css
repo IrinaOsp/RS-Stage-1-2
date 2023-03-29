@@ -135,8 +135,7 @@ ul .disabled-link {
   padding: 180px 40px 0;
   display: flex;
   justify-content: center;
-  background: url(../assets/imgs/start-screen-gradient-background.png) no-repeat;
-  background-size: 100% auto;
+  background: url(../assets/imgs/noise_lines.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
 }
 @media screen and (max-width: 1090px) {
   .intro {
@@ -703,6 +702,7 @@ ul .disabled-link {
 @media screen and (max-width: 1000px) {
   .footer .footer-address {
     padding-top: 0;
+    margin-left: 0;
   }
 }
 
