@@ -223,6 +223,11 @@ ul .disabled-link {
     align-items: center;
   }
 }
+@media screen and (max-width: 998px) {
+  .intro {
+    padding: 150px 10px 0;
+  }
+}
 .intro .intro-img-container {
   margin: 0;
 }
@@ -237,13 +242,15 @@ ul .disabled-link {
 }
 @media screen and (max-width: 1279px) {
   .intro .intro-img {
-    width: 569px;
-    height: auto;
+    max-width: 569px;
+    margin-right: 20px;
   }
 }
 @media screen and (max-width: 750px) {
   .intro .intro-img {
-    width: 90%;
+    max-width: 80%;
+    min-width: 260px;
+    margin-right: 0;
   }
 }
 
@@ -278,6 +285,11 @@ ul .disabled-link {
     max-width: 90%;
   }
 }
+@media screen and (max-width: 500px) {
+  .intro-container {
+    max-width: 100%;
+  }
+}
 .intro-container .button {
   display: inline-block;
   margin-top: 42px;
@@ -308,6 +320,11 @@ ul .disabled-link {
     margin-left: 0;
   }
 }
+@media screen and (max-width: 400px) {
+  .intro-container .button {
+    margin-bottom: 105px;
+  }
+}
 @media (hover: hover) {
   .intro-container .button:hover {
     background-color: #FDDCC4;
@@ -333,6 +350,12 @@ ul .disabled-link {
 .intro-p {
   font: normal 400 15px/24px Arial;
   color: #CDCDCD;
+}
+@media screen and (max-width: 400px) {
+  .intro-p {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .about {
@@ -390,6 +413,9 @@ ul .disabled-link {
 @media screen and (max-width: 460px) {
   .friends .friends-slider-wrapper {
     flex-wrap: wrap;
+    -moz-column-gap: 7rem;
+         column-gap: 7rem;
+    justify-content: center;
   }
 }
 .friends .friends-slider-wrapper .slider-arrow {
@@ -609,6 +635,11 @@ ul .disabled-link {
     row-gap: 30px;
   }
 }
+@media screen and (max-width: 380px) {
+  .help .help-container {
+    grid-template-columns: repeat(2, 130px);
+  }
+}
 .help .help-item img {
   padding-bottom: 22.8px;
 }
@@ -727,6 +758,13 @@ ul .disabled-link {
   padding: 10px 15px;
   width: 349px;
 }
+@media screen and (max-width: 410px) {
+  .donation-container .donation-card-number {
+    width: 281px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
 .donation-container .donation-card-number::before {
   margin-right: 10px;
   width: 33px;
@@ -743,6 +781,12 @@ ul .disabled-link {
   line-height: 23px;
   letter-spacing: 0.06em;
   color: #545454;
+}
+@media screen and (max-width: 410px) {
+  .donation-container .donation-card-number a {
+    font-size: 15px;
+    line-height: 17px;
+  }
 }
 @media (hover: hover) {
   .donation-container .donation-card-number:hover {
@@ -875,6 +919,11 @@ ul .disabled-link {
   .footer .footer-address {
     padding-top: 0;
     margin-left: 0;
+  }
+}
+@media screen and (max-width: 400px) {
+  .footer .footer-img {
+    width: 260px;
   }
 }
 
