@@ -16,7 +16,7 @@ $font-h2-mobile: normal 400 25px/32px Georgia;
 $font-a-btn: normal 400 17px/22px Georgia;
 $font-figcaption: normal 400 20px/23px Georgia;
 $desktop-width: 1280px;
-$tablet-width: 768px;
+$tablet-width: 767.5px; //768 минус 1px
 $mobile-width: 320px;
 
 @mixin button($width-but, $height-but) {
@@ -100,7 +100,7 @@ body {
     }
     .nav-block {
         margin-right: 2px;
-        @media screen and (max-width: 710px) {
+        @media screen and (max-width: $tablet-width) {
             margin-right: 0;
         }
     }
@@ -109,7 +109,7 @@ body {
         display: flex;
         justify-content: flex-end;
         text-align: right;
-        @media screen and (max-width: 650px) {
+        @media screen and (max-width: $tablet-width) {
             display: block;
         }
     .header-nav-item {
@@ -117,7 +117,7 @@ body {
         text-align: right;
         font: $font-p;
         color: #FAFAFA;
-        @media screen and (max-width: 710px) {
+        @media screen and (max-width: $tablet-width) {
             margin-right: 20px;
         }
         &:first-child {
@@ -155,7 +155,7 @@ body {
         z-index: 11;
         margin-right: 0;
         margin-left: auto;
-        @media screen and (max-width: 650px) {
+        @media screen and (max-width: $tablet-width) {
             display: block;
         }
         .burger-line {
@@ -179,20 +179,29 @@ body {
     .header-burger-active {
         transform: rotate(90deg);
     }
-    @media screen and (max-width: 650px) {
+    @media screen and (max-width: $tablet-width) {
         .header-nav {
-            width: 85%;
+            width: 320px;
             height: fit-content;
             position: fixed;
             top: 0;
             left: 0;
             z-index: 10;
             padding: 248px 38px;
-            transform: translateX(130%);
+            transform: translateX(250%);
             background-color: #292929;
+            .header-nav-item {
+                text-align: center;
+                font: normal 400 32px/51px Arial;
+                margin-bottom: 40px;
+                margin-right: 0;
+                a {
+                    font: inherit;
+                }
+            }
         }
         .header-nav-active {
-            transform: translateX(20%);
+            transform: translateX(calc(100vw - 320px));
         }
     }
 
@@ -320,6 +329,9 @@ body {
     align-items: flex-start;
     flex-wrap: wrap-reverse;
     padding: 80px 40px 100px;
+    @media screen and (max-width: 450px) {
+        padding: 42px 25px 42.4px;
+    }
     .about-container {
         width: 430px;
         margin-left: 120px;
@@ -333,15 +345,40 @@ body {
             margin-bottom: 80px;
             margin-left: 0;
         }
+        @media screen and (max-width: 500px) {
+            margin-bottom: 42px;
+        }
     }
     .about-heading {
         padding-bottom: 25px;
         font: $font-h2;
         letter-spacing: 0.06em;
         color: #545454;
+        @media screen and (max-width: 450px) {
+            text-align: center;
+        }
+        @media screen and (max-width: 380px) {
+            font-size: 25px;
+            line-height: 32px;
+        }
     }
     .about-p:first-of-type{
         padding-bottom: 25px;
+        @media screen and (max-width: 450px) {
+            padding-bottom: 22px;
+        }
+    }
+    @media screen and (max-width: 450px) {
+        .about-p {
+            text-align: justify;
+        }
+    }
+    .about-img {
+        max-width: 100%;
+        align-self: start;
+        @media screen and (max-width: 350px) {
+            max-width: 96%;
+        }
     }
 }
 .friends {
@@ -360,7 +397,11 @@ body {
         @media screen and (max-width: 460px) {
             flex-wrap: wrap;
             column-gap: 7rem;
+            row-gap: 1.4rem;
             justify-content: center;
+        }
+        @media screen and (max-width: 370px) {
+            column-gap: 3.5rem;
         }
         .slider-arrow {
             border: none;
@@ -417,7 +458,7 @@ body {
             grid-template-columns: repeat(2, 1fr);
             column-gap: 40px;
         }
-        @media screen and (max-width: 770px) {
+        @media screen and (max-width: 760px) {
             grid-template-columns: repeat(1, 1fr);
             column-gap: 0;
         }
@@ -452,7 +493,7 @@ body {
                 display: none;
             }
         }
-        @media screen and (max-width: 770px) {
+        @media screen and (max-width: 760px) {
             &:nth-child(2) {
                 display: none;
             }
@@ -489,6 +530,10 @@ body {
         font: $font-a-btn;
         letter-spacing: 0.06em;
         color: #292929;
+        @media screen and (max-width: 450px) {
+            margin-top: 42px;
+            margin-bottom: 42px;
+        }
         @media (hover: hover) {
         &:hover {
             background-color: #FDDCC4;
@@ -503,6 +548,14 @@ body {
     letter-spacing: 0.06em;
     text-align: center;
     color: #545454;
+    @media screen and (max-width: 450px) {
+        margin-top: 42px;
+        margin-bottom: 42px;
+    }
+    @media screen and (max-width: 380px) {
+        font-size: 25px;
+        line-height: 32px;
+    }
 }
 
 .help {
@@ -511,10 +564,18 @@ body {
     @media screen and (max-width: 850px) {
         padding: 80px 69px 100px;
     }
+    @media screen and (max-width: 450px) {
+        padding: 42px 15px;
+    }
     .help-heading {
         margin-bottom: 60px;
         font: $font-h2;
         letter-spacing: 0.06em;
+        @media screen and (max-width: 380px) {
+            font-size: 25px;
+            line-height: 32px;
+            margin-bottom: 42px;
+        }
     }
     .help-container{
         margin: 60px auto 0;
@@ -544,6 +605,7 @@ body {
             row-gap: 30px;
         }
         @media screen and (max-width: 380px) {
+            margin-top: 42px;
             grid-template-columns: repeat(2, 130px);
             //grid-template-rows: repeat(3, 1fr);
         }
@@ -554,6 +616,11 @@ body {
             @media screen and (max-width: 530px) {
                 padding-bottom: 20px;
             }
+            @media screen and (max-width: 380px) {
+                width: 50px;
+                height: 50px;
+                padding-bottom: 0;
+            }
         }
         figcaption {
             font: $font-figcaption;
@@ -561,6 +628,9 @@ body {
             color: #545454;
             @media screen and (max-width: 530px) {
                 font: normal 400 15px/16.5px Georgia;
+            }
+            @media screen and (max-width: 380px) {
+                margin-top: 13px;
             }
         }
         &:nth-child(5) {
@@ -587,6 +657,9 @@ body {
 .donation {
     padding: 80px 0 100px;
     background-color: #F6F6F6;
+    @media screen and (max-width: 450px) {
+        padding: 42px 20px;
+    }
     .donation-wrapper {
         display: flex;
         justify-content: center;
@@ -606,6 +679,9 @@ body {
             @media screen and (max-width: 545px) {
                 width: 81.25%;
            }
+           @media screen and (max-width: 380px) {
+            width: 95%;
+            }
         }
     }
 }
@@ -616,11 +692,18 @@ body {
         margin-left: 0;
         margin-bottom: 60px;
     }
+    @media screen and (max-width: 380px) {
+        margin-bottom: 42px;
+    }
     .donation-heading {
         margin-bottom: 20px;
         font: $font-h2;
         letter-spacing: 0.06em;
         color: #545454;
+        @media screen and (max-width: 380px) {
+            font-size: 25px;
+            line-height: 32px;
+       }
     }
     .donation-bank-info {
         margin-bottom: 20px;
@@ -631,6 +714,10 @@ body {
         line-height: 17px;
         letter-spacing: 0.06em;
         color: #545454;
+        @media screen and (max-width: 380px) {
+            line-height: 24px;
+            letter-spacing: 0;
+       }
     }
     .donation-text {
         font-family: 'Arial';
@@ -639,6 +726,9 @@ body {
         font-size: 12px;
         line-height: 18px;
         color: #B2B2B2;
+        @media screen and (max-width: 380px) {
+            text-align: justify;
+       }
     }
     .donation-card-number {
         display: flex;
@@ -671,7 +761,7 @@ body {
             color: #545454;
             @media screen and (max-width: 410px) {
                 font-size: 15px;
-                line-height: 17px;
+                //line-height: 17px;
             }
         }
         @media (hover: hover) {
@@ -688,6 +778,9 @@ body {
     @media screen and (max-width: 1000px) {
         padding-top: 30px;
     }
+    @media screen and (max-width: 450px) {
+        padding: 30px 10px 0;
+    }
     .footer-container {
         margin-right: auto;
         margin-left: auto;
@@ -697,10 +790,12 @@ body {
         max-width: 1200px;
         @media screen and (max-width: 1000px) {
             justify-content: center;
+            column-gap: 60px;
+            row-gap: 13px;
         }
-        @media screen and (max-width: 1000px) {
-            flex-direction: column;
+        @media screen and (max-width: 500px) {
             align-items: center;
+            row-gap: 0;
         }
     }
     a {
@@ -721,6 +816,9 @@ body {
         display: flex;
         align-items: center;
         margin-bottom: 40px;
+        @media screen and (max-width: 500px) {
+            justify-content: center;
+        }
         &::before {
             margin-right: 13px;
             width: 47px;
@@ -731,7 +829,6 @@ body {
     }
     address {
         display: flex;
-        align-items: center;
         text-align: left;
         margin-bottom: 40px;
         &:first-of-type::before {
@@ -741,6 +838,9 @@ body {
             background-repeat: no-repeat;
             content: "";
             background-image: url(../assets/svg/icon-marker.svg);
+            @media screen and (max-width: 1000px) {
+                margin-bottom: 33px;
+            }
         }
         &:nth-of-type(2)::before {
             width: 42px;
@@ -748,11 +848,12 @@ body {
             background-repeat: no-repeat;
             content: "";
             background-image: url(../assets/svg/icon-marker.svg);
+            @media screen and (max-width: 1000px) {
+                margin-bottom: 33px;
+            }
         }
     }
     .contacts-heading, .address-heading {
-        display: flex;
-        align-items: center;
         margin-bottom: 40px;
         font-family: 'Georgia';
         font-style: normal;
@@ -761,9 +862,19 @@ body {
         line-height: 45.5px;
         letter-spacing: 0.06em;
         color: #FFFFFF;
+        @media screen and (max-width: 380px) {
+            font-size: 25px;
+            line-height: 32px;
+            text-align: center;
+        }
     }
     .address-heading {
-        margin-bottom: 34px;
+        margin-bottom: 33px;
+        @media screen and (max-width: 380px) {
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-bottom: 40px;
+        }
     }
     .footer-contacts {
         padding-top: 16px;
@@ -775,11 +886,11 @@ body {
             background-image: url(../assets/svg/icon-phone.svg);
         }
         @media screen and (max-width: 1000px) {
-            margin-right: 60px;
-            margin-bottom: 25px;
+            //margin-right: 60px;
+            //margin-bottom: 25px;
             padding-top: 0;
         }
-        @media screen and (max-width: 1000px) {
+        @media screen and (max-width: 500px) {
             margin-right: 0;
             margin-bottom: 0;
         }
@@ -787,9 +898,17 @@ body {
     .footer-address {
         max-width: 302px;
         padding-top: 16px;
-        margin-left: -6px;
         address {
             margin-bottom: 32px;
+            @media screen and (max-width: 1000px) {
+                margin-bottom: 16px;
+            }
+            @media screen and (max-width: 380px) {
+                margin-bottom: 23px;
+                &:last-child {
+                    margin-bottom: 4px;
+                }
+            }
         }
         @media screen and (max-width: 1000px) {
             padding-top: 0;
@@ -814,6 +933,12 @@ body {
     @media screen and (max-width: $desktop-width) {
         justify-content: space-between;
    }
+   @media screen and (max-width: 800px) {
+        padding: 30px;
+    }
+    @media screen and (max-width: 400px) {
+        padding: 30px 20px;
+    }
    .pet-logo-link, .pet-header-nav-link {
     color: #545454;
    }
@@ -844,6 +969,14 @@ body {
         pointer-events: none;
         color: #292929;
     }
+    .burger-line {
+        background-color: #000;
+    }
+    @media screen and (max-width: $tablet-width) {
+        .header-nav {
+            background-color: #F6F6F6;
+        }
+    }
 }
 
 
@@ -852,16 +985,33 @@ body {
     flex-direction: column;
     align-items: center;
     background-color: #F6F6F6;
+    padding: 80px 40px 100px;
+    @media screen and (max-width: 800px) {
+        padding-bottom: 70px;
+    }
+    @media screen and (max-width: 400px) {
+        padding: 42px 10px;
+    }
     .friends-heading {
-        margin-top: 80px;
+        @media screen and (max-width: 800px) {
+            margin-bottom: 30px;
+            margin-top: 0;
+        }
+        @media screen and (max-width: 400px) {
+            margin-bottom: 42px;
+        }
     }
     .our-friends-wrapper {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
         grid-template-rows: repeat(2, 1fr);
         row-gap: 30px;
         column-gap: 40px;
         margin-bottom: 60px;
+        max-width: 100%;
+        @media screen and (max-width: 800px) {
+            margin-bottom: 40px;
+        }
         .friends-slider-item {
             display: flex;
             flex-direction: column;
@@ -881,6 +1031,19 @@ body {
                 letter-spacing: 0.06em;
                 color: #545454;
                 text-align: center;
+            }
+            @media screen and (max-width: 800px) {
+                &:nth-child(7) {
+                    display: none;
+                }
+                &:last-child {
+                    display: none;
+                }
+            }
+            @media screen and (max-width: 659px) {
+                &:nth-last-child(-n+5) {
+                    display: none;
+                }
             }
             @media (hover: hover) {
             &:hover {
@@ -907,7 +1070,7 @@ body {
         }
     }
     .buttons-container {
-        margin-bottom: 93px;
+        margin-bottom: 0; //заглушка, убрать
         .pets-buttons {
             background-color: transparent;
             border: none;
@@ -925,5 +1088,3 @@ body {
         }
     }
 }
-
-
