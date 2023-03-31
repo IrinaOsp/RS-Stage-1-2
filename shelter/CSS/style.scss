@@ -12,10 +12,11 @@
 
 $font-p: normal 400 15px/24px Arial;
 $font-h2: normal 400 35px/45px Georgia;
+$font-h2-mobile: normal 400 25px/32px Georgia;
 $font-a-btn: normal 400 17px/22px Georgia;
 $font-figcaption: normal 400 20px/23px Georgia;
 $desktop-width: 1280px;
-$tablet-width: 768px;
+$tablet-width: 767.5px; //768 минус 1px
 $mobile-width: 320px;
 
 @mixin button($width-but, $height-but) {
@@ -53,14 +54,20 @@ body {
     align-items: center;
     justify-content: center;
     background-color: transparent;
-    @media screen and (max-width: $desktop-width) {
+    @media screen and (max-width: 1282px) {
         justify-content: space-between;
    }
+    @media screen and (max-width: 800px) {
+        padding: 30px;
+    }
+    @media screen and (max-width: 730px) {
+        padding: 30px 20px;
+    }
 }
 
     .logo-block{
         margin-right: 574px;
-        @media screen and (max-width: $desktop-width) {
+        @media screen and (max-width: 1282px) {
             margin-right: 10px;
        }
     }
@@ -82,6 +89,7 @@ body {
             }
     }
     .logo-subtitle {
+        padding-left: 4px;
         font-family: 'Arial';
         font-style: normal;
         font-weight: 400;
@@ -92,18 +100,26 @@ body {
     }
     .nav-block {
         margin-right: 2px;
+        @media screen and (max-width: $tablet-width) {
+            margin-right: 0;
+        }
     }
     ul {
         list-style: none;
         display: flex;
         justify-content: flex-end;
         text-align: right;
-
+        @media screen and (max-width: $tablet-width) {
+            display: block;
+        }
     .header-nav-item {
         margin-right: 35px;
         text-align: right;
         font: $font-p;
         color: #FAFAFA;
+        @media screen and (max-width: $tablet-width) {
+            margin-right: 20px;
+        }
         &:first-child {
             border-bottom: solid 3px #F1CDB3;
         }
@@ -131,25 +147,100 @@ body {
             color: #FAFAFA;
         }
     }
+    .header-burger {
+        display: none;
+        width: 30px;
+        height: 22px;
+        position: relative;
+        z-index: 11;
+        margin-right: 0;
+        margin-left: auto;
+        @media screen and (max-width: $tablet-width) {
+            display: block;
+        }
+        .burger-line {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: #F1CDB3;
+            position: absolute;
+            left: 0;
+        }
+        .burger-line-1 {
+            top: 0;
+        }
+        .burger-line-2 {
+            top: 10px;
+        }
+        .burger-line-3 {
+            bottom: 0;
+        }
+    }
+    .header-burger-active {
+        transform: rotate(90deg);
+    }
+    @media screen and (max-width: $tablet-width) {
+        .header-nav {
+            width: 320px;
+            height: fit-content;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            padding: 248px 38px;
+            transform: translateX(250%);
+            background-color: #292929;
+            .header-nav-item {
+                text-align: center;
+                font: normal 400 32px/51px Arial;
+                margin-bottom: 40px;
+                margin-right: 0;
+                a {
+                    font: inherit;
+                }
+            }
+        }
+        .header-nav-active {
+            transform: translateX(calc(100vw - 320px));
+        }
+    }
+
+
 
 .intro {
     padding: 180px 40px 0;
     display: flex;
     justify-content: center;
-    //background: url(../assets/imgs/noise_lines.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */, #211F20;
-    background: url(../assets/imgs/start-screen-gradient-background.png) no-repeat;
-    background-size: 100%;
+    background: url(../assets/imgs/noise_lines.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
+    @media screen and (max-width: 1090px) {
+        justify-content: space-between;
+    }
     @media screen and (max-width: 998px) {
-        padding-top: 150px;
+        padding: 150px 30px 0;
         flex-direction: column;
         align-items: center;
     }
-    .intro-img {
-        @media screen and (max-width: 1129px) {
-            width: 569px;
-            margin-right: 30px;
+    @media screen and (max-width: 998px) {
+        padding: 150px 10px 0;
+    }
+    .intro-img-container {
+        margin: 0;
+        @media screen and (max-width: 998px) {
             align-self: flex-end;
+            text-align: right;
+        }
+    }
+    .intro-img {
+        vertical-align: bottom;
+        @media screen and (max-width: 1279px) {
+            max-width: 569px;
+            margin-right: 20px;
        }
+       @media screen and (max-width: 750px) {
+            max-width: 80%;
+            min-width: 260px;
+            margin-right: 0;
+        }
     }
 }
 
@@ -158,12 +249,27 @@ body {
 }
 .intro-container {
     padding-top: 163px;
-    @media screen and (max-width: 1050px) {
-        padding-top: 80px;
-   }
     margin-right: 42px;
+    @media screen and (max-width: 1100px) {
+        padding-top: 80px;
+        margin-right: 10px;
+        max-width: 450px;
+   }
+   @media screen and (max-width: 1090px) {
+        max-width: 350px;
+        flex-shrink: 2;
+    }
     @media screen and (max-width: 998px) {
+        max-width: 460px;
         padding-top: 0;
+        margin-right: 0;
+    }
+    @media screen and (max-width: 500px) {
+        text-align: center;
+        max-width: 90%;
+    }
+    @media screen and (max-width: 500px) {
+        max-width: 100%;
     }
     width: calcWidth($desktop-width);
     .button {
@@ -179,6 +285,15 @@ body {
             margin-bottom: 100px;
         }
         @include button(207px, 52px);
+        @media screen and (max-width: 998px) {
+            margin-left: 27%;
+        }
+        @media screen and (max-width: 500px) {
+            margin-left: 0;
+        }
+        @media screen and (max-width: 400px) {
+            margin-bottom: 105px;
+        }
         @media (hover: hover) {
         &:hover {
             background-color: #FDDCC4;
@@ -194,31 +309,76 @@ body {
     font-size: 44px;
     line-height: 57px;
     color: #FFFFFF;
+    @media screen and (max-width: 500px) {
+        font: $font-h2-mobile;
+        letter-spacing: 0.06em;
+    }
 }
 .intro-p {
     font: $font-p;
     color: #CDCDCD;
+    @media screen and (max-width: 400px) {
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
 .about {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    flex-wrap: wrap-reverse;
     padding: 80px 40px 100px;
+    @media screen and (max-width: 450px) {
+        padding: 42px 25px 42.4px;
+    }
     .about-container {
         width: 430px;
         margin-left: 120px;
         padding-top: 14px;
         padding-bottom: 14px;
+        @media screen and (max-width: 900px) {
+            margin-left: 50px;
+        }
+        @media screen and (max-width: 860px) {
+            padding: 0;
+            margin-bottom: 80px;
+            margin-left: 0;
+        }
+        @media screen and (max-width: 500px) {
+            margin-bottom: 42px;
+        }
     }
     .about-heading {
         padding-bottom: 25px;
         font: $font-h2;
         letter-spacing: 0.06em;
         color: #545454;
+        @media screen and (max-width: 450px) {
+            text-align: center;
+        }
+        @media screen and (max-width: 380px) {
+            font-size: 25px;
+            line-height: 32px;
+        }
     }
     .about-p:first-of-type{
         padding-bottom: 25px;
+        @media screen and (max-width: 450px) {
+            padding-bottom: 22px;
+        }
+    }
+    @media screen and (max-width: 450px) {
+        .about-p {
+            text-align: justify;
+        }
+    }
+    .about-img {
+        max-width: 100%;
+        align-self: start;
+        @media screen and (max-width: 350px) {
+            max-width: 96%;
+        }
     }
 }
 .friends {
@@ -231,6 +391,18 @@ body {
         justify-content: space-between;
         width: 100vw;
         max-width: $desktop-width;
+        @media screen and (max-width: 1078px) {
+            justify-content: space-around;
+        }
+        @media screen and (max-width: 460px) {
+            flex-wrap: wrap;
+            column-gap: 7rem;
+            row-gap: 1.4rem;
+            justify-content: center;
+        }
+        @media screen and (max-width: 370px) {
+            column-gap: 3.5rem;
+        }
         .slider-arrow {
             border: none;
             width: 52px;
@@ -240,6 +412,11 @@ body {
             margin-left: 40px;
             background: url(../assets/svg/button_arrow.svg) no-repeat;
             cursor: pointer;
+            @media screen and (max-width: 460px) {
+                order: 2;
+                margin-left: 68px;
+                margin-right: auto;
+            }
             @media (hover: hover) {
             &:hover {
                 background: url(../assets/svg/button_arrow_active.svg) no-repeat;
@@ -249,6 +426,10 @@ body {
                 margin-right: 40px;
                 margin-left: 53px;
                 transform: rotate(180deg);
+                @media screen and (max-width: 460px) {
+                    margin-right: 68px;
+                    margin-left: auto;
+                }
                 @media (hover: hover) {
                 &:hover {
                     background: url(../assets/svg/button_arrow_active.svg) no-repeat;
@@ -256,7 +437,7 @@ body {
                 }
             }
 
-            @media screen and (max-width: 1250px) {
+            @media screen and (max-width: 1279px) {
                 margin-right: 12px;
                 margin-left: 30px;
                 &:last-child {
@@ -271,7 +452,19 @@ body {
         grid-template-columns: repeat(3, 1fr);
         column-gap: 90px;
         @media screen and (max-width: 1180px) {
+            column-gap: 30px;
+        }
+        @media screen and (max-width: 1078px) {
+            grid-template-columns: repeat(2, 1fr);
             column-gap: 40px;
+        }
+        @media screen and (max-width: 760px) {
+            grid-template-columns: repeat(1, 1fr);
+            column-gap: 0;
+        }
+        @media screen and (max-width: 460px) {
+            margin-left: auto;
+            margin-right: auto;
         }
     }
     .friends-slider-item {
@@ -294,6 +487,16 @@ body {
             letter-spacing: 0.06em;
             color: #545454;
             text-align: center;
+        }
+        @media screen and (max-width: 1078px) {
+            &:last-child {
+                display: none;
+            }
+        }
+        @media screen and (max-width: 760px) {
+            &:nth-child(2) {
+                display: none;
+            }
         }
         @media (hover: hover) {
         &:hover {
@@ -327,6 +530,10 @@ body {
         font: $font-a-btn;
         letter-spacing: 0.06em;
         color: #292929;
+        @media screen and (max-width: 450px) {
+            margin-top: 42px;
+            margin-bottom: 42px;
+        }
         @media (hover: hover) {
         &:hover {
             background-color: #FDDCC4;
@@ -341,15 +548,34 @@ body {
     letter-spacing: 0.06em;
     text-align: center;
     color: #545454;
+    @media screen and (max-width: 450px) {
+        margin-top: 42px;
+        margin-bottom: 42px;
+    }
+    @media screen and (max-width: 380px) {
+        font-size: 25px;
+        line-height: 32px;
+    }
 }
 
 .help {
     padding: 80px 15px 100px;
     text-align: center;
+    @media screen and (max-width: 850px) {
+        padding: 80px 69px 100px;
+    }
+    @media screen and (max-width: 450px) {
+        padding: 42px 15px;
+    }
     .help-heading {
         margin-bottom: 60px;
         font: $font-h2;
         letter-spacing: 0.06em;
+        @media screen and (max-width: 380px) {
+            font-size: 25px;
+            line-height: 32px;
+            margin-bottom: 42px;
+        }
     }
     .help-container{
         margin: 60px auto 0;
@@ -361,15 +587,51 @@ body {
         flex-wrap: wrap;
         column-gap: 120px;
         row-gap: 55px;
+        @media screen and (max-width: 1180px) {
+            justify-content: center;
+            column-gap: 80px;
+        }
+        @media screen and (max-width: 950px) {
+            column-gap: 60px;
+        }
+        @media screen and (max-width: 850px) {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            row-gap: 55px;
+        }
+        @media screen and (max-width: 530px) {
+            column-gap: 30px;
+            row-gap: 30px;
+        }
+        @media screen and (max-width: 380px) {
+            margin-top: 42px;
+            grid-template-columns: repeat(2, 130px);
+            //grid-template-rows: repeat(3, 1fr);
+        }
     }
     .help-item {
         img {
             padding-bottom: 22.8px;
+            @media screen and (max-width: 530px) {
+                padding-bottom: 20px;
+            }
+            @media screen and (max-width: 380px) {
+                width: 50px;
+                height: 50px;
+                padding-bottom: 0;
+            }
         }
         figcaption {
             font: $font-figcaption;
             letter-spacing: 0.06em;
             color: #545454;
+            @media screen and (max-width: 530px) {
+                font: normal 400 15px/16.5px Georgia;
+            }
+            @media screen and (max-width: 380px) {
+                margin-top: 13px;
+            }
         }
         &:nth-child(5) {
             margin-right: 0;
@@ -379,6 +641,9 @@ body {
         }
         &:nth-child(6) {
             margin-left: 84px;
+            @media screen and (max-width: 1180px) {
+                margin-left: 0;
+            }
         }
         &:last-child {
             margin-right: 0;
@@ -392,27 +657,53 @@ body {
 .donation {
     padding: 80px 0 100px;
     background-color: #F6F6F6;
+    @media screen and (max-width: 450px) {
+        padding: 42px 20px;
+    }
     .donation-wrapper {
         display: flex;
         justify-content: center;
         align-items: center;
         margin-right: auto;
         margin-left: auto;
-        padding-left: 183px;
-        padding-right: 182px;
         max-width: 1280px;
+        flex-wrap: wrap-reverse;
+        @media screen and (max-width: 915px) {
+            margin-right: 0;
+       }
+       @media screen and (max-width: 500px) {
+        text-align: center;
+        }
         .donation-img {
             align-self: center;
+            @media screen and (max-width: 545px) {
+                width: 81.25%;
+           }
+           @media screen and (max-width: 380px) {
+            width: 95%;
+            }
         }
     }
 }
 .donation-container {
     margin-left: 30px;
+    max-width: 380px;
+    @media screen and (max-width: 900px) {
+        margin-left: 0;
+        margin-bottom: 60px;
+    }
+    @media screen and (max-width: 380px) {
+        margin-bottom: 42px;
+    }
     .donation-heading {
         margin-bottom: 20px;
         font: $font-h2;
         letter-spacing: 0.06em;
         color: #545454;
+        @media screen and (max-width: 380px) {
+            font-size: 25px;
+            line-height: 32px;
+       }
     }
     .donation-bank-info {
         margin-bottom: 20px;
@@ -423,6 +714,10 @@ body {
         line-height: 17px;
         letter-spacing: 0.06em;
         color: #545454;
+        @media screen and (max-width: 380px) {
+            line-height: 24px;
+            letter-spacing: 0;
+       }
     }
     .donation-text {
         font-family: 'Arial';
@@ -431,6 +726,9 @@ body {
         font-size: 12px;
         line-height: 18px;
         color: #B2B2B2;
+        @media screen and (max-width: 380px) {
+            text-align: justify;
+       }
     }
     .donation-card-number {
         display: flex;
@@ -440,6 +738,11 @@ body {
         margin-bottom: 20px;
         padding: 10px 15px;
         width: 349px;
+        @media screen and (max-width: 410px) {
+            width: 281px;
+            margin-right: auto;
+            margin-left: auto;
+        }
         &::before {
             margin-right: 10px;
             width: 33px;
@@ -456,6 +759,10 @@ body {
             line-height: 23px;
             letter-spacing: 0.06em;
             color: #545454;
+            @media screen and (max-width: 410px) {
+                font-size: 15px;
+                //line-height: 17px;
+            }
         }
         @media (hover: hover) {
         &:hover {
@@ -467,13 +774,29 @@ body {
 
 .footer {
     padding: 40px 40px 0;
-    background: url(../assets/imgs/noise_lines.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;    .footer-container {
+    background: url(../assets/imgs/noise_lines.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;    
+    @media screen and (max-width: 1000px) {
+        padding-top: 30px;
+    }
+    @media screen and (max-width: 450px) {
+        padding: 30px 10px 0;
+    }
+    .footer-container {
         margin-right: auto;
         margin-left: auto;
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
-        column-gap: 160px;
         max-width: 1200px;
+        @media screen and (max-width: 1000px) {
+            justify-content: center;
+            column-gap: 60px;
+            row-gap: 25px;
+        }
+        @media screen and (max-width: 500px) {
+            align-items: center;
+            row-gap: 0;
+        }
     }
     a {
         font-family: 'Georgia';
@@ -493,6 +816,9 @@ body {
         display: flex;
         align-items: center;
         margin-bottom: 40px;
+        @media screen and (max-width: 500px) {
+            justify-content: center;
+        }
         &::before {
             margin-right: 13px;
             width: 47px;
@@ -503,9 +829,12 @@ body {
     }
     address {
         display: flex;
-        align-items: center;
         text-align: left;
+        align-items: center;
         margin-bottom: 40px;
+        @media screen and (max-width: 1000px) {
+            margin-bottom: 33px;
+        }
         &:first-of-type::before {
             margin-right: 17px;
             width: 42px;
@@ -523,8 +852,6 @@ body {
         }
     }
     .contacts-heading, .address-heading {
-        display: flex;
-        align-items: center;
         margin-bottom: 40px;
         font-family: 'Georgia';
         font-style: normal;
@@ -533,25 +860,62 @@ body {
         line-height: 45.5px;
         letter-spacing: 0.06em;
         color: #FFFFFF;
+        @media screen and (max-width: 380px) {
+            font-size: 25px;
+            line-height: 32px;
+            text-align: center;
+        }
     }
     .address-heading {
-        margin-bottom: 34px;
+        margin-bottom: 33px;
+        @media screen and (max-width: 380px) {
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-bottom: 40px;
+        }
     }
     .footer-contacts {
         padding-top: 16px;
+        max-width: 279px;
         .email::before {
             background-image: url(../assets/svg/icon-email.svg);
         }
         .phone::before {
             background-image: url(../assets/svg/icon-phone.svg);
         }
+        @media screen and (max-width: 1000px) {
+            //margin-right: 60px;
+            //margin-bottom: 25px;
+            padding-top: 0;
+        }
+        @media screen and (max-width: 500px) {
+            margin-right: 0;
+            margin-bottom: 0;
+        }
     }
     .footer-address {
         max-width: 302px;
         padding-top: 16px;
-        margin-left: -6px;
         address {
             margin-bottom: 32px;
+            @media screen and (max-width: 1000px) {
+                margin-bottom: 33px;
+            }
+            @media screen and (max-width: 380px) {
+                margin-bottom: 40px;
+                &:last-child {
+                    margin-bottom: 40px;
+                }
+            }
+        }
+        @media screen and (max-width: 1000px) {
+            padding-top: 0;
+            margin-left: 0;
+        }
+    }
+    .footer-img {
+        @media screen and (max-width: 400px) {
+            width: 260px;
         }
     }
 }
@@ -567,6 +931,12 @@ body {
     @media screen and (max-width: $desktop-width) {
         justify-content: space-between;
    }
+   @media screen and (max-width: 800px) {
+        padding: 30px;
+    }
+    @media screen and (max-width: 400px) {
+        padding: 30px 20px;
+    }
    .pet-logo-link, .pet-header-nav-link {
     color: #545454;
    }
@@ -597,6 +967,14 @@ body {
         pointer-events: none;
         color: #292929;
     }
+    .burger-line {
+        background-color: #000;
+    }
+    @media screen and (max-width: $tablet-width) {
+        .header-nav {
+            background-color: #F6F6F6;
+        }
+    }
 }
 
 
@@ -605,16 +983,36 @@ body {
     flex-direction: column;
     align-items: center;
     background-color: #F6F6F6;
+    padding: 80px 40px 95.6px;
+    @media screen and (max-width: 800px) {
+        padding-bottom: 70px;
+    }
+    @media screen and (max-width: 410px) {
+        padding: 42px 10px 39px;
+    }
     .friends-heading {
-        margin-top: 80px;
+        margin-top: 0;
+        @media screen and (max-width: 800px) {
+            margin-bottom: 30px;
+        }
+        @media screen and (max-width: 400px) {
+            margin-bottom: 42px;
+        }
     }
     .our-friends-wrapper {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
         grid-template-rows: repeat(2, 1fr);
         row-gap: 30px;
         column-gap: 40px;
         margin-bottom: 60px;
+        max-width: 1280px;
+        @media screen and (max-width: 1270px) {
+            max-width: 100%;
+        }
+        @media screen and (max-width: 800px) {
+            margin-bottom: 40px;
+        }
         .friends-slider-item {
             display: flex;
             flex-direction: column;
@@ -634,6 +1032,19 @@ body {
                 letter-spacing: 0.06em;
                 color: #545454;
                 text-align: center;
+            }
+            @media screen and (max-width: 800px) {
+                &:nth-child(7) {
+                    display: none;
+                }
+                &:last-child {
+                    display: none;
+                }
+            }
+            @media screen and (max-width: 659px) {
+                &:nth-last-child(-n+5) {
+                    display: none;
+                }
             }
             @media (hover: hover) {
             &:hover {
@@ -660,15 +1071,21 @@ body {
         }
     }
     .buttons-container {
-        margin-bottom: 93px;
+        height: 56px;
         .pets-buttons {
             background-color: transparent;
             border: none;
             margin-right: 16px;
+            height: fit-content;
             cursor: pointer;
-
             &:last-child {
                 margin-right: 0;
+            }
+            @media screen and (max-width: 440px) {
+                margin-right: 5px;
+                &:last-child {
+                    margin-right: 0;
+                }
             }
 
         }
@@ -678,5 +1095,3 @@ body {
         }
     }
 }
-
-
