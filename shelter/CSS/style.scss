@@ -791,7 +791,7 @@ body {
         @media screen and (max-width: 1000px) {
             justify-content: center;
             column-gap: 60px;
-            row-gap: 13px;
+            row-gap: 25px;
         }
         @media screen and (max-width: 500px) {
             align-items: center;
@@ -830,7 +830,11 @@ body {
     address {
         display: flex;
         text-align: left;
+        align-items: center;
         margin-bottom: 40px;
+        @media screen and (max-width: 1000px) {
+            margin-bottom: 33px;
+        }
         &:first-of-type::before {
             margin-right: 17px;
             width: 42px;
@@ -838,9 +842,6 @@ body {
             background-repeat: no-repeat;
             content: "";
             background-image: url(../assets/svg/icon-marker.svg);
-            @media screen and (max-width: 1000px) {
-                margin-bottom: 33px;
-            }
         }
         &:nth-of-type(2)::before {
             width: 42px;
@@ -848,9 +849,6 @@ body {
             background-repeat: no-repeat;
             content: "";
             background-image: url(../assets/svg/icon-marker.svg);
-            @media screen and (max-width: 1000px) {
-                margin-bottom: 33px;
-            }
         }
     }
     .contacts-heading, .address-heading {
@@ -901,12 +899,12 @@ body {
         address {
             margin-bottom: 32px;
             @media screen and (max-width: 1000px) {
-                margin-bottom: 16px;
+                margin-bottom: 33px;
             }
             @media screen and (max-width: 380px) {
-                margin-bottom: 23px;
+                margin-bottom: 40px;
                 &:last-child {
-                    margin-bottom: 4px;
+                    margin-bottom: 40px;
                 }
             }
         }
@@ -985,17 +983,17 @@ body {
     flex-direction: column;
     align-items: center;
     background-color: #F6F6F6;
-    padding: 80px 40px 100px;
+    padding: 80px 40px 95.6px;
     @media screen and (max-width: 800px) {
         padding-bottom: 70px;
     }
-    @media screen and (max-width: 400px) {
-        padding: 42px 10px;
+    @media screen and (max-width: 410px) {
+        padding: 42px 10px 39px;
     }
     .friends-heading {
+        margin-top: 0;
         @media screen and (max-width: 800px) {
             margin-bottom: 30px;
-            margin-top: 0;
         }
         @media screen and (max-width: 400px) {
             margin-bottom: 42px;
@@ -1008,7 +1006,10 @@ body {
         row-gap: 30px;
         column-gap: 40px;
         margin-bottom: 60px;
-        max-width: 100%;
+        max-width: 1280px;
+        @media screen and (max-width: 1270px) {
+            max-width: 100%;
+        }
         @media screen and (max-width: 800px) {
             margin-bottom: 40px;
         }
@@ -1070,15 +1071,21 @@ body {
         }
     }
     .buttons-container {
-        margin-bottom: 0; //заглушка, убрать
+        height: 56px;
         .pets-buttons {
             background-color: transparent;
             border: none;
             margin-right: 16px;
+            height: fit-content;
             cursor: pointer;
-
             &:last-child {
                 margin-right: 0;
+            }
+            @media screen and (max-width: 440px) {
+                margin-right: 5px;
+                &:last-child {
+                    margin-right: 0;
+                }
             }
 
         }
