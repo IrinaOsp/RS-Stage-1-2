@@ -40,8 +40,13 @@ html {
 a {
     text-decoration: none;
 }
-body {
+.body {
     font: normal 400 15px/24px Arial;
+}
+.no-scroll {
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(41, 41, 41, 0.6); //не работает, заменить
 }
 
 .header {
