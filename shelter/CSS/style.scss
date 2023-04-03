@@ -184,6 +184,17 @@ a {
     .header-burger-active {
         transform: rotate(90deg);
     }
+    .background {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        background: transparent;
+    }
+    .active {
+        background: rgba(41, 41, 41, 0.6);
+    }
     @media screen and (max-width: $tablet-width) {
         .header-nav {
             width: 320px;
