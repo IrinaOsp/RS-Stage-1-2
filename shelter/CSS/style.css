@@ -212,8 +212,7 @@ ul .disabled-link {
 @media screen and (max-width: 767.5px) {
   .header-nav {
     width: 320px;
-    height: -moz-fit-content;
-    height: fit-content;
+    height: 100vh;
     position: fixed;
     top: 0;
     left: 0;

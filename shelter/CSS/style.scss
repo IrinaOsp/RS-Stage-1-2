@@ -199,7 +199,7 @@ a {
     @media screen and (max-width: $tablet-width) {
         .header-nav {
             width: 320px;
-            height: fit-content;
+            height: 100vh;
             position: fixed;
             top: 0;
             left: 0;
