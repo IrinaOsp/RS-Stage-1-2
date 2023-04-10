@@ -206,6 +206,7 @@ ul .disabled-link {
 
 .active {
   background: rgba(41, 41, 41, 0.6);
+  z-index: auto;
 }
 
 @media screen and (max-width: 767.5px) {
@@ -735,9 +736,10 @@ ul .disabled-link {
 .popup-img {
   width: 55.56%;
   height: 100%;
-  display: inline-block;
   background: no-repeat center/cover;
-  border-radius: inherit;
+  border-top-left-radius: inherit;
+  border-bottom-left-radius: inherit;
+  border-top-right-radius: 0;
 }
 
 .popup-info {
@@ -1302,7 +1304,21 @@ ul .disabled-link {
 @media screen and (max-width: 767.5px) {
   .pet-header .header-nav {
     background-color: #F6F6F6;
+    z-index: 10;
   }
+}
+.pet-header .background {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: transparent;
+  z-index: -1;
+}
+.pet-header .active {
+  background: rgba(41, 41, 41, 0.6);
+  z-index: auto;
 }
 
 .our-friends {

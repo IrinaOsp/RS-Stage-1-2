@@ -171,7 +171,7 @@ POPUP_CLOSE.addEventListener('click', () => {
     BODY.classList.remove('no-scroll');
 })
 POPUP_BACKGROUND.addEventListener('click', (e) => {
-    const withinBoundaries = e.composedPath().includes(POPUP_CLOSE);
+    const withinBoundaries = e.composedPath().includes(POPUP_CONTENT);
     if (!withinBoundaries && POPUP_CONTENT.classList.contains('popup-active')) {
         POPUP_BACKGROUND.classList.remove('popup-active');
         POPUP_CONTENT.classList.remove('popup-active');

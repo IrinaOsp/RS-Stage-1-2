@@ -194,6 +194,7 @@ a {
     }
     .active {
         background: rgba(41, 41, 41, 0.6);
+        z-index: auto;
     }
     @media screen and (max-width: $tablet-width) {
         .header-nav {
@@ -628,9 +629,10 @@ a {
 .popup-img {
     width: 55.56%;
     height: 100%;
-    display: inline-block;
     background: no-repeat center/cover;
-    border-radius: inherit;
+    border-top-left-radius: inherit;
+    border-bottom-left-radius: inherit;
+    border-top-right-radius: 0;
 }
 .popup-info {
     max-width: calc(100% - 55.56% - 29px);
@@ -1109,7 +1111,21 @@ a {
     @media screen and (max-width: $tablet-width) {
         .header-nav {
             background-color: #F6F6F6;
+            z-index: 10;
         }
+    }
+    .background {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        background: transparent;
+        z-index: -1;
+    }
+    .active {
+        background: rgba(41, 41, 41, 0.6);
+        z-index: auto;
     }
 }
 
