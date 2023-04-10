@@ -723,6 +723,7 @@ ul .disabled-link {
 
 .popup-content {
   display: none;
+  position: relative;
   width: 900px;
   height: 500px;
   margin: 30vh auto;
@@ -736,10 +737,12 @@ ul .disabled-link {
   height: 100%;
   display: inline-block;
   background: no-repeat center/cover;
+  border-radius: inherit;
 }
 
 .popup-info {
   max-width: calc(44.44% - 29px);
+  padding-right: 20px;
 }
 .popup-info .popup-heading {
   margin-top: 50px;
@@ -763,15 +766,21 @@ ul .disabled-link {
   margin-bottom: 88px;
 }
 .popup-info li {
-  font: 400 15px/16.5px Georgia;
+  font: 400 15px/17px Georgia;
   letter-spacing: 0.06em;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.popup-info li:first-child {
+  margin-top: 0;
 }
 .popup-info li::before {
   content: "•";
   font-weight: bold;
   display: block;
   width: 1em;
-  margin-left: -1em;
   color: #F1CDB3;
 }
 .popup-info li span {
@@ -781,10 +790,18 @@ ul .disabled-link {
   font: inherit;
 }
 
+.popup-close-btn {
+  position: absolute;
+  top: -50px;
+  right: -42px;
+  background: url(../assets/svg/modal_close_button.svg) no-repeat;
+  width: 52px;
+  height: 52px;
+}
+
 .popup-active {
   display: flex;
   justify-content: space-between;
-  padding-right: 20px;
 }
 
 .help {

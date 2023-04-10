@@ -140,6 +140,7 @@ const POPUP_HEADING = document.querySelector('.popup-heading')
 const POPUP_SUBHEADING = document.querySelector('.popup-subheading')
 const POPUP_TEXT = document.querySelector('.popup-text')
 const POPUP_LIST = document.querySelector('.popup-list')
+const POPUP_CLOSE = document.querySelector('.popup-close-btn')
 
 PET_ITEMS.forEach((item) => {
     item.addEventListener('click', (event) => {
@@ -160,7 +161,20 @@ function createCard(i) {
     POPUP_TEXT.textContent = PETS[i].description;
     POPUP_LIST.firstElementChild.lastElementChild.innerHTML = PETS[i].age;
     POPUP_LIST.children[1].lastElementChild.innerHTML = PETS[i].inoculations;
-    POPUP_LIST.children[2].lastElementChild.innerHTML = PETS[i].inoculations;
-    POPUP_LIST.children[3].lastElementChild.innerHTML = PETS[i].diseases;
-    POPUP_LIST.children[4].lastElementChild.innerHTML = PETS[i].parasites;
+    POPUP_LIST.children[2].lastElementChild.innerHTML = PETS[i].diseases;
+    POPUP_LIST.children[3].lastElementChild.innerHTML = PETS[i].parasites;
 }
+
+POPUP_CLOSE.addEventListener('click', () => {
+    POPUP_BACKGROUND.classList.remove('popup-active');
+    POPUP_CONTENT.classList.remove('popup-active');
+    BODY.classList.remove('no-scroll');
+})
+POPUP_BACKGROUND.addEventListener('click', (e) => {
+    const withinBoundaries = e.composedPath().includes(POPUP_CLOSE);
+    if (!withinBoundaries && POPUP_CONTENT.classList.contains('popup-active')) {
+        POPUP_BACKGROUND.classList.remove('popup-active');
+        POPUP_CONTENT.classList.remove('popup-active');
+        BODY.classList.remove('no-scroll');
+    }
+})

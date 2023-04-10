@@ -617,6 +617,7 @@ a {
 }
 .popup-content {
     display: none;
+    position: relative;
     width: 900px;
     height: 500px;
     margin: 30vh auto;
@@ -629,9 +630,11 @@ a {
     height: 100%;
     display: inline-block;
     background: no-repeat center/cover;
+    border-radius: inherit;
 }
 .popup-info {
     max-width: calc(100% - 55.56% - 29px);
+    padding-right: 20px;
     .popup-heading{
         margin-top: 50px;
         font: $font-h2;
@@ -654,14 +657,20 @@ a {
         margin-bottom: 88px;
     }
     li {
-        font: 400 15px/16.5px Georgia;
+        font: 400 15px/17px Georgia;
         letter-spacing: 0.06em;
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        &:first-child {
+            margin-top: 0;
+        }
         &::before {
             content: "\2022";
             font-weight: bold;
             display: block;
             width: 1em;
-            margin-left: -1em;
             color: #F1CDB3;
         }
         span {
@@ -672,10 +681,17 @@ a {
         }
     }
 }
+.popup-close-btn {
+    position: absolute;
+    top: -50px;
+    right: -42px;
+    background: url(../assets/svg/modal_close_button.svg) no-repeat;
+    width: 52px;
+    height: 52px;
+}
 .popup-active {
     display: flex;
     justify-content: space-between;
-    padding-right: 20px;
 }
 
 .help {
