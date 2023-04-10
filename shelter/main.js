@@ -162,7 +162,7 @@ const PETS = [
       "parasites": ["lice", "fleas"]
     }
   ]
-  
+
 function getSliderItems() {
     // const res = await fetch('../JS/pets_info.json')
     // PETS = await res.json()
