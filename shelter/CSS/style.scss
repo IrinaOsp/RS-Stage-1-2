@@ -620,11 +620,23 @@ a {
     display: none;
     position: relative;
     width: 900px;
-    height: 500px;
     margin: 30vh auto;
     background-color: #FFFFFF;
     box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
     border-radius: 9px;
+    @media screen and (max-width: 1000px)  {
+        width: 630px;
+    }
+    @media screen and (max-width: 724px)  {
+        width: 85%;
+    }
+    @media screen and (max-width: 650px)  {
+        width: 83%;
+    }
+    @media screen and (max-width: 515px)  {
+        padding: 10px;
+        width: 75%;
+    }
 }
 .popup-img {
     width: 55.56%;
@@ -633,30 +645,74 @@ a {
     border-top-left-radius: inherit;
     border-bottom-left-radius: inherit;
     border-top-right-radius: 0;
+    @media screen and (max-width: 724px)  {
+        width: 40%;
+    }
+    @media screen and (max-width: 515px)  {
+        display: none;
+    }
 }
 .popup-info {
     max-width: calc(100% - 55.56% - 29px);
     padding-right: 20px;
+    @media screen and (max-width: 1000px)  {
+        padding-right: 9px;
+        max-width: calc(100% - 55.56% - 9px);
+    }
+    @media screen and (max-width: 650px)  {
+        max-width: calc(100% - 40% - 9px);
+    }
+    @media screen and (max-width: 515px)  {
+        max-width: 100%;
+        padding-right: 0;
+    }
     .popup-heading{
         margin-top: 50px;
         font: $font-h2;
         letter-spacing: 0.06em;
+        @media screen and (max-width: 1000px)  {
+            margin-top: 10px;
+        }
+        @media screen and (max-width: 515px)  {
+            text-align: center;
+            margin-top: 0;
+        }
     }
     .popup-subheading {
         margin-top: 10px;
         margin-bottom: 40px;
         font: $font-figcaption;
         letter-spacing: 0.06em;
+        @media screen and (max-width: 641px)  {
+            margin-bottom: 20px;
+        }
+        @media screen and (max-width: 515px)  {
+            text-align: center;
+        }
     }
     .popup-text {
         margin-bottom: 40px;
         font: normal 400 15px/17px Georgia;
         letter-spacing: 0.06em;
+        @media screen and (max-width: 1000px)  {
+            font: normal 400 13px/14.3px Georgia;
+            margin-bottom: 20px;
+        }
+        @media screen and (max-width: 515px)  {
+            text-align: justify;
+            margin-bottom: 24px;
+        }
     }
     .popup-list {
         display: inline-block;
         text-align: left;
         margin-bottom: 88px;
+        @media screen and (max-width: 850px)  {
+            margin-bottom: 37px;
+        }
+        @media screen and (max-width: 515px)  {
+            margin-bottom: 0;
+        }
     }
     li {
         font: 400 15px/17px Georgia;
@@ -667,6 +723,13 @@ a {
         margin-bottom: 10px;
         &:first-child {
             margin-top: 0;
+        }
+        @media screen and (max-width: 1000px)  {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        @media screen and (max-width: 515px)  {
+            font: 400 15px/16.5px Georgia;
         }
         &::before {
             content: "\2022";
@@ -690,6 +753,9 @@ a {
     background: url(../assets/svg/modal_close_button.svg) no-repeat;
     width: 52px;
     height: 52px;
+    @media screen and (max-width: 515px)  {
+        right: -30px;
+    }
 }
 .popup-active {
     display: flex;
