@@ -64,8 +64,18 @@ function getArray() {
 }
 let petsnumbersArray = getArray()
     //get slider items
+    /*
+    fetch('./JS/pets_info.json')
+    .then(response => response.json())
+    .then(data => {
+      // обработка полученных данных
+      console.log(data);
+    })
+    .catch(error => console.error(error));
+*/
+
 async function getSliderItems() {
-    const res = await fetch('../JS/pets_info.json')
+    const res = await fetch('./JS/pets_info.json')
     PETS = await res.json()
     PETS.forEach((item) => PETS_NAMES.push(item.name))
     console.log(PETS)
@@ -76,7 +86,6 @@ async function getSliderItems() {
     })
 }
 getSliderItems()
-
 
 /*
 const moveLeft = () => {
