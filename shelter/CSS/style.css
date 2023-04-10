@@ -206,6 +206,7 @@ ul .disabled-link {
 
 .active {
   background: rgba(41, 41, 41, 0.6);
+  z-index: auto;
 }
 
 @media screen and (max-width: 767.5px) {
@@ -723,28 +724,90 @@ ul .disabled-link {
 
 .popup-content {
   display: none;
+  position: relative;
   width: 900px;
-  height: 500px;
   margin: 30vh auto;
   background-color: #FFFFFF;
   box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
   border-radius: 9px;
 }
+@media screen and (max-width: 1000px) {
+  .popup-content {
+    width: 630px;
+  }
+}
+@media screen and (max-width: 724px) {
+  .popup-content {
+    width: 85%;
+  }
+}
+@media screen and (max-width: 650px) {
+  .popup-content {
+    width: 83%;
+  }
+}
+@media screen and (max-width: 515px) {
+  .popup-content {
+    padding: 10px;
+    width: 75%;
+  }
+}
 
 .popup-img {
   width: 55.56%;
   height: 100%;
-  display: inline-block;
+  background: no-repeat center/cover;
+  border-top-left-radius: inherit;
+  border-bottom-left-radius: inherit;
+  border-top-right-radius: 0;
+}
+@media screen and (max-width: 724px) {
+  .popup-img {
+    width: 40%;
+  }
+}
+@media screen and (max-width: 515px) {
+  .popup-img {
+    display: none;
+  }
 }
 
 .popup-info {
-  display: inline-block;
-  width: calc(44.44% - 29px);
+  max-width: calc(44.44% - 29px);
+  padding-right: 20px;
+}
+@media screen and (max-width: 1000px) {
+  .popup-info {
+    padding-right: 9px;
+    max-width: calc(44.44% - 9px);
+  }
+}
+@media screen and (max-width: 650px) {
+  .popup-info {
+    max-width: calc(60% - 9px);
+  }
+}
+@media screen and (max-width: 515px) {
+  .popup-info {
+    max-width: 100%;
+    padding-right: 0;
+  }
 }
 .popup-info .popup-heading {
   margin-top: 50px;
   font: normal 400 35px/45px Georgia;
   letter-spacing: 0.06em;
+}
+@media screen and (max-width: 1000px) {
+  .popup-info .popup-heading {
+    margin-top: 10px;
+  }
+}
+@media screen and (max-width: 515px) {
+  .popup-info .popup-heading {
+    text-align: center;
+    margin-top: 0;
+  }
 }
 .popup-info .popup-subheading {
   margin-top: 10px;
@@ -752,34 +815,101 @@ ul .disabled-link {
   font: normal 400 20px/23px Georgia;
   letter-spacing: 0.06em;
 }
+@media screen and (max-width: 641px) {
+  .popup-info .popup-subheading {
+    margin-bottom: 20px;
+  }
+}
+@media screen and (max-width: 515px) {
+  .popup-info .popup-subheading {
+    text-align: center;
+  }
+}
 .popup-info .popup-text {
   margin-bottom: 40px;
   font: normal 400 15px/17px Georgia;
   letter-spacing: 0.06em;
+}
+@media screen and (max-width: 1000px) {
+  .popup-info .popup-text {
+    font: normal 400 13px/14.3px Georgia;
+    margin-bottom: 20px;
+  }
+}
+@media screen and (max-width: 515px) {
+  .popup-info .popup-text {
+    text-align: justify;
+    margin-bottom: 24px;
+  }
 }
 .popup-info .popup-list {
   display: inline-block;
   text-align: left;
   margin-bottom: 88px;
 }
+@media screen and (max-width: 850px) {
+  .popup-info .popup-list {
+    margin-bottom: 37px;
+  }
+}
+@media screen and (max-width: 515px) {
+  .popup-info .popup-list {
+    margin-bottom: 0;
+  }
+}
 .popup-info li {
-  font: 400 15px/16.5px Georgia;
+  font: 400 15px/17px Georgia;
   letter-spacing: 0.06em;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.popup-info li:first-child {
+  margin-top: 0;
+}
+@media screen and (max-width: 1000px) {
+  .popup-info li {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+}
+@media screen and (max-width: 515px) {
+  .popup-info li {
+    font: 400 15px/16.5px Georgia;
+  }
 }
 .popup-info li::before {
   content: "•";
   font-weight: bold;
   display: block;
   width: 1em;
-  margin-left: -1em;
   color: #F1CDB3;
 }
 .popup-info li span {
   font-weight: 700;
 }
+.popup-info li .popup-list-text {
+  font: inherit;
+}
+
+.popup-close-btn {
+  position: absolute;
+  top: -50px;
+  right: -42px;
+  background: url(../assets/svg/modal_close_button.svg) no-repeat;
+  width: 52px;
+  height: 52px;
+}
+@media screen and (max-width: 515px) {
+  .popup-close-btn {
+    right: -30px;
+  }
+}
 
 .popup-active {
-  display: block;
+  display: flex;
+  justify-content: space-between;
 }
 
 .help {
@@ -1280,7 +1410,21 @@ ul .disabled-link {
 @media screen and (max-width: 767.5px) {
   .pet-header .header-nav {
     background-color: #F6F6F6;
+    z-index: 10;
   }
+}
+.pet-header .background {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: transparent;
+  z-index: -1;
+}
+.pet-header .active {
+  background: rgba(41, 41, 41, 0.6);
+  z-index: auto;
 }
 
 .our-friends {

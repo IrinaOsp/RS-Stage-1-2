@@ -15,14 +15,14 @@ const BODY = document.querySelector('.body');
         BACKGROUND.classList.toggle('active');
     });
 
-    PAGE.addEventListener('click', () => {
+    BACKGROUND.addEventListener('click', () => {
         MENU.classList.remove('header-nav-active');
         BURGERITEM.classList.remove('header-burger-active');
         BODY.classList.remove('no-scroll');
         BACKGROUND.classList.remove('active');
     });
     if (window.innerWidth <= 767) {
-        for (let i = 0; i < menuLinks.length; i++) {
+        for (let i = 0; i < MENULINKS.length; i++) {
             MENULINKS[i].addEventListener('click', () => {
                 MENU.classList.remove('header-nav-active');
                 BURGERITEM.classList.remove('header-burger-active');
@@ -38,19 +38,47 @@ const BODY = document.querySelector('.body');
 const BTNRIGHT = document.querySelector('.slider-right');
 const BTNLEFT = document.querySelector('.slider-left');
 const CAROUSEL = document.getElementById('carousel');
-const ITEM_LEFT = document.querySelector("#item-left");
-const ITEM_RIGHT = document.querySelector("#item-right");
-const createCardTemplate = () => {
-    const card = document.createElement("div");
-    card.classList.add("card");
-    return card;
-}
-    /*burgerItem.addEventListener('click', () => {
-        menu.classList.toggle('header-nav-active');
-        burgerItem.classList.toggle('header-burger-active');
-        body.classList.toggle('no-scroll');
-    });*/
+const PET_ITEMS = document.querySelectorAll('.friends-slider-item');
 
+const pastArr = [];
+const currArr = [];
+const nextArr = [];
+let PETS;
+const PETS_NAMES = [];
+    //get array of random numbers
+function getRandomNum(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+function getArray() {
+    let set = new Set()
+    let randomNum
+    while (set.size < 8) {
+        randomNum = getRandomNum(0, 7)
+        set.add(randomNum)
+    }
+    let numbersArray = Array.from(set)
+    console.log(numbersArray)
+    return numbersArray
+}
+let petsnumbersArray = getArray()
+    //get slider items
+async function getSliderItems() {
+    const res = await fetch('../JS/pets_info.json')
+    PETS = await res.json()
+    PETS.forEach((item) => PETS_NAMES.push(item.name))
+    console.log(PETS)
+    petsnumbersArray.forEach((item, index) => {
+        PET_ITEMS[index].firstElementChild.firstElementChild.src = `${PETS[item].img}`
+        PET_ITEMS[index].firstElementChild.firstElementChild.alt = `${PETS[item].name}`
+        PET_ITEMS[index].firstElementChild.lastElementChild.innerHTML = PETS[item].name
+    })
+}
+getSliderItems()
+
+
+/*
 const moveLeft = () => {
     CAROUSEL.classList.add('transition-left');
     BTNLEFT.removeEventListener('click', moveLeft); //убирает возможность кликать по кнопке во время анимации
@@ -81,11 +109,10 @@ CAROUSEL.addEventListener('animationend', (AnimationEvent) => {
       card.innerText = Math.floor(Math.random() * 8);
       //changedItem.appendChild(card);
     }
-    
     BTNLEFT.addEventListener("click", moveLeft);
     BTNRIGHT.addEventListener("click", moveRight);
 })
-
+*/
     /*() => {
         //if (window.innerWidth <= 1078) {
             carousel.classList.add('transition-right')
@@ -106,23 +133,48 @@ CAROUSEL.addEventListener('animationend', (AnimationEvent) => {
 
 //Pop up
 
-const PET_ITEMS = document.querySelectorAll('.friends-slider-item');
 const POPUP_BACKGROUND = document.querySelector('.popup-background');
 const POPUP_CONTENT = document.querySelector('.popup-content');
+const POPUP_IMG = document.querySelector('.popup-img');
 const POPUP_HEADING = document.querySelector('.popup-heading')
 const POPUP_SUBHEADING = document.querySelector('.popup-subheading')
-/*
-for (let i = 0; i < PET_ITEMS.length; i++) {
-    PET_ITEMS[i].addEventListener('click', createCard(i))
-}
-async function createCard(i) {
+const POPUP_TEXT = document.querySelector('.popup-text')
+const POPUP_LIST = document.querySelector('.popup-list')
+const POPUP_CLOSE = document.querySelector('.popup-close-btn')
 
+PET_ITEMS.forEach((item) => {
+    item.addEventListener('click', (event) => {
+        let cardNum = PETS_NAMES.indexOf(event.target.closest('.friends-slider-item').firstElementChild.lastElementChild.innerHTML)
+        createCard(cardNum)
+    })
+})
+
+function createCard(i) {
     POPUP_BACKGROUND.classList.add('popup-active');
     POPUP_CONTENT.classList.add('popup-active');
     BODY.classList.add('no-scroll');
-    const url = './pets_info.json';
-    const res = await fetch(url);
-    const data = await res.json();
-    POPUP_HEADING.textContent = data[i].name;
+
+    POPUP_IMG.style.backgroundImage = `url(${PETS[i].img})`;
+    POPUP_HEADING.innerHTML = PETS[i].name;
+    POPUP_SUBHEADING.firstElementChild.textContent = PETS[i].type;
+    POPUP_SUBHEADING.lastElementChild.textContent = PETS[i].breed;
+    POPUP_TEXT.textContent = PETS[i].description;
+    POPUP_LIST.firstElementChild.lastElementChild.innerHTML = PETS[i].age;
+    POPUP_LIST.children[1].lastElementChild.innerHTML = PETS[i].inoculations;
+    POPUP_LIST.children[2].lastElementChild.innerHTML = PETS[i].diseases;
+    POPUP_LIST.children[3].lastElementChild.innerHTML = PETS[i].parasites;
 }
-*/
+
+POPUP_CLOSE.addEventListener('click', () => {
+    POPUP_BACKGROUND.classList.remove('popup-active');
+    POPUP_CONTENT.classList.remove('popup-active');
+    BODY.classList.remove('no-scroll');
+})
+POPUP_BACKGROUND.addEventListener('click', (e) => {
+    const withinBoundaries = e.composedPath().includes(POPUP_CONTENT);
+    if (!withinBoundaries && POPUP_CONTENT.classList.contains('popup-active')) {
+        POPUP_BACKGROUND.classList.remove('popup-active');
+        POPUP_CONTENT.classList.remove('popup-active');
+        BODY.classList.remove('no-scroll');
+    }
+})
