@@ -15,14 +15,14 @@ const BODY = document.querySelector('.body');
         BACKGROUND.classList.toggle('active');
     });
 
-    PAGE.addEventListener('click', () => {
+    BACKGROUND.addEventListener('click', () => {
         MENU.classList.remove('header-nav-active');
         BURGERITEM.classList.remove('header-burger-active');
         BODY.classList.remove('no-scroll');
         BACKGROUND.classList.remove('active');
     });
     if (window.innerWidth <= 767) {
-        for (let i = 0; i < menuLinks.length; i++) {
+        for (let i = 0; i < MENULINKS.length; i++) {
             MENULINKS[i].addEventListener('click', () => {
                 MENU.classList.remove('header-nav-active');
                 BURGERITEM.classList.remove('header-burger-active');
