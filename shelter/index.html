@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./CSS/style.css">
     <link rel="shortcut icon" href="./assets/svg/favicon.svg" type="image/x-icon">
 </head>
-<body>
+<body class="body">
     <header class="header">
         <div class="logo-block">
             <h2 class="logo"><a href="#!" class="logo-link">Cozy House</a></h2>
@@ -28,6 +28,7 @@
                 <span class="burger-line burger-line-2"></span>
                 <span class="burger-line burger-line-3"></span>
             </div>
+            <div class="background"></div>
         </div>
     </header>
     <main class="main">
@@ -52,8 +53,8 @@
         <section class="friends" id="Friends">
             <h2 class="friends-heading">Our friends who <br>are looking for a house</h2>
             <div class="friends-slider-wrapper">
-                <button class="slider-arrow"></button>
-                <div class="friends-slider">
+                <button class="slider-arrow slider-left"></button>
+                <div class="friends-slider" id="carousel">
                     <div class="friends-slider-item">
                         <figure>
                             <img src="./assets/imgs/pets-katrine.png" alt="Katrine">
@@ -75,8 +76,59 @@
                         </figure>
                         <a href="#!" class="slider-button">Learn more</a>
                     </div>
+                    <div class="friends-slider-item">
+                        <figure>
+                            <img src="../assets/imgs/pets-sophia.png" alt="Sophia">
+                            <figcaption>Sophia</figcaption>
+                        </figure>
+                        <a href="#!" class="slider-button">Learn more</a>
+                    </div>
+                    <div class="friends-slider-item">
+                        <figure>
+                            <img src="../assets/imgs/pets-timmy.png" alt="Timmy">
+                            <figcaption>Timmy</figcaption>
+                        </figure>
+                        <a href="#!" class="slider-button">Learn more</a>
+                    </div>
+                    <div class="friends-slider-item">
+                        <figure>
+                            <img src="../assets/imgs/pets-charly.png" alt="Charly">
+                            <figcaption>Charly</figcaption>
+                        </figure>
+                        <a href="#!" class="slider-button">Learn more</a>
+                    </div>
+                    <div class="friends-slider-item">
+                        <figure>
+                            <img src="../assets/imgs/pets-scarlet.png" alt="Scarlett">
+                            <figcaption>Scarlett</figcaption>
+                        </figure>
+                        <a href="#!" class="slider-button">Learn more</a>
+                    </div>
+                    <div class="friends-slider-item">
+                        <figure>
+                            <img src="../assets/imgs/pets-freddie.png" alt="Freddie">
+                            <figcaption>Freddie</figcaption>
+                        </figure>
+                        <a href="#!" class="slider-button">Learn more</a>
+                    </div>
                 </div>
-                <button class="slider-arrow"></button>
+                <button class="slider-arrow slider-right"></button>
+            </div>
+            <div class="popup-background">
+                <div class="popup-content">
+                    <div class="popup-img"></div>
+                    <div class="popup-info">
+                        <h3 class="popup-heading">Jennifer</h3>
+                        <h4 class="popup-subheading">Dog - Labrador</h4>
+                        <p class="popup-text">Jennifer is a sweet 2 months old Labrador that is patiently waiting to find a new forever home. This girl really enjoys being able to go outside to run and play, but won't hesitate to play up a storm in the house if she has all of her favorite toys.</p>
+                        <ul class="popup-list">
+                            <li><span>Age: </span>2 month</li>
+                            <li><span>Inoculations: </span>123</li>
+                            <li><span>Diseases: </span>123</li>
+                            <li><span>Parasites: </span>123</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <a href="./page_2/Pets.html" class="button">Get to know the rest</a>
         </section>
@@ -154,7 +206,7 @@
             <img src="./assets/imgs/footer-puppy.png" alt="puppy" class="footer-img">
         </div>
     </footer>
-    <script src="./main.js"></script>
-    <script src="./score.js"></script>
+    <script type="module" src="./JS/main.js"></script>
+    <script type="module" src="./JS/score.js"></script>
 </body>
 </html>
