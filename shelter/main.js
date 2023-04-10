@@ -75,7 +75,7 @@ let petsnumbersArray = getArray()
 */
 
 async function getSliderItems() {
-    const res = await fetch('./JS/pets_info.json')
+    const res = await fetch('../JS/pets_info.json')
     PETS = await res.json()
     PETS.forEach((item) => PETS_NAMES.push(item.name))
     console.log(PETS)
