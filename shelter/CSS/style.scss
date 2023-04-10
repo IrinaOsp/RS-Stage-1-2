@@ -628,10 +628,10 @@ a {
     width: 55.56%;
     height: 100%;
     display: inline-block;
+    background: no-repeat center/cover;
 }
 .popup-info {
-    display: inline-block;
-    width: calc(100% - 55.56% - 29px);
+    max-width: calc(100% - 55.56% - 29px);
     .popup-heading{
         margin-top: 50px;
         font: $font-h2;
@@ -667,10 +667,15 @@ a {
         span {
             font-weight: 700;
         }
+        .popup-list-text {
+            font: inherit;
+        }
     }
 }
 .popup-active {
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 20px;
 }
 
 .help {

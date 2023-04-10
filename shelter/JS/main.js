@@ -78,12 +78,6 @@ async function getSliderItems() {
 getSliderItems()
 
 
-
-    /*burgerItem.addEventListener('click', () => {
-        menu.classList.toggle('header-nav-active');
-        burgerItem.classList.toggle('header-burger-active');
-        body.classList.toggle('no-scroll');
-    });*/
 /*
 const moveLeft = () => {
     CAROUSEL.classList.add('transition-left');
@@ -139,23 +133,34 @@ CAROUSEL.addEventListener('animationend', (AnimationEvent) => {
 
 //Pop up
 
-//const PET_ITEMS = document.querySelectorAll('.friends-slider-item');
-//const POPUP_BACKGROUND = document.querySelector('.popup-background');
-//const POPUP_CONTENT = document.querySelector('.popup-content');
-//const POPUP_HEADING = document.querySelector('.popup-heading')
-//const POPUP_SUBHEADING = document.querySelector('.popup-subheading')
-/*
-for (let i = 0; i < PET_ITEMS.length; i++) {
-    PET_ITEMS[i].addEventListener('click', createCard(i))
-}
-async function createCard(i) {
+const POPUP_BACKGROUND = document.querySelector('.popup-background');
+const POPUP_CONTENT = document.querySelector('.popup-content');
+const POPUP_IMG = document.querySelector('.popup-img');
+const POPUP_HEADING = document.querySelector('.popup-heading')
+const POPUP_SUBHEADING = document.querySelector('.popup-subheading')
+const POPUP_TEXT = document.querySelector('.popup-text')
+const POPUP_LIST = document.querySelector('.popup-list')
 
+PET_ITEMS.forEach((item) => {
+    item.addEventListener('click', (event) => {
+        let cardNum = PETS_NAMES.indexOf(event.target.closest('.friends-slider-item').firstElementChild.lastElementChild.innerHTML)
+        createCard(cardNum)
+    })
+})
+
+function createCard(i) {
     POPUP_BACKGROUND.classList.add('popup-active');
     POPUP_CONTENT.classList.add('popup-active');
     BODY.classList.add('no-scroll');
-    const url = './pets_info.json';
-    const res = await fetch(url);
-    const data = await res.json();
-    POPUP_HEADING.textContent = data[i].name;
+
+    POPUP_IMG.style.backgroundImage = `url(${PETS[i].img})`;
+    POPUP_HEADING.innerHTML = PETS[i].name;
+    POPUP_SUBHEADING.firstElementChild.textContent = PETS[i].type;
+    POPUP_SUBHEADING.lastElementChild.textContent = PETS[i].breed;
+    POPUP_TEXT.textContent = PETS[i].description;
+    POPUP_LIST.firstElementChild.lastElementChild.innerHTML = PETS[i].age;
+    POPUP_LIST.children[1].lastElementChild.innerHTML = PETS[i].inoculations;
+    POPUP_LIST.children[2].lastElementChild.innerHTML = PETS[i].inoculations;
+    POPUP_LIST.children[3].lastElementChild.innerHTML = PETS[i].diseases;
+    POPUP_LIST.children[4].lastElementChild.innerHTML = PETS[i].parasites;
 }
-*/

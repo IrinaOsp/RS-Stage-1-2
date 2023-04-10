@@ -735,11 +735,11 @@ ul .disabled-link {
   width: 55.56%;
   height: 100%;
   display: inline-block;
+  background: no-repeat center/cover;
 }
 
 .popup-info {
-  display: inline-block;
-  width: calc(44.44% - 29px);
+  max-width: calc(44.44% - 29px);
 }
 .popup-info .popup-heading {
   margin-top: 50px;
@@ -777,9 +777,14 @@ ul .disabled-link {
 .popup-info li span {
   font-weight: 700;
 }
+.popup-info li .popup-list-text {
+  font: inherit;
+}
 
 .popup-active {
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 20px;
 }
 
 .help {
