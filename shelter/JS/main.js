@@ -38,19 +38,53 @@ const BODY = document.querySelector('.body');
 const BTNRIGHT = document.querySelector('.slider-right');
 const BTNLEFT = document.querySelector('.slider-left');
 const CAROUSEL = document.getElementById('carousel');
-const ITEM_LEFT = document.querySelector("#item-left");
-const ITEM_RIGHT = document.querySelector("#item-right");
-const createCardTemplate = () => {
-    const card = document.createElement("div");
-    card.classList.add("card");
-    return card;
+const PET_ITEMS = document.querySelectorAll('.friends-slider-item');
+
+const pastArr = [];
+const currArr = [];
+const nextArr = [];
+let PETS;
+const PETS_NAMES = [];
+    //get array of random numbers
+function getRandomNum(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+function getArray() {
+    let set = new Set()
+    let randomNum
+    while (set.size < 8) {
+        randomNum = getRandomNum(0, 7)
+        set.add(randomNum)
+    }
+    let numbersArray = Array.from(set)
+    console.log(numbersArray)
+    return numbersArray
 }
+let petsnumbersArray = getArray()
+    //get slider items
+async function getSliderItems() {
+    const res = await fetch('../JS/pets_info.json')
+    PETS = await res.json()
+    PETS.forEach((item) => PETS_NAMES.push(item.name))
+    console.log(PETS)
+    petsnumbersArray.forEach((item, index) => {
+        PET_ITEMS[index].firstElementChild.firstElementChild.src = `${PETS[item].img}`
+        PET_ITEMS[index].firstElementChild.firstElementChild.alt = `${PETS[item].name}`
+        PET_ITEMS[index].firstElementChild.lastElementChild.innerHTML = PETS[item].name
+    })
+}
+getSliderItems()
+
+
+
     /*burgerItem.addEventListener('click', () => {
         menu.classList.toggle('header-nav-active');
         burgerItem.classList.toggle('header-burger-active');
         body.classList.toggle('no-scroll');
     });*/
-
+/*
 const moveLeft = () => {
     CAROUSEL.classList.add('transition-left');
     BTNLEFT.removeEventListener('click', moveLeft); //убирает возможность кликать по кнопке во время анимации
@@ -81,11 +115,10 @@ CAROUSEL.addEventListener('animationend', (AnimationEvent) => {
       card.innerText = Math.floor(Math.random() * 8);
       //changedItem.appendChild(card);
     }
-    
     BTNLEFT.addEventListener("click", moveLeft);
     BTNRIGHT.addEventListener("click", moveRight);
 })
-
+*/
     /*() => {
         //if (window.innerWidth <= 1078) {
             carousel.classList.add('transition-right')
@@ -106,11 +139,11 @@ CAROUSEL.addEventListener('animationend', (AnimationEvent) => {
 
 //Pop up
 
-const PET_ITEMS = document.querySelectorAll('.friends-slider-item');
-const POPUP_BACKGROUND = document.querySelector('.popup-background');
-const POPUP_CONTENT = document.querySelector('.popup-content');
-const POPUP_HEADING = document.querySelector('.popup-heading')
-const POPUP_SUBHEADING = document.querySelector('.popup-subheading')
+//const PET_ITEMS = document.querySelectorAll('.friends-slider-item');
+//const POPUP_BACKGROUND = document.querySelector('.popup-background');
+//const POPUP_CONTENT = document.querySelector('.popup-content');
+//const POPUP_HEADING = document.querySelector('.popup-heading')
+//const POPUP_SUBHEADING = document.querySelector('.popup-subheading')
 /*
 for (let i = 0; i < PET_ITEMS.length; i++) {
     PET_ITEMS[i].addEventListener('click', createCard(i))
