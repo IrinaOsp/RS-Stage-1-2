@@ -167,14 +167,13 @@ function getSliderItems() {
     // const res = await fetch('../JS/pets_info.json')
     // PETS = await res.json()
     PETS.forEach((item) => PETS_NAMES.push(item.name))
+    console.log(petsnumbersArray)
     petsnumbersArray.forEach((item, index) => {
-        console.log(PET_ITEMS[index].firstElementChild.firstElementChild)
         PET_ITEMS[index].firstElementChild.firstElementChild.src = `${PETS[item].img}`
         PET_ITEMS[index].firstElementChild.firstElementChild.alt = `${PETS[item].name}`
         PET_ITEMS[index].firstElementChild.lastElementChild.innerHTML = PETS[item].name
         PET_ITEMS[index].id = PETS[item].name
     })
-    console.log('getSliderItems')
 }
 getSliderItems()
 
@@ -182,92 +181,112 @@ let pastArr = [];
 let currArr = [];
 let nextArr = [];
 function setArrays () {
-    for (i=0; i<numbersArray; i++) {
-        while (i<3) {
+console.log('setArrays start')
+    for (i=0; i<numbersArray.length; i++) {
+        if (i<3) {
+            pastArr.push(numbersArray[i])
+        }
+        if (i>=3 && i<6) {
             currArr.push(numbersArray[i])
         }
-        while (i<6) {
+        if (i>=6 && i<numbersArray.length) {
+            console.log('check')
             nextArr.push(numbersArray[i])
         }
-        while (i<numbersArray) {
-            pastArr.push(numbersArray[i])
-            console.log(pastArr)
-            if (pastArr.length<4) {
-                pastArr.push(numbersArray[4])
-                console.log(pastArr)
-            }
-        }
+    }
+    if (pastArr.length<3) {
+        console.log('check2')
+        nextArr.push(numbersArray[4])
     }
 }
-setArrays ()
-console.log('pastArr '+pastArr)
+setArrays()
+console.log('arrs ')
+console.log(pastArr)
 console.log(currArr)
-console.log('nextArr '+nextArr)
-
-let offset = 0;
-function setOffset () {
-    if (window.innerWidth >= 1200) {
-        return offset = 1035
-    } else if (window.innerWidth < 1200 && window.innerWidth > 760) {
-        return offset = 620
-    } else {
-        return offset = 305
-    }
-}
-let x = 0;
-function setX () {
-    if (window.innerWidth >= 1200) {
-        return x = 1080
-    } else if (window.innerWidth < 1200 && window.innerWidth > 760) {
-        return x = 620
-    } else {
-        return x = 305
-    }
-}
-setX()
+console.log(nextArr)
 
 const moveLeft = () => {
     console.log('start')
-    CAROUSEL.style.right = offset-x+'px'
-    console.log(offset-x+'px')
-    nextArr=currArr;
+    CAROUSEL.classList.add('transition-left')
+
+    BTNLEFT.removeEventListener('click', moveLeft); //убирает возможность кликать по кнопке во время анимации
+    BTNRIGHT.removeEventListener('click', moveRight); //убирает возможность кликать по кнопке во время анимации
+
+    nextArr=currArr
     currArr=pastArr;
-    pastArr=nextArr
-    BTNLEFT.removeEventListener('click', moveLeft); //убирает возможность кликать по кнопке во время анимации
-    BTNRIGHT.removeEventListener('click', moveRight); //убирает возможность кликать по кнопке во время анимации
-    getArray()
-    getSliderItems()
-    setTimeout(() => {
-        console.log('start time')
-        setArrays()
-        getSliderItems()
-        console.log(offset+'px')
-        CAROUSEL.style.right = offset+'px'
-        CAROUSEL.style.transition = null
+    pastArr=[];
+    let NewPetsNumbersArray = [...currArr, ...nextArr]
+    console.log(NewPetsNumbersArray)
+
+    while (pastArr.length<=2) {
+        let num = getRandomNum(0, 7)
+
+        if (!NewPetsNumbersArray.slice(0, 3).includes(num) && !pastArr.includes(num)) {
+            pastArr.push(num)
+            console.log(pastArr)
+        }
+    }
+
+    NewPetsNumbersArray.unshift(pastArr[2])
+    NewPetsNumbersArray.unshift(pastArr[1])
+    NewPetsNumbersArray.unshift(pastArr[0])
+    console.log(NewPetsNumbersArray)
+
+    setTimeout(function () {
+        CAROUSEL.classList.remove('transition-left')
+        console.log(NewPetsNumbersArray)
+        NewPetsNumbersArray.forEach((item, index) => {
+            PET_ITEMS[index].firstElementChild.firstElementChild.src = `${PETS[item].img}`
+            PET_ITEMS[index].firstElementChild.firstElementChild.alt = `${PETS[item].name}`
+            PET_ITEMS[index].firstElementChild.lastElementChild.innerHTML = PETS[item].name
+            PET_ITEMS[index].id = PETS[item].name
+        })
+    }, 999)
+        console.log(NewPetsNumbersArray)
         BTNLEFT.addEventListener('click', moveLeft);
         BTNRIGHT.addEventListener('click', moveRight);
-    }, 1000)
-}
-const moveRight = () => {
-    CAROUSEL.style.right = offset+x+'px'
-    pastArr=currArr;
-    currArr=nextArr;
-    nextArr=pastArr
-    BTNLEFT.removeEventListener('click', moveLeft); //убирает возможность кликать по кнопке во время анимации
-    BTNRIGHT.removeEventListener('click', moveRight); //убирает возможность кликать по кнопке во время анимации
-    setTimeout(() => {
-        getSliderItems()
-        CAROUSEL.style.right = offset+'px'
-        CAROUSEL.style.transition = null
-        BTNLEFT.addEventListener('click', moveLeft);
-        BTNRIGHT.addEventListener('click', moveRight);
-    }, 1000)
 
 }
+const moveRight = () => {
+    CAROUSEL.classList.add('transition-right')
+    BTNLEFT.removeEventListener('click', moveLeft); //убирает возможность кликать по кнопке во время анимации
+    BTNRIGHT.removeEventListener('click', moveRight); //убирает возможность кликать по кнопке во время анимации
+
+    currArr=nextArr;
+    pastArr=currArr;
+    NewPetsNumbersArray = [...pastArr, ...currArr]
+    nextArr=[]
+    while (nextArr.length<=2) {
+        let num = getRandomNum(0, 7)
+
+        if (!NewPetsNumbersArray.slice(0, 3).includes(num) && !nextArr.includes(num)) {
+            pastArr.push(num)
+        }
+    }
+    NewPetsNumbersArray.unshift(nextArr[2])
+    NewPetsNumbersArray.unshift(nextArr[1])
+    NewPetsNumbersArray.unshift(nextArr[0])
+    console.log(NewPetsNumbersArray)
+
+    setTimeout(function () {
+        CAROUSEL.classList.remove('transition-right')
+        console.log(NewPetsNumbersArray)
+        NewPetsNumbersArray.forEach((item, index) => {
+            PET_ITEMS[index].firstElementChild.firstElementChild.src = `${PETS[item].img}`
+            PET_ITEMS[index].firstElementChild.firstElementChild.alt = `${PETS[item].name}`
+            PET_ITEMS[index].firstElementChild.lastElementChild.innerHTML = PETS[item].name
+            PET_ITEMS[index].id = PETS[item].name
+        })
+    }, 999)
+        BTNLEFT.addEventListener('click', moveLeft);
+        BTNRIGHT.addEventListener('click', moveRight);
+
+}
+
 
 BTNLEFT.addEventListener('click', moveLeft);
 BTNRIGHT.addEventListener('click', moveRight);
-window.addEventListener('load', setOffset)
+//window.addEventListener('load', setOffset)
 
 //Pop up
 
