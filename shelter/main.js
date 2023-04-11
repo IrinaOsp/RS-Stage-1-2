@@ -251,21 +251,20 @@ const moveRight = () => {
     CAROUSEL.classList.add('transition-right')
     BTNLEFT.removeEventListener('click', moveLeft); //убирает возможность кликать по кнопке во время анимации
     BTNRIGHT.removeEventListener('click', moveRight); //убирает возможность кликать по кнопке во время анимации
-
-    currArr=nextArr;
-    pastArr=currArr;
-    NewPetsNumbersArray = [...pastArr, ...currArr]
-    nextArr=[]
-    while (nextArr.length<=2) {
+    nextArr=currArr
+    currArr=pastArr;
+    pastArr=[];
+    NewPetsNumbersArray = [...currArr, ...nextArr]
+    while (pastArr.length<=2) {
         let num = getRandomNum(0, 7)
 
-        if (!NewPetsNumbersArray.slice(0, 3).includes(num) && !nextArr.includes(num)) {
+        if (!NewPetsNumbersArray.slice(0, 3).includes(num) && !pastArr.includes(num)) {
             pastArr.push(num)
         }
     }
-    NewPetsNumbersArray.unshift(nextArr[2])
-    NewPetsNumbersArray.unshift(nextArr[1])
-    NewPetsNumbersArray.unshift(nextArr[0])
+    NewPetsNumbersArray.unshift(pastArr[2])
+    NewPetsNumbersArray.unshift(pastArr[1])
+    NewPetsNumbersArray.unshift(pastArr[0])
     console.log(NewPetsNumbersArray)
 
     setTimeout(function () {
