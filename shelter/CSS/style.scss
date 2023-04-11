@@ -528,7 +528,7 @@ a {
     }
       .transition-right {
         animation-name: move-right;
-        animation-duration: 3s;
+        animation-duration: 1s;
     }
     @keyframes move-left {
         from {left: -990px;}
@@ -536,7 +536,7 @@ a {
     }
     .transition-left {
         animation-name: move-left;
-        animation-duration: 3s;
+        animation-duration: 1s;
     }
     .card {
         width: 200px;
