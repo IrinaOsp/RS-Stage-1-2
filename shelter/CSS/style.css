@@ -470,7 +470,9 @@ ul .disabled-link {
 }
 .friends .friends-slider-wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
   width: 100vw;
   max-width: 1280px;
 }
@@ -499,8 +501,6 @@ ul .disabled-link {
   width: 52px;
   height: 52px;
   align-self: center;
-  margin-right: 53px;
-  margin-left: 40px;
   background: url(../assets/svg/button_arrow.svg) no-repeat;
   cursor: pointer;
 }
@@ -517,8 +517,6 @@ ul .disabled-link {
   }
 }
 .friends .friends-slider-wrapper .slider-arrow:last-child {
-  margin-right: 40px;
-  margin-left: 53px;
   transform: rotate(180deg);
 }
 @media screen and (max-width: 460px) {
@@ -532,21 +530,18 @@ ul .disabled-link {
     background: url(../assets/svg/button_arrow_active.svg) no-repeat;
   }
 }
-@media screen and (max-width: 1279px) {
-  .friends .friends-slider-wrapper .slider-arrow {
-    margin-right: 12px;
-    margin-left: 30px;
-  }
-  .friends .friends-slider-wrapper .slider-arrow:last-child {
-    margin-right: 30px;
-    margin-left: 12px;
-  }
+.friends .carousel-wrapper {
+  max-width: 1170px;
+  overflow: hidden;
 }
 .friends .friends-slider {
   display: flex;
+  justify-content: space-between;
   gap: 90px;
   flex: 3;
-  overflow: hidden;
+  max-width: 1080px;
+  position: relative;
+  right: 1035px;
 }
 @media screen and (max-width: 1180px) {
   .friends .friends-slider {
@@ -617,10 +612,10 @@ ul .disabled-link {
 }
 @keyframes move-right {
   from {
-    left: 0px;
+    left: -990px;
   }
   to {
-    left: 1000px;
+    left: -1980px;
   }
 }
 .friends .transition-right {
@@ -629,10 +624,10 @@ ul .disabled-link {
 }
 @keyframes move-left {
   from {
-    left: 0px;
+    left: -990px;
   }
   to {
-    left: 1000px;
+    left: 0px;
   }
 }
 .friends .transition-left {

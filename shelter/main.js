@@ -48,6 +48,7 @@ function getRandomNum(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
+let numbersArray
 function getArray() {
     let set = new Set()
     let randomNum
@@ -55,11 +56,12 @@ function getArray() {
         randomNum = getRandomNum(0, 7)
         set.add(randomNum)
     }
-    let numbersArray = Array.from(set)
-    console.log(numbersArray)
+    numbersArray = Array.from(set)
+    numbersArray.push(numbersArray[getRandomNum(0, 2)])
     return numbersArray
 }
 let petsnumbersArray = getArray()
+console.log('petsnumbersArray' + petsnumbersArray)
     //get slider items
     /*
     fetch('./JS/pets_info.json')
@@ -165,81 +167,107 @@ function getSliderItems() {
     // const res = await fetch('../JS/pets_info.json')
     // PETS = await res.json()
     PETS.forEach((item) => PETS_NAMES.push(item.name))
-    console.log(PETS)
     petsnumbersArray.forEach((item, index) => {
+        console.log(PET_ITEMS[index].firstElementChild.firstElementChild)
         PET_ITEMS[index].firstElementChild.firstElementChild.src = `${PETS[item].img}`
         PET_ITEMS[index].firstElementChild.firstElementChild.alt = `${PETS[item].name}`
         PET_ITEMS[index].firstElementChild.lastElementChild.innerHTML = PETS[item].name
+        PET_ITEMS[index].id = PETS[item].name
     })
+    console.log('getSliderItems')
 }
 getSliderItems()
 
-const pastArr = [];
-const currArr = [];
-const nextArr = [];
-
-
-let cardsNum
-if (window.innerWidth >= 1078) {
-    cardsNum = 3
-} else if (window.innerWidth < 1078 && window.innerWidth > 760) {
-    cardsNum = 2
-} else {
-    cardsNum = 1
+let pastArr = [];
+let currArr = [];
+let nextArr = [];
+function setArrays () {
+    for (i=0; i<numbersArray; i++) {
+        while (i<3) {
+            currArr.push(numbersArray[i])
+        }
+        while (i<6) {
+            nextArr.push(numbersArray[i])
+        }
+        while (i<numbersArray) {
+            pastArr.push(numbersArray[i])
+            console.log(pastArr)
+            if (pastArr.length<4) {
+                pastArr.push(numbersArray[4])
+                console.log(pastArr)
+            }
+        }
+    }
 }
+setArrays ()
+console.log('pastArr '+pastArr)
+console.log(currArr)
+console.log('nextArr '+nextArr)
 
-/*
+let offset = 0;
+function setOffset () {
+    if (window.innerWidth >= 1200) {
+        return offset = 1035
+    } else if (window.innerWidth < 1200 && window.innerWidth > 760) {
+        return offset = 620
+    } else {
+        return offset = 305
+    }
+}
+let x = 0;
+function setX () {
+    if (window.innerWidth >= 1200) {
+        return x = 1080
+    } else if (window.innerWidth < 1200 && window.innerWidth > 760) {
+        return x = 620
+    } else {
+        return x = 305
+    }
+}
+setX()
+
 const moveLeft = () => {
-    CAROUSEL.classList.add('transition-left');
+    console.log('start')
+    CAROUSEL.style.right = offset-x+'px'
+    console.log(offset-x+'px')
+    nextArr=currArr;
+    currArr=pastArr;
+    pastArr=nextArr
     BTNLEFT.removeEventListener('click', moveLeft); //убирает возможность кликать по кнопке во время анимации
     BTNRIGHT.removeEventListener('click', moveRight); //убирает возможность кликать по кнопке во время анимации
+    getArray()
+    getSliderItems()
+    setTimeout(() => {
+        console.log('start time')
+        setArrays()
+        getSliderItems()
+        console.log(offset+'px')
+        CAROUSEL.style.right = offset+'px'
+        CAROUSEL.style.transition = null
+        BTNLEFT.addEventListener('click', moveLeft);
+        BTNRIGHT.addEventListener('click', moveRight);
+    }, 1000)
 }
 const moveRight = () => {
-    CAROUSEL.classList.add('transition-right');
+    CAROUSEL.style.right = offset+x+'px'
+    pastArr=currArr;
+    currArr=nextArr;
+    nextArr=pastArr
     BTNLEFT.removeEventListener('click', moveLeft); //убирает возможность кликать по кнопке во время анимации
     BTNRIGHT.removeEventListener('click', moveRight); //убирает возможность кликать по кнопке во время анимации
+    setTimeout(() => {
+        getSliderItems()
+        CAROUSEL.style.right = offset+'px'
+        CAROUSEL.style.transition = null
+        BTNLEFT.addEventListener('click', moveLeft);
+        BTNRIGHT.addEventListener('click', moveRight);
+    }, 1000)
+
 }
 
 BTNLEFT.addEventListener('click', moveLeft);
 BTNRIGHT.addEventListener('click', moveRight);
-CAROUSEL.addEventListener('animationend', (AnimationEvent) => {
-    let changedItem;
-    if (AnimationEvent.animationName === 'move-left') {
-        CAROUSEL.classList.remove('transition-left');
-        changedItem = ITEM_LEFT;
-        //document.querySelector('#item-active').innerHTML = ITEM_LEFT.innerHTML;
-    } else {
-        CAROUSEL.classList.remove('transition-right');
-        changedItem = ITEM_RIGHT;
-        //document.querySelector('#item-active').innerHTML = ITEM_RIGHT.innerHTML;
-    }
-    //changedItem.innerHTML = "";
-    for (let i = 0; i < 3; i++) {
-      const card = createCardTemplate();
-      card.innerText = Math.floor(Math.random() * 8);
-      //changedItem.appendChild(card);
-    }
-    BTNLEFT.addEventListener("click", moveLeft);
-    BTNRIGHT.addEventListener("click", moveRight);
-})
-*/
-    /*() => {
-        //if (window.innerWidth <= 1078) {
-            carousel.classList.add('transition-right')
-        //}
-    })
-    carousel.addEventListener('animationend', () => {
-        carousel.classList.remove('transition-right')
-    })*/
-
-        /*for (let i = 0; i < menuLinks.length; i++) {
-            menuLinks[i].addEventListener('click', () => {
-                menu.classList.remove('header-nav-active');
-                burgerItem.classList.remove('header-burger-active');
-                body.classList.remove('no-scroll');
-            });
-        }*/
-
+window.addEventListener('load', setOffset)
 
 //Pop up
 
