@@ -202,6 +202,7 @@ ul .disabled-link {
   top: 0;
   left: 0;
   background: transparent;
+  z-index: -1;
 }
 
 .active {
@@ -620,7 +621,7 @@ ul .disabled-link {
 }
 .friends .transition-right {
   animation-name: move-right;
-  animation-duration: 3s;
+  animation-duration: 1s;
 }
 @keyframes move-left {
   from {
@@ -632,7 +633,7 @@ ul .disabled-link {
 }
 .friends .transition-left {
   animation-name: move-left;
-  animation-duration: 3s;
+  animation-duration: 1s;
 }
 .friends .card {
   width: 200px;
