@@ -1,3 +1,5 @@
+import { startTimer, stopTimer } from './timer';
+
 export const CANVAS = document.createElement('canvas');
 
 // create basic layout
@@ -36,10 +38,15 @@ export const createLayout = (function createLayout() {
   GAME_INFO.appendChild(TIMER);
 
   const timerArr = ['00', ':', '00'];
-  timerArr.forEach(el => {
+  timerArr.forEach((el, index) => {
     const El = document.createElement('span');
     El.className = 'time';
-    El.innerText = el;
+    if (index === 0) {
+      El.classList.add('minutes');
+    } else if (index === 2) {
+      El.classList.add('seconds');
+    }
+    El.innerHTML = el;
     TIMER.appendChild(El);
   })
 
@@ -198,7 +205,7 @@ let isFirstClick = true;
 function showField (clickedCol, clickedRow) {
   if (isFirstClick) {
     console.log('first click')
-
+    startTimer();
   } else {
     console.log('second click')
 
@@ -208,6 +215,7 @@ function showField (clickedCol, clickedRow) {
   if (field[clickedRow][clickedCol].hasBomb) {
     ctx.fillStyle = "#f00";
     ctx.fillText('*', clickedCol * CELL_SIZE + CELL_SIZE / 3, clickedRow * CELL_SIZE + 2 * CELL_SIZE / 3);
+    stopTimer();
     alert('Game over. Try again')
   }
   // paint opened cells
