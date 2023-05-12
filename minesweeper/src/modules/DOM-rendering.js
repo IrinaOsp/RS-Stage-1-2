@@ -1,4 +1,5 @@
 import { startTimer, stopTimer } from './timer';
+import { gameOverPopUp } from './game-over';
 
 export const CANVAS = document.createElement('canvas');
 
@@ -63,7 +64,7 @@ const COLS = 10;
 let BOMB_COUNT = 10;
 
 
-function draw() {
+export function draw(CELL_SIZE = 35, ROWS = 10, COLS = 10, BOMB_COUNT = 10) {
   const FIRST_COLOR = '#66ff66';
   const SECOND_COLOR = '#009900';
   
@@ -88,31 +89,35 @@ function draw() {
 };
 draw();
 
-export const clickHandler = CANVAS.addEventListener("click", function(event) {
-  const clickedCol = Math.floor(event.offsetX / CELL_SIZE);
-  const clickedRow = Math.floor(event.offsetY / CELL_SIZE);
-
+export const clickHandler = (clickedCol, clickedRow, CELL_SIZE = 35, ROWS = 10, COLS = 10, BOMB_COUNT = 10) => {
+console.log('clickHandler', CELL_SIZE)
   if (bombs.length > 0) {
     console.log('Бомбы уже расставлены')
-    showField(clickedCol, clickedRow);
+    showField(clickedCol, clickedRow, CELL_SIZE);
     return;
   } else {
-    createBombLayout();
+    createBombLayout(ROWS = 10, COLS = 10, BOMB_COUNT = 10);
     while (field[clickedRow][clickedCol].hasBomb) {
       console.log('resort bombs');
       bombs = [];
-      createBombLayout();
+      createBombLayout(ROWS = 10, COLS = 10, BOMB_COUNT = 10);
 
       if (!field[clickedRow][clickedCol].hasBomb) {
-        showField(clickedCol, clickedRow);
+        showField(clickedCol, clickedRow, CELL_SIZE);
         return;
       }
     }
-    showField(clickedCol, clickedRow);
+    showField(clickedCol, clickedRow, CELL_SIZE);
   }
+};
+
+CANVAS.addEventListener("click", event => {
+  const clickedCol = Math.floor(event.offsetX / CELL_SIZE);
+  const clickedRow = Math.floor(event.offsetY / CELL_SIZE);
+  clickHandler(clickedCol, clickedRow, CELL_SIZE);
 });
 
-function createBombLayout() {
+function createBombLayout(ROWS = 10, COLS = 10, BOMB_COUNT = 10) {
   console.log('start createBombLayout')
   // clear field
   for (let i = 0; i < ROWS; i++) {
@@ -202,7 +207,8 @@ function createBombLayout() {
 
 let isFirstClick = true;
 
-function showField (clickedCol, clickedRow) {
+function showField (clickedCol, clickedRow, CELL_SIZE = 35) {
+  console.log('showField', clickedCol, clickedRow, CELL_SIZE)
   if (isFirstClick) {
     console.log('first click')
     startTimer();
@@ -216,6 +222,7 @@ function showField (clickedCol, clickedRow) {
     ctx.fillStyle = "#f00";
     ctx.fillText('*', clickedCol * CELL_SIZE + CELL_SIZE / 3, clickedRow * CELL_SIZE + 2 * CELL_SIZE / 3);
     stopTimer();
+    gameOverPopUp();
     alert('Game over. Try again')
   }
   // paint opened cells
