@@ -18,7 +18,7 @@ let bombs = [];
 const CELL_SIZE = 35;
 const ROWS = 10;
 const COLS = 10;
-let BOMB_COUNT = 10;
+let BOMB_COUNT = 80;
 
 
 function draw() {
@@ -47,14 +47,40 @@ function draw() {
 draw();
 
 export const clickHandler = CANVAS.addEventListener("click", function(event) {
-  const cellSize = 35;
-  const x = Math.floor(event.offsetX / cellSize);
-  const y = Math.floor(event.offsetY / cellSize);
+  const clickedCol = Math.floor(event.offsetX / CELL_SIZE);
+  const clickedRow = Math.floor(event.offsetY / CELL_SIZE);
 
   if (bombs.length > 0) {
     console.log('Бомбы уже расставлены')
+    showField(clickedCol, clickedRow);
     return;
+  } else {
+    createBombLayout();
+    while (field[clickedRow][clickedCol].hasBomb) {
+      console.log('resort bombs');
+      bombs = [];
+      createBombLayout();
+
+      if (!field[clickedRow][clickedCol].hasBomb) {
+        showField(clickedCol, clickedRow);
+        return;
+      }
+    }
+    showField(clickedCol, clickedRow);
   }
+});
+
+function createBombLayout() {
+  console.log('start createBombLayout')
+  // clear field
+  for (let i = 0; i < ROWS; i++) {
+    for (let j = 0; j < COLS; j++) {
+      field[i][j].isOpen = false;
+      field[i][j].hasBomb = false;
+      field[i][j].bombCount = 0;
+    }
+  }
+
   while (bombs.length < BOMB_COUNT) {
     const row = Math.floor(Math.random() * ROWS);
     const col = Math.floor(Math.random() * COLS);
@@ -64,8 +90,28 @@ export const clickHandler = CANVAS.addEventListener("click", function(event) {
       field[row][col].hasBomb = true;
     }
   }
+  console.log('field')
   console.log(field)
+  console.log('bombs')
   console.log(bombs)
-  // Добавляем символ в ячейку
-  // ctx.fillText("X", x * cellSize + cellSize / 3, y * cellSize + 2 * cellSize / 3);
-});
+}
+
+let isFirstClick = true;
+
+function showField (clickedCol, clickedRow) {
+  if (isFirstClick) {
+    console.log('first click')
+    field[clickedRow][clickedCol].isOpen = true;
+    
+    field[clickedRow][clickedCol].bombCount = true;
+
+  } else {
+    console.log('second click')
+
+  }
+  console.log(clickedCol, clickedRow);
+      // ctx.fillStyle = "#f00";
+    // ctx.fillText("X", clickedCol * CELL_SIZE + CELL_SIZE / 3, clickedRow * CELL_SIZE + 2 * CELL_SIZE / 3);
+  isFirstClick = false;
+}
+
