@@ -18,7 +18,7 @@ let bombs = [];
 const CELL_SIZE = 35;
 const ROWS = 10;
 const COLS = 10;
-let BOMB_COUNT = 80;
+let BOMB_COUNT = 10;
 
 
 function draw() {
@@ -90,6 +90,68 @@ function createBombLayout() {
       field[row][col].hasBomb = true;
     }
   }
+  for (let i = 0; i < ROWS; i++) {
+    for (let j = 0; j < COLS; j++) {
+      if (field[i][j].hasBomb) {
+        if (i === 0) {
+          if (j === 0) {
+            field[i][j+1].bombCount += 1;
+            field[i+1][j].bombCount += 1;
+            field[i+1][j+1].bombCount += 1;
+          } else if (j < COLS - 1) {
+            field[i][j-1].bombCount += 1;
+            field[i][j+1].bombCount += 1;
+            field[i+1][j-1].bombCount += 1;
+            field[i+1][j].bombCount += 1;
+            field[i+1][j+1].bombCount += 1;
+          } else if (j === COLS - 1) {
+            field[i][j-1].bombCount += 1;
+            field[i+1][j-1].bombCount += 1;
+            field[i+1][j].bombCount += 1;
+          }
+        } else if (i === ROWS - 1) {
+          if (j === 0) {
+            field[i][j+1].bombCount += 1;
+            field[i-1][j].bombCount += 1;
+            field[i-1][j+1].bombCount += 1;
+          } else if (j < COLS - 1) {
+            field[i][j-1].bombCount += 1;
+            field[i][j+1].bombCount += 1;
+            field[i-1][j-1].bombCount += 1;
+            field[i-1][j].bombCount += 1;
+            field[i-1][j+1].bombCount += 1;
+          } else if (j === COLS - 1) {
+            field[i][j-1].bombCount += 1;
+            field[i-1][j-1].bombCount += 1;
+            field[i-1][j].bombCount += 1;
+          }
+        } else {
+          if (j === 0) {
+            field[i-1][j].bombCount += 1;
+            field[i-1][j+1].bombCount += 1;
+            field[i][j+1].bombCount += 1;
+            field[i+1][j].bombCount += 1;
+            field[i+1][j+1].bombCount += 1;
+          } else if (j === COLS - 1) {
+            field[i-1][j-1].bombCount += 1;
+            field[i-1][j].bombCount += 1;
+            field[i][j-1].bombCount += 1;
+            field[i+1][j-1].bombCount += 1;
+            field[i+1][j].bombCount += 1;
+          } else {
+            field[i-1][j-1].bombCount += 1;
+            field[i-1][j].bombCount += 1;
+            field[i-1][j+1].bombCount += 1;
+            field[i][j-1].bombCount += 1;
+            field[i][j+1].bombCount += 1;
+            field[i+1][j-1].bombCount += 1;
+            field[i+1][j].bombCount += 1;
+            field[i+1][j+1].bombCount += 1;
+          }
+        }
+      }
+    }
+  }
   console.log('field')
   console.log(field)
   console.log('bombs')
@@ -101,17 +163,31 @@ let isFirstClick = true;
 function showField (clickedCol, clickedRow) {
   if (isFirstClick) {
     console.log('first click')
-    field[clickedRow][clickedCol].isOpen = true;
-    
-    field[clickedRow][clickedCol].bombCount = true;
 
   } else {
     console.log('second click')
 
   }
   console.log(clickedCol, clickedRow);
-      // ctx.fillStyle = "#f00";
-    // ctx.fillText("X", clickedCol * CELL_SIZE + CELL_SIZE / 3, clickedRow * CELL_SIZE + 2 * CELL_SIZE / 3);
+
+  // paint opened cells
+  field[clickedRow][clickedCol].isOpen = true;
+  if ((clickedCol + clickedRow) % 2 === 0) {
+    ctx.fillStyle = '#FFE5CC';
+  } else {
+    ctx.fillStyle = '#FFCC99';
+  }
+  ctx.fillRect(clickedCol * CELL_SIZE, clickedRow * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+
+  if (field[clickedRow][clickedCol].bombCount > 0) {
+    ctx.fillStyle = "#f00";
+    ctx.fillText(`${field[clickedRow][clickedCol].bombCount}`, clickedCol * CELL_SIZE + CELL_SIZE / 3, clickedRow * CELL_SIZE + 2 * CELL_SIZE / 3);
+  }
+  if (field[clickedRow][clickedCol].hasBomb) {
+    ctx.fillStyle = "#f00";
+    ctx.fillText('*', clickedCol * CELL_SIZE + CELL_SIZE / 3, clickedRow * CELL_SIZE + 2 * CELL_SIZE / 3);
+  }
+
   isFirstClick = false;
 }
 
