@@ -18,6 +18,29 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+
+.game-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 30px;
+  margin: 20px 0;
+}
+
+.select {
+
+}
+
+.level-option {
+
+}
+
+.button {
+  width: 100px;
+  height: 20px;
+  border: none;
 }
 
 .canvas {
