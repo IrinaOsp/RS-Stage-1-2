@@ -1,11 +1,9 @@
-import { draw } from './DOM-rendering';
+export const POPUP_BACK = document.createElement('div');
+export const POPUP = document.createElement('div');
+export const RESTART_GAME_BTN = document.createElement('button');
+export const GAME_OVER_TEXT = document.createElement('p');
 
-const POPUP_BACK = document.createElement('div');
-const POPUP = document.createElement('div');
-const RESTART_GAME_BTN = document.createElement('button');
-const GAME_OVER_TEXT = document.createElement('p');
-
-export const gameOverPopUp = () => {
+export function gameOverPopUp() {
   POPUP_BACK.className = 'popup-background';
   document.body.appendChild(POPUP_BACK);
 
@@ -20,10 +18,3 @@ export const gameOverPopUp = () => {
   RESTART_GAME_BTN.innerHTML = 'restart game';
   POPUP.appendChild(RESTART_GAME_BTN);
 }
-
-RESTART_GAME_BTN.addEventListener('click', event => {
-  draw();
-  POPUP.remove();
-  GAME_OVER_TEXT.remove();
-  POPUP_BACK.remove();
-})
