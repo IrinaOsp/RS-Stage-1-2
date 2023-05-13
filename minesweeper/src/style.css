@@ -47,3 +47,40 @@ body {
   background-color: grey;
   border:2px solid #333;
 }
+
+.popup-background {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: 100%;
+  background: rgba(41, 41, 41, 0.6);
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.popup {
+  position: relative;
+  width: 50%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  flex-direction: column;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: #FFFFFF;
+  box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
+  border-radius: 9px;
+}
+
+.popup-text {
+  text-align: center;
+}
+
+.restart-btn {
+  margin-bottom: 20px;
+}
+

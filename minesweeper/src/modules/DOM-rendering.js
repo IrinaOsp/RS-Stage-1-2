@@ -223,7 +223,6 @@ function showField (clickedCol, clickedRow, CELL_SIZE = 35) {
     ctx.fillText('*', clickedCol * CELL_SIZE + CELL_SIZE / 3, clickedRow * CELL_SIZE + 2 * CELL_SIZE / 3);
     stopTimer();
     gameOverPopUp();
-    alert('Game over. Try again')
   }
   // paint opened cells
   field[clickedRow][clickedCol].isOpen = true;
