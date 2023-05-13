@@ -11,116 +11,121 @@ const ctx = document.querySelector('canvas').getContext('2d');
 const field = [];
 let bombs = [];
 
-// const CELL_SIZE = 35;
-// const ROWS = 10;
-// const COLS = 10;
-// let BOMB_COUNT = 10;
+const CANVAS_PARAMS = {
+  CELL_SIZE: 35,
+  ROWS: 10,
+  COLS: 10,
+  BOMB_COUNT: 10,
+}
 
-export function draw(CELL_SIZE = 35, ROWS = 10, COLS = 10, BOMB_COUNT = 10) {
+// CELL_SIZE = 35, ROWS = 10, COLS = 10, BOMB_COUNT = 10
+export function draw() {
   console.log('start draw')
   const FIRST_COLOR = '#66ff66';
   const SECOND_COLOR = '#009900';
   
-  CANVAS.width = CELL_SIZE * COLS;
-  CANVAS.height = CELL_SIZE * ROWS;
+  CANVAS.width = this.CELL_SIZE * this.COLS;
+  CANVAS.height = this.CELL_SIZE * this.ROWS;
 // draw canvas field
-  for (let i = 0; i < ROWS; i++) {
+  for (let i = 0; i < this.ROWS; i++) {
     field.push([]);
-    for (let j = 0; j < COLS; j++) {
+    for (let j = 0; j < this.COLS; j++) {
       field[i].push({
         isOpen: false,
         hasBomb: false,
         bombCount: 0
       });
-      const x = j * CELL_SIZE;
-      const y = i * CELL_SIZE;
+      const x = j * this.CELL_SIZE;
+      const y = i * this.CELL_SIZE;
       const color = (i + j) % 2 === 0 ? FIRST_COLOR : SECOND_COLOR;
       ctx.fillStyle = color;
-      ctx.fillRect(j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+      ctx.fillRect(j * this.CELL_SIZE, i * this.CELL_SIZE, this.CELL_SIZE, this.CELL_SIZE);
     }
   }
 };
-draw();
+draw.call(CANVAS_PARAMS);
 
-export const clickHandler = (clickedCol, clickedRow, CELL_SIZE = 35, ROWS = 10, COLS = 10, BOMB_COUNT = 10) => {
-console.log('clickHandler', CELL_SIZE)
+function clickHandler(x, y) {
+console.log('clickHandler', this.CELL_SIZE)
+  const clickedCol = Math.floor(x / this.CELL_SIZE);
+  const clickedRow = Math.floor(y / this.CELL_SIZE);
   if (bombs.length > 0) {
     console.log('Бомбы уже расставлены')
-    showField(clickedCol, clickedRow, CELL_SIZE);
+    showField.call(CANVAS_PARAMS, clickedCol, clickedRow);
     return;
   } else {
-    createBombLayout(ROWS = 10, COLS = 10, BOMB_COUNT = 10);
+    createBombLayout.call(CANVAS_PARAMS);
     while (field[clickedRow][clickedCol].hasBomb) {
       console.log('resort bombs');
       bombs = [];
-      createBombLayout(ROWS = 10, COLS = 10, BOMB_COUNT = 10);
+      createBombLayout.call(CANVAS_PARAMS);
 
       if (!field[clickedRow][clickedCol].hasBomb) {
-        showField(clickedCol, clickedRow, CELL_SIZE);
+        showField.call(CANVAS_PARAMS, clickedCol, clickedRow);
         return;
       }
     }
-    showField(clickedCol, clickedRow, CELL_SIZE);
+    showField.call(CANVAS_PARAMS, clickedCol, clickedRow);
   }
 };
 
-CANVAS.addEventListener("click", (event, CELL_SIZE = 35) => {
-  const clickedCol = Math.floor(event.offsetX / CELL_SIZE);
-  const clickedRow = Math.floor(event.offsetY / CELL_SIZE);
-  clickHandler(clickedCol, clickedRow, CELL_SIZE);
+CANVAS.addEventListener("click", (event) => {
+  const x = event.offsetX;
+  const y = event.offsetY;
+  clickHandler.call(CANVAS_PARAMS, x, y);
 });
 
-function createBombLayout(ROWS = 10, COLS = 10, BOMB_COUNT = 10) {
+function createBombLayout() {
   console.log('start createBombLayout')
   // clear field
-  for (let i = 0; i < ROWS; i++) {
-    for (let j = 0; j < COLS; j++) {
+  for (let i = 0; i < this.ROWS; i++) {
+    for (let j = 0; j < this.COLS; j++) {
       field[i][j].isOpen = false;
       field[i][j].hasBomb = false;
       field[i][j].bombCount = 0;
     }
   }
 
-  while (bombs.length < BOMB_COUNT) {
-    const row = Math.floor(Math.random() * ROWS);
-    const col = Math.floor(Math.random() * COLS);
+  while (bombs.length < this.BOMB_COUNT) {
+    const row = Math.floor(Math.random() * this.ROWS);
+    const col = Math.floor(Math.random() * this.COLS);
 
     if (!field[row][col].hasBomb) {
       bombs.push({ row, col });
       field[row][col].hasBomb = true;
     }
   }
-  for (let i = 0; i < ROWS; i++) {
-    for (let j = 0; j < COLS; j++) {
+  for (let i = 0; i < this.ROWS; i++) {
+    for (let j = 0; j < this.COLS; j++) {
       if (field[i][j].hasBomb) {
         if (i === 0) {
           if (j === 0) {
             field[i][j+1].bombCount += 1;
             field[i+1][j].bombCount += 1;
             field[i+1][j+1].bombCount += 1;
-          } else if (j < COLS - 1) {
+          } else if (j < this.COLS - 1) {
             field[i][j-1].bombCount += 1;
             field[i][j+1].bombCount += 1;
             field[i+1][j-1].bombCount += 1;
             field[i+1][j].bombCount += 1;
             field[i+1][j+1].bombCount += 1;
-          } else if (j === COLS - 1) {
+          } else if (j === this.COLS - 1) {
             field[i][j-1].bombCount += 1;
             field[i+1][j-1].bombCount += 1;
             field[i+1][j].bombCount += 1;
           }
-        } else if (i === ROWS - 1) {
+        } else if (i === this.ROWS - 1) {
           if (j === 0) {
             field[i][j+1].bombCount += 1;
             field[i-1][j].bombCount += 1;
             field[i-1][j+1].bombCount += 1;
-          } else if (j < COLS - 1) {
+          } else if (j < this.COLS - 1) {
             field[i][j-1].bombCount += 1;
             field[i][j+1].bombCount += 1;
             field[i-1][j-1].bombCount += 1;
             field[i-1][j].bombCount += 1;
             field[i-1][j+1].bombCount += 1;
-          } else if (j === COLS - 1) {
+          } else if (j === this.COLS - 1) {
             field[i][j-1].bombCount += 1;
             field[i-1][j-1].bombCount += 1;
             field[i-1][j].bombCount += 1;
@@ -132,7 +137,7 @@ function createBombLayout(ROWS = 10, COLS = 10, BOMB_COUNT = 10) {
             field[i][j+1].bombCount += 1;
             field[i+1][j].bombCount += 1;
             field[i+1][j+1].bombCount += 1;
-          } else if (j === COLS - 1) {
+          } else if (j === this.COLS - 1) {
             field[i-1][j-1].bombCount += 1;
             field[i-1][j].bombCount += 1;
             field[i][j-1].bombCount += 1;
@@ -160,8 +165,8 @@ function createBombLayout(ROWS = 10, COLS = 10, BOMB_COUNT = 10) {
 
 let isFirstClick = true;
 
-function showField (clickedCol, clickedRow, CELL_SIZE = 35) {
-  console.log('showField', clickedCol, clickedRow, CELL_SIZE)
+function showField (clickedCol, clickedRow) {
+  console.log('showField', clickedCol, clickedRow, this.CELL_SIZE)
   if (isFirstClick) {
     console.log('first click')
     startTimer();
@@ -173,7 +178,7 @@ function showField (clickedCol, clickedRow, CELL_SIZE = 35) {
 
   if (field[clickedRow][clickedCol].hasBomb) {
     ctx.fillStyle = "#f00";
-    ctx.fillText('*', clickedCol * CELL_SIZE + CELL_SIZE / 3, clickedRow * CELL_SIZE + 2 * CELL_SIZE / 3);
+    ctx.fillText('*', clickedCol * this.CELL_SIZE + this.CELL_SIZE / 3, clickedRow * this.CELL_SIZE + 2 * this.CELL_SIZE / 3);
     stopTimer();
     gameOverPopUp();
   }
@@ -184,11 +189,11 @@ function showField (clickedCol, clickedRow, CELL_SIZE = 35) {
   } else {
     ctx.fillStyle = '#FFCC99';
   }
-  ctx.fillRect(clickedCol * CELL_SIZE, clickedRow * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+  ctx.fillRect(clickedCol * this.CELL_SIZE, clickedRow * this.CELL_SIZE, this.CELL_SIZE, this.CELL_SIZE);
 
   if (field[clickedRow][clickedCol].bombCount > 0) {
     ctx.fillStyle = "#f00";
-    ctx.fillText(`${field[clickedRow][clickedCol].bombCount}`, clickedCol * CELL_SIZE + CELL_SIZE / 3, clickedRow * CELL_SIZE + 2 * CELL_SIZE / 3);
+    ctx.fillText(`${field[clickedRow][clickedCol].bombCount}`, clickedCol * this.CELL_SIZE + this.CELL_SIZE / 3, clickedRow * this.CELL_SIZE + 2 * this.CELL_SIZE / 3);
   }
 
   isFirstClick = false;
@@ -196,7 +201,7 @@ function showField (clickedCol, clickedRow, CELL_SIZE = 35) {
 
 
 RESTART_GAME_BTN.addEventListener('click', event => {
-  draw();
+  draw.call(CANVAS_PARAMS);  // заменить на определение параметров
   POPUP.remove();
   GAME_OVER_TEXT.remove();
   POPUP_BACK.remove();
@@ -206,18 +211,27 @@ const changeGameLvl = document.querySelector('.select').addEventListener('input'
   switch (event.target.value) {
     case 'easy':
       console.log('easy');
-      CELL_SIZE = 35;
-      ROWS = 10;
-      COLS = 10;
-      BOMB_COUNT = 10;
+      CANVAS_PARAMS.CELL_SIZE = 35;
+      CANVAS_PARAMS.ROWS = 10;
+      CANVAS_PARAMS.COLS = 10;
+      CANVAS_PARAMS.BOMB_COUNT = 10;
+      draw.call(CANVAS_PARAMS);
       break;
     case 'medium':
       console.log('medium');
-      draw(30, 15, 15, 15);
+      CANVAS_PARAMS.CELL_SIZE = 30;
+      CANVAS_PARAMS.ROWS = 15;
+      CANVAS_PARAMS.COLS = 15;
+      CANVAS_PARAMS.BOMB_COUNT = 15;
+      draw.call(CANVAS_PARAMS);
       break;
     case 'hard':
       console.log('hard');
-      draw(25, 25, 25, 25);
+      CANVAS_PARAMS.CELL_SIZE = 25;
+      CANVAS_PARAMS.ROWS = 25;
+      CANVAS_PARAMS.COLS = 25;
+      CANVAS_PARAMS.BOMB_COUNT = 25;
+      draw.call(CANVAS_PARAMS);
       break;
     default:
       console.log('error on changeGameLvl')
