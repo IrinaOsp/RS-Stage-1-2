@@ -1,5 +1,5 @@
-let minutes = 0;
-let seconds = 0;
+export let minutes = 0;
+export let seconds = 0;
 let timer;
 
 export function startTimer() {
