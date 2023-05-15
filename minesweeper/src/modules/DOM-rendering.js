@@ -28,7 +28,7 @@ export function createLayout() {
   })
 
   const NEW_GAME_BTN = document.createElement('button');
-  NEW_GAME_BTN.className = 'button';
+  NEW_GAME_BTN.className = 'button new-game-button';
   NEW_GAME_BTN.innerText = 'NEW GAME';
   GAME_INFO.appendChild(NEW_GAME_BTN);
 

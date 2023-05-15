@@ -3,15 +3,17 @@ import './style.css';
 import { createLayout, CANVAS } from './modules/DOM-rendering';
 import { startTimer, stopTimer } from './modules/timer';
 import { gameOverPopUp, POPUP_BACK, POPUP, RESTART_GAME_BTN, GAME_OVER_TEXT } from './modules/game-over';
+import { openCell } from './modules/open-cell';
+import { rightClickHandler } from './modules/right-click';
 
 createLayout();
 
 const ctx = document.querySelector('canvas').getContext('2d');
 
-const field = [];
+export const field = [];
 let bombs = [];
 
-const CANVAS_PARAMS = {
+export const CANVAS_PARAMS = {
   CELL_SIZE: 35,
   ROWS: 10,
   COLS: 10,
@@ -27,12 +29,15 @@ export function draw() {
   CANVAS.width = this.CELL_SIZE * this.COLS;
   CANVAS.height = this.CELL_SIZE * this.ROWS;
 // draw canvas field
+  field.splice(0, field.length); //clean field
+  bombs.splice(0, bombs.length); //clean bombs
   for (let i = 0; i < this.ROWS; i++) {
     field.push([]);
     for (let j = 0; j < this.COLS; j++) {
       field[i].push({
         isOpen: false,
         hasBomb: false,
+        hasFlag: false,
         bombCount: 0
       });
       const x = j * this.CELL_SIZE;
@@ -50,7 +55,10 @@ console.log('clickHandler', this.CELL_SIZE)
   const clickedCol = Math.floor(x / this.CELL_SIZE);
   const clickedRow = Math.floor(y / this.CELL_SIZE);
   if (bombs.length > 0) {
-    console.log('Бомбы уже расставлены')
+    console.log('Бомбы уже расставлены');
+    if (field[clickedRow][clickedCol].hasFlag) {
+      return;
+    }
     showField.call(CANVAS_PARAMS, clickedCol, clickedRow);
     return;
   } else {
@@ -75,6 +83,13 @@ CANVAS.addEventListener("click", (event) => {
   clickHandler.call(CANVAS_PARAMS, x, y);
 });
 
+CANVAS.addEventListener("contextmenu", (event) => {
+  const x = event.offsetX;
+  const y = event.offsetY;
+  event.preventDefault();
+  rightClickHandler.call(CANVAS_PARAMS, x, y);
+});
+
 function createBombLayout() {
   console.log('start createBombLayout')
   // clear field
@@ -82,6 +97,7 @@ function createBombLayout() {
     for (let j = 0; j < this.COLS; j++) {
       field[i][j].isOpen = false;
       field[i][j].hasBomb = false;
+      field[i][j].hasFlag = false;
       field[i][j].bombCount = 0;
     }
   }
@@ -166,7 +182,7 @@ function createBombLayout() {
 let isFirstClick = true;
 
 function showField (clickedCol, clickedRow) {
-  console.log('showField', clickedCol, clickedRow, this.CELL_SIZE)
+  console.log('showField', 'col ' + clickedCol, 'row ' + clickedRow, this.CELL_SIZE)
   if (isFirstClick) {
     console.log('first click')
     startTimer();
@@ -176,35 +192,30 @@ function showField (clickedCol, clickedRow) {
   }
   console.log(clickedCol, clickedRow);
 
-  if (field[clickedRow][clickedCol].hasBomb) {
+  const CLICKED_CELL = field[clickedRow][clickedCol];
+
+  if (CLICKED_CELL.hasBomb) {
     ctx.fillStyle = "#f00";
     ctx.fillText('*', clickedCol * this.CELL_SIZE + this.CELL_SIZE / 3, clickedRow * this.CELL_SIZE + 2 * this.CELL_SIZE / 3);
     stopTimer();
     gameOverPopUp();
   }
   // paint opened cells
-  field[clickedRow][clickedCol].isOpen = true;
-  if ((clickedCol + clickedRow) % 2 === 0) {
-    ctx.fillStyle = '#FFE5CC';
-  } else {
-    ctx.fillStyle = '#FFCC99';
-  }
-  ctx.fillRect(clickedCol * this.CELL_SIZE, clickedRow * this.CELL_SIZE, this.CELL_SIZE, this.CELL_SIZE);
-
-  if (field[clickedRow][clickedCol].bombCount > 0) {
-    ctx.fillStyle = "#f00";
-    ctx.fillText(`${field[clickedRow][clickedCol].bombCount}`, clickedCol * this.CELL_SIZE + this.CELL_SIZE / 3, clickedRow * this.CELL_SIZE + 2 * this.CELL_SIZE / 3);
-  }
+  openCell.call(CANVAS_PARAMS, clickedCol, clickedRow);
 
   isFirstClick = false;
 }
 
-
 RESTART_GAME_BTN.addEventListener('click', event => {
-  draw.call(CANVAS_PARAMS);  // заменить на определение параметров
+  draw.call(CANVAS_PARAMS);
   POPUP.remove();
   GAME_OVER_TEXT.remove();
   POPUP_BACK.remove();
+})
+
+document.querySelector('.new-game-button').addEventListener('click', event => {
+  console.log(field);
+  draw.call(CANVAS_PARAMS);
 })
 
 const changeGameLvl = document.querySelector('.select').addEventListener('input', event => {
