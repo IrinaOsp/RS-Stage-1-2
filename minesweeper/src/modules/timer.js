@@ -1,9 +1,10 @@
-let timerInterval;
 let minutes = 0;
 let seconds = 0;
+let timer;
 
-export const startTimer = () => {
-  setInterval(function() {
+export function startTimer() {
+  console.log('start timer')
+  timer = setInterval(() => {
     seconds++;
     if (seconds === 60) {
       minutes++;
@@ -14,7 +15,10 @@ export const startTimer = () => {
   }, 1000);
 }
 
-export const stopTimer = () => {
+export function stopTimer () {
+  console.log('stop timer');
+  clearInterval(timer);
+  timer = null;
   minutes = 0;
   seconds = 0;
   document.querySelector('.minutes').innerHTML = '00';

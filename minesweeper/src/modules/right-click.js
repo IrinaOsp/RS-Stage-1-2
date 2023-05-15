@@ -26,11 +26,3 @@ export function rightClickHandler (x, y) {
   }
 
 }
-
-// const FIRST_COLOR = '#66ff66';
-// const SECOND_COLOR = '#009900';
-// const x = j * this.CELL_SIZE;
-// const y = i * this.CELL_SIZE;
-// const color = (i + j) % 2 === 0 ? FIRST_COLOR : SECOND_COLOR;
-// ctx.fillStyle = color;
-// ctx.fillRect(j * this.CELL_SIZE, i * this.CELL_SIZE, this.CELL_SIZE, this.CELL_SIZE);

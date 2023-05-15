@@ -207,7 +207,9 @@ function showField (clickedCol, clickedRow) {
 }
 
 RESTART_GAME_BTN.addEventListener('click', event => {
+  isFirstClick = true;
   draw.call(CANVAS_PARAMS);
+  stopTimer();
   POPUP.remove();
   GAME_OVER_TEXT.remove();
   POPUP_BACK.remove();
@@ -215,7 +217,9 @@ RESTART_GAME_BTN.addEventListener('click', event => {
 
 document.querySelector('.new-game-button').addEventListener('click', event => {
   console.log(field);
+  isFirstClick = true;
   draw.call(CANVAS_PARAMS);
+  stopTimer();
 })
 
 const changeGameLvl = document.querySelector('.select').addEventListener('input', event => {
