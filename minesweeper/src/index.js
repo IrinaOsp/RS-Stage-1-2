@@ -5,6 +5,7 @@ import { startTimer, stopTimer } from './modules/timer';
 import { gameOverPopUp, POPUP_BACK, POPUP, RESTART_GAME_BTN, GAME_OVER_TEXT } from './modules/game-over';
 import { openCell } from './modules/open-cell';
 import { rightClickHandler } from './modules/right-click';
+import { winGamePopup } from './modules/win-game'
 
 createLayout();
 
@@ -180,6 +181,7 @@ function createBombLayout() {
 }
 
 let isFirstClick = true;
+let openedCells;
 
 function showField (clickedCol, clickedRow) {
   console.log('showField', 'col ' + clickedCol, 'row ' + clickedRow, this.CELL_SIZE)
@@ -202,7 +204,19 @@ function showField (clickedCol, clickedRow) {
   }
   // paint opened cells
   openCell.call(CANVAS_PARAMS, clickedCol, clickedRow);
-
+  // game win
+  openedCells = 0;
+  for (let i = 0; i < this.ROWS; i++) {
+    for (let j = 0; j < this.COLS; j++) {
+      if (field[i][j].isOpen) {
+        openedCells += 1;
+      }
+    }
+  }
+  if (openedCells === this.COLS * this.ROWS - this.BOMB_COUNT) {
+    winGamePopup();
+  }
+  console.log('openedCells ' + openedCells)
   isFirstClick = false;
 }
 
@@ -253,3 +267,5 @@ const changeGameLvl = document.querySelector('.select').addEventListener('input'
       break;
   }
 });
+
+
