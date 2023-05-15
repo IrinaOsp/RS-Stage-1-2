@@ -13,6 +13,7 @@ const ctx = document.querySelector('canvas').getContext('2d');
 
 export const field = [];
 let bombs = [];
+export let clicksNum;
 
 export const CANVAS_PARAMS = {
   CELL_SIZE: 35,
@@ -23,6 +24,8 @@ export const CANVAS_PARAMS = {
 
 // CELL_SIZE = 35, ROWS = 10, COLS = 10, BOMB_COUNT = 10
 export function draw() {
+  clicksNum = 0;
+  document.querySelector('.clicks-num').innerHTML = clicksNum;
   console.log('start draw')
   const FIRST_COLOR = '#66ff66';
   const SECOND_COLOR = '#009900';
@@ -50,6 +53,7 @@ export function draw() {
   }
 };
 draw.call(CANVAS_PARAMS);
+
 
 function clickHandler(x, y) {
 console.log('clickHandler', this.CELL_SIZE)
@@ -185,12 +189,12 @@ let openedCells;
 
 function showField (clickedCol, clickedRow) {
   console.log('showField', 'col ' + clickedCol, 'row ' + clickedRow, this.CELL_SIZE)
+
   if (isFirstClick) {
     console.log('first click')
     startTimer();
   } else {
     console.log('second click')
-
   }
   console.log(clickedCol, clickedRow);
 
@@ -201,6 +205,10 @@ function showField (clickedCol, clickedRow) {
     ctx.fillText('*', clickedCol * this.CELL_SIZE + this.CELL_SIZE / 3, clickedRow * this.CELL_SIZE + 2 * this.CELL_SIZE / 3);
     stopTimer();
     gameOverPopUp();
+  }
+  if (!CLICKED_CELL.isOpen) {
+    clicksNum += 1;
+    document.querySelector('.clicks-num').innerHTML = clicksNum;
   }
   // paint opened cells
   openCell.call(CANVAS_PARAMS, clickedCol, clickedRow);

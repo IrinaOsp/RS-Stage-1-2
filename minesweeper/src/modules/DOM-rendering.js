@@ -27,6 +27,16 @@ export function createLayout() {
     SELECT_LEVEL.appendChild(LEVEL);
   })
 
+  const clicksField = document.createElement('p');
+  clicksField.className = 'clicks-field';
+  clicksField.innerHTML = 'number of clicks ';
+  GAME_INFO.appendChild(clicksField);
+
+  const numOfClicks = document.createElement('span');
+  numOfClicks.className = 'clicks-num';
+  numOfClicks.innerHTML = '0';
+  clicksField.appendChild(numOfClicks);
+
   const NEW_GAME_BTN = document.createElement('button');
   NEW_GAME_BTN.className = 'button new-game-button';
   NEW_GAME_BTN.innerText = 'NEW GAME';
