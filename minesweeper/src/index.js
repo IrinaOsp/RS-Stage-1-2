@@ -214,8 +214,9 @@ function showField (clickedCol, clickedRow) {
     gameOverPopUp();
   }
   if (!CLICKED_CELL.isOpen && !CLICKED_CELL.hasBomb) {
-    clicksNum += 1;
-    document.querySelector('.clicks-num').innerHTML = clicksNum;
+    clicksNum++;
+    document.querySelector('.clicks-num').textContent = '';
+    document.querySelector('.clicks-num').textContent = clicksNum;
     audioClick.play();
   }
   // paint opened cells
@@ -343,8 +344,7 @@ function setLocalStorage() {
   let currentTime = JSON.stringify([minutes, ':', seconds]);
   localStorage.setItem('Time', currentTime);
 
-  let numberOfClicks = document.querySelector('.clicks-num');
-  localStorage.setItem('number of clicks', numberOfClicks);
+  localStorage.setItem('number of clicks', clicksNum);
 }
 window.addEventListener('beforeunload', setLocalStorage);
 
@@ -357,13 +357,12 @@ function getLocalStorage() {
 
     isFirstClick = false;
     
-    // let fieldString = localStorage.getItem('game state');
     field = JSON.parse(localStorage.getItem('game state'));
     CANVAS_PARAMS = JSON.parse(localStorage.getItem('Canvas params'));
-     
+    clicksNum = localStorage.getItem('number of clicks')
     // startTimer(minutes, seconds);
     console.log(field)
-    // document.querySelector('.clicks-num').innerHTML = clicksNum;
+    document.querySelector('.clicks-num').textContent = clicksNum;
     const FIRST_COLOR = '#66ff66';
     const SECOND_COLOR = '#009900';
     
@@ -388,38 +387,6 @@ function getLocalStorage() {
           ctx.fillStyle = "#f00";
           ctx.fillText('F', j * CANVAS_PARAMS.CELL_SIZE + CANVAS_PARAMS.CELL_SIZE / 3, i * CANVAS_PARAMS.CELL_SIZE + 2 * CANVAS_PARAMS.CELL_SIZE / 3);
         }
-      // else if (field[i][j].bombCount > 0) {
-      //     if ((i + j) % 2 === 0) {
-      //       ctx.fillStyle = '#FFE5CC';
-      //     } else {
-      //       ctx.fillStyle = '#FFCC99';
-      //     }
-      //     ctx.fillRect(j * CANVAS_PARAMS.CELL_SIZE, i * CANVAS_PARAMS.CELL_SIZE, CANVAS_PARAMS.CELL_SIZE, CANVAS_PARAMS.CELL_SIZE);
-      //     switch (field[i][j].bombCount) {
-      //       case '1':
-      //         ctx.fillStyle = "blue";
-      //         break;
-      //       case '2':
-      //         ctx.fillStyle = "green";
-      //         break;
-      //       case '3':
-      //         ctx.fillStyle = "red";
-      //         break;
-      //       default:
-      //         ctx.fillStyle = "#f00";
-      //     }
-      //       ctx.fillText(`${field[i][j].bombCount}`, j * CANVAS_PARAMS.CELL_SIZE + CANVAS_PARAMS.CELL_SIZE / 3, i * CANVAS_PARAMS.CELL_SIZE + 2 * CANVAS_PARAMS.CELL_SIZE / 3);
-
-      //   } else {
-      //     if ((i + j) % 2 === 0) {
-      //       ctx.fillStyle = '#FFE5CC';
-      //     } else {
-      //       ctx.fillStyle = '#FFCC99';
-      //     }
-      //     ctx.fillRect(j * CANVAS_PARAMS.CELL_SIZE, i * CANVAS_PARAMS.CELL_SIZE, CANVAS_PARAMS.CELL_SIZE, CANVAS_PARAMS.CELL_SIZE);
-
-      //   }
-
       }
     }
     console.log(field)
@@ -429,3 +396,16 @@ function getLocalStorage() {
   }
 }
 window.addEventListener('load', getLocalStorage.call(CANVAS_PARAMS));
+
+window.addEventListener("resize", adjustCanvas);
+window.addEventListener("load", adjustCanvas);
+
+const adjustCanvas = () => {
+  if (window.innerWidth < 640) {
+    // CANVAS_PARAMS.CELL_SIZE
+  // } else if (window.innerWidth > 767 && window.innerWidth < 1280) {
+  //   return offset = 620
+  // } else {
+  //   return offset = 305
+  }
+}
