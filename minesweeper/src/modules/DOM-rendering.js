@@ -1,3 +1,5 @@
+import { startTimer } from "./timer";
+
 // create basic layout
 const CANVAS = document.createElement('canvas');
 
@@ -27,6 +29,24 @@ export function createLayout() {
     SELECT_LEVEL.appendChild(LEVEL);
   })
 
+  const SELECT_MINES = document.createElement('select');
+  SELECT_MINES.className = 'mines-input';
+  SELECT_MINES.setAttribute('name', 'custom mines');
+  GAME_INFO.appendChild(SELECT_MINES);
+
+  for (let i = 10; i < 100; i++) {
+    const MINES_NUM = document.createElement('option');
+    MINES_NUM.className = 'mines-num';
+    MINES_NUM.setAttribute('value', i);
+    MINES_NUM.innerText = i;
+    SELECT_MINES.appendChild(MINES_NUM);
+  }
+
+  const NEW_GAME_BTN = document.createElement('button');
+  NEW_GAME_BTN.className = 'button new-game-button';
+  NEW_GAME_BTN.innerText = 'NEW GAME';
+  GAME_INFO.appendChild(NEW_GAME_BTN);
+
   const clicksField = document.createElement('p');
   clicksField.className = 'clicks-field';
   clicksField.innerHTML = 'number of clicks ';
@@ -37,15 +57,18 @@ export function createLayout() {
   numOfClicks.innerHTML = '0';
   clicksField.appendChild(numOfClicks);
 
-  const NEW_GAME_BTN = document.createElement('button');
-  NEW_GAME_BTN.className = 'button new-game-button';
-  NEW_GAME_BTN.innerText = 'NEW GAME';
-  GAME_INFO.appendChild(NEW_GAME_BTN);
-
   const TIMER = document.createElement('div')
   GAME_INFO.appendChild(TIMER);
-
   const timerArr = ['00', ':', '00'];
+  if (localStorage.getItem('Time')) {
+    let currentTime = JSON.parse(localStorage.getItem('Time'));
+    let ind = 0;
+    for (let el of currentTime) {
+      timerArr[ind] = el;
+      ind++;
+    }
+    startTimer(timerArr[0], timerArr[2]);
+  }
   timerArr.forEach((el, index) => {
     const El = document.createElement('span');
     El.className = 'time';
@@ -57,6 +80,11 @@ export function createLayout() {
     El.innerHTML = el;
     TIMER.appendChild(El);
   })
+
+  const resultsBtn = document.createElement('button');
+  resultsBtn.className = 'button results-button';
+  resultsBtn.innerHTML = 'results';
+  GAME_INFO.appendChild(resultsBtn);
 
   WRAPPER.appendChild(CANVAS);
 };

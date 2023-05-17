@@ -1,5 +1,11 @@
 import { field, CANVAS_PARAMS } from "../index";
 
+function checkIfOpened (Col, Row) {
+  if (!field[Row][Col].isOpen) {
+    paintCell.call(CANVAS_PARAMS, Col, Row);
+    openCell.call(CANVAS_PARAMS, Col, Row);
+  }
+}
 
 export function openCell(clickedCol, clickedRow) {
   console.log('start openCell');
@@ -11,13 +17,6 @@ export function openCell(clickedCol, clickedRow) {
   }
 
   paintCell.call(CANVAS_PARAMS, clickedCol, clickedRow);
-
-  function checkIfOpened (Col, Row) {
-    if (!field[Row][Col].isOpen) {
-      paintCell.call(CANVAS_PARAMS, Col, Row);
-      openCell.call(CANVAS_PARAMS, Col, Row);
-    }
-  }
 
 // check neighbour cell
   if (CLICKED_CELL.bombCount === 0) {
@@ -80,16 +79,9 @@ export function openCell(clickedCol, clickedRow) {
       }
     }
   }
-
-
-  // if (field[clickedRow][clickedCol].bombCount > 0) {
-  //   ctx.fillStyle = "#f00";
-  //   ctx.fillText(`${field[clickedRow][clickedCol].bombCount}`, clickedCol * this.CELL_SIZE + this.CELL_SIZE / 3, clickedRow * this.CELL_SIZE + 2 * this.CELL_SIZE / 3);
-  // }
-
 }
 
-function paintCell(clickedCol, clickedRow) {
+export function paintCell(clickedCol, clickedRow) {
   const ctx = document.querySelector('canvas').getContext('2d');
   field[clickedRow][clickedCol].isOpen = true;
 
@@ -98,8 +90,8 @@ function paintCell(clickedCol, clickedRow) {
   } else {
     ctx.fillStyle = '#FFCC99';
   }
-
   ctx.fillRect(clickedCol * this.CELL_SIZE, clickedRow * this.CELL_SIZE, this.CELL_SIZE, this.CELL_SIZE);
+
   if (field[clickedRow][clickedCol].bombCount > 0) {
     switch (field[clickedRow][clickedCol].bombCount) {
       case 1:
@@ -132,5 +124,4 @@ function paintCell(clickedCol, clickedRow) {
     }
     ctx.fillText(`${field[clickedRow][clickedCol].bombCount}`, clickedCol * this.CELL_SIZE + this.CELL_SIZE / 3, clickedRow * this.CELL_SIZE + 2 * this.CELL_SIZE / 3);
   }
-
 }

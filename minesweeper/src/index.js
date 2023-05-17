@@ -1,9 +1,9 @@
 import './index.html';
 import './style.css';
 import { createLayout, CANVAS } from './modules/DOM-rendering';
-import { startTimer, stopTimer } from './modules/timer';
+import { minutes, seconds, startTimer, stopTimer } from './modules/timer';
 import { gameOverPopUp, POPUP_BACK, POPUP, RESTART_GAME_BTN, GAME_OVER_TEXT } from './modules/game-over';
-import { openCell } from './modules/open-cell';
+import { openCell, paintCell } from './modules/open-cell';
 import { rightClickHandler } from './modules/right-click';
 import { winGamePopup } from './modules/win-game'
 
@@ -11,11 +11,12 @@ createLayout();
 
 const ctx = document.querySelector('canvas').getContext('2d');
 
-export const field = [];
+export let field = [];
+console.log('fead change')
 let bombs = [];
 export let clicksNum;
 
-export const CANVAS_PARAMS = {
+export let CANVAS_PARAMS = {
   CELL_SIZE: 35,
   ROWS: 10,
   COLS: 10,
@@ -25,6 +26,8 @@ export const CANVAS_PARAMS = {
 // CELL_SIZE = 35, ROWS = 10, COLS = 10, BOMB_COUNT = 10
 export function draw() {
   clicksNum = 0;
+  isFirstClick = true;
+  stopTimer();
   document.querySelector('.clicks-num').innerHTML = clicksNum;
   console.log('start draw')
   const FIRST_COLOR = '#66ff66';
@@ -52,15 +55,18 @@ export function draw() {
     }
   }
 };
-draw.call(CANVAS_PARAMS);
+// draw.call(CANVAS_PARAMS);
 
 
 function clickHandler(x, y) {
-console.log('clickHandler', this.CELL_SIZE)
+console.log('start clickHandler', this.CELL_SIZE)
+console.log(field)
   const clickedCol = Math.floor(x / this.CELL_SIZE);
   const clickedRow = Math.floor(y / this.CELL_SIZE);
   if (bombs.length > 0) {
     console.log('Бомбы уже расставлены');
+    console.log(field);
+
     if (field[clickedRow][clickedCol].hasFlag) {
       return;
     }
@@ -188,7 +194,7 @@ let isFirstClick = true;
 let openedCells;
 
 function showField (clickedCol, clickedRow) {
-  console.log('showField', 'col ' + clickedCol, 'row ' + clickedRow, this.CELL_SIZE)
+  console.log('start showField', 'col ' + clickedCol, 'row ' + clickedRow, this.CELL_SIZE)
 
   if (isFirstClick) {
     console.log('first click')
@@ -204,11 +210,13 @@ function showField (clickedCol, clickedRow) {
     ctx.fillStyle = "#f00";
     ctx.fillText('*', clickedCol * this.CELL_SIZE + this.CELL_SIZE / 3, clickedRow * this.CELL_SIZE + 2 * this.CELL_SIZE / 3);
     stopTimer();
+    // audioFail.play();
     gameOverPopUp();
   }
-  if (!CLICKED_CELL.isOpen) {
+  if (!CLICKED_CELL.isOpen && !CLICKED_CELL.hasBomb) {
     clicksNum += 1;
     document.querySelector('.clicks-num').innerHTML = clicksNum;
+    audioClick.play();
   }
   // paint opened cells
   openCell.call(CANVAS_PARAMS, clickedCol, clickedRow);
@@ -244,6 +252,7 @@ document.querySelector('.new-game-button').addEventListener('click', event => {
   stopTimer();
 })
 
+// Game levels
 const changeGameLvl = document.querySelector('.select').addEventListener('input', event => {
   switch (event.target.value) {
     case 'easy':
@@ -252,6 +261,7 @@ const changeGameLvl = document.querySelector('.select').addEventListener('input'
       CANVAS_PARAMS.ROWS = 10;
       CANVAS_PARAMS.COLS = 10;
       CANVAS_PARAMS.BOMB_COUNT = 10;
+      document.querySelector('.mines-input').value = 10;
       draw.call(CANVAS_PARAMS);
       break;
     case 'medium':
@@ -259,7 +269,8 @@ const changeGameLvl = document.querySelector('.select').addEventListener('input'
       CANVAS_PARAMS.CELL_SIZE = 30;
       CANVAS_PARAMS.ROWS = 15;
       CANVAS_PARAMS.COLS = 15;
-      CANVAS_PARAMS.BOMB_COUNT = 15;
+      CANVAS_PARAMS.BOMB_COUNT = 30;
+      document.querySelector('.mines-input').value = 30;
       draw.call(CANVAS_PARAMS);
       break;
     case 'hard':
@@ -267,7 +278,8 @@ const changeGameLvl = document.querySelector('.select').addEventListener('input'
       CANVAS_PARAMS.CELL_SIZE = 25;
       CANVAS_PARAMS.ROWS = 25;
       CANVAS_PARAMS.COLS = 25;
-      CANVAS_PARAMS.BOMB_COUNT = 25;
+      CANVAS_PARAMS.BOMB_COUNT = 80;
+      document.querySelector('.mines-input').value = 80;
       draw.call(CANVAS_PARAMS);
       break;
     default:
@@ -276,4 +288,144 @@ const changeGameLvl = document.querySelector('.select').addEventListener('input'
   }
 });
 
+const changeMinesNum = document.querySelector('.mines-input').addEventListener('input', event => {
+  CANVAS_PARAMS.BOMB_COUNT = event.target.value;
+});
 
+// Audio
+const audioClick = new Audio('https://www.fesliyanstudios.com/play-mp3/2909');
+// path = './assets/sounds/stranger-things-clock-sound.mp3'
+// console.log(path)
+const audioFail = new Audio('./assets/sounds/stranger-things-clock-sound.mp3');
+
+//Game results
+const getGameResults = document.querySelector('.results-button').addEventListener('click', event => {
+  // let i=1;
+  // console.log(localStorage.getItem(`game time ${i} minutes`))
+  // console.log(localStorage.getItem(`game time ${i} seconds`))
+  // console.log(localStorage.getItem(`game time ${i} clicks`))
+  const gamesResults = {
+    minutes: 0,
+    seconds: 0,
+    clicks: 0
+  };
+  const gamesResultsArr = [];
+  for (let i = 1; i <= 10; i++) {
+      console.log('for ')
+      if (localStorage.getItem(`game time ${i} minutes`)) {
+        gamesResults.minutes = localStorage.getItem(`game time ${i} minutes`);
+      }
+      if (localStorage.getItem(`game time ${i} seconds`)) {
+        gamesResults.seconds = localStorage.getItem(`game time ${i} seconds`);
+      }
+      if (localStorage.getItem(`game time ${i} clicks`)) {
+        gamesResults.clicks = localStorage.getItem(`game time ${i} clicks`);
+        console.log('push')
+        gamesResultsArr.push(gamesResults);
+        console.log(gamesResultsArr)
+      }
+      console.log(gamesResults);
+
+  }
+  console.log(gamesResultsArr)
+});
+
+function setLocalStorage() {
+  console.log('start setLocalStorage')
+  let fieldString = JSON.stringify(field);
+  localStorage.setItem('game state', fieldString);
+
+  let canvasString = JSON.stringify(CANVAS_PARAMS);
+  localStorage.setItem('Canvas params', canvasString);
+
+  let minutes = document.querySelector('.minutes').innerHTML;
+  let seconds = document.querySelector('.seconds').innerHTML;
+  let currentTime = JSON.stringify([minutes, ':', seconds]);
+  localStorage.setItem('Time', currentTime);
+
+  let numberOfClicks = document.querySelector('.clicks-num');
+  localStorage.setItem('number of clicks', numberOfClicks);
+}
+window.addEventListener('beforeunload', setLocalStorage);
+
+function getLocalStorage() {
+  console.log('start getLocalStorage')
+  console.log(field)
+  console.log(localStorage.getItem('game state'))
+  if (localStorage.getItem('game state') && localStorage.getItem('game state') !== '[]') { //will work if empty arrow is saved []
+    console.log('has local stor')
+
+    isFirstClick = false;
+    
+    // let fieldString = localStorage.getItem('game state');
+    field = JSON.parse(localStorage.getItem('game state'));
+    CANVAS_PARAMS = JSON.parse(localStorage.getItem('Canvas params'));
+     
+    // startTimer(minutes, seconds);
+    console.log(field)
+    // document.querySelector('.clicks-num').innerHTML = clicksNum;
+    const FIRST_COLOR = '#66ff66';
+    const SECOND_COLOR = '#009900';
+    
+    CANVAS.width = CANVAS_PARAMS.CELL_SIZE * CANVAS_PARAMS.COLS;
+    CANVAS.height = CANVAS_PARAMS.CELL_SIZE * CANVAS_PARAMS.ROWS;
+  // draw canvas field
+    for (let i = 0; i < CANVAS_PARAMS.ROWS; i++) {
+      for (let j = 0; j < CANVAS_PARAMS.COLS; j++) {
+
+        if (field[i][j].hasBomb) {
+          bombs.push({ i, j })
+        }
+        if (field[i][j].isOpen) {
+          paintCell.call(CANVAS_PARAMS, j, i);
+        }
+        if (!field[i][j].isOpen) {
+          const color = (i + j) % 2 === 0 ? FIRST_COLOR : SECOND_COLOR;
+          ctx.fillStyle = color;
+          ctx.fillRect(j * CANVAS_PARAMS.CELL_SIZE, i * CANVAS_PARAMS.CELL_SIZE, CANVAS_PARAMS.CELL_SIZE, CANVAS_PARAMS.CELL_SIZE);
+        }
+        if (field[i][j].hasFlag) {
+          ctx.fillStyle = "#f00";
+          ctx.fillText('F', j * CANVAS_PARAMS.CELL_SIZE + CANVAS_PARAMS.CELL_SIZE / 3, i * CANVAS_PARAMS.CELL_SIZE + 2 * CANVAS_PARAMS.CELL_SIZE / 3);
+        }
+      // else if (field[i][j].bombCount > 0) {
+      //     if ((i + j) % 2 === 0) {
+      //       ctx.fillStyle = '#FFE5CC';
+      //     } else {
+      //       ctx.fillStyle = '#FFCC99';
+      //     }
+      //     ctx.fillRect(j * CANVAS_PARAMS.CELL_SIZE, i * CANVAS_PARAMS.CELL_SIZE, CANVAS_PARAMS.CELL_SIZE, CANVAS_PARAMS.CELL_SIZE);
+      //     switch (field[i][j].bombCount) {
+      //       case '1':
+      //         ctx.fillStyle = "blue";
+      //         break;
+      //       case '2':
+      //         ctx.fillStyle = "green";
+      //         break;
+      //       case '3':
+      //         ctx.fillStyle = "red";
+      //         break;
+      //       default:
+      //         ctx.fillStyle = "#f00";
+      //     }
+      //       ctx.fillText(`${field[i][j].bombCount}`, j * CANVAS_PARAMS.CELL_SIZE + CANVAS_PARAMS.CELL_SIZE / 3, i * CANVAS_PARAMS.CELL_SIZE + 2 * CANVAS_PARAMS.CELL_SIZE / 3);
+
+      //   } else {
+      //     if ((i + j) % 2 === 0) {
+      //       ctx.fillStyle = '#FFE5CC';
+      //     } else {
+      //       ctx.fillStyle = '#FFCC99';
+      //     }
+      //     ctx.fillRect(j * CANVAS_PARAMS.CELL_SIZE, i * CANVAS_PARAMS.CELL_SIZE, CANVAS_PARAMS.CELL_SIZE, CANVAS_PARAMS.CELL_SIZE);
+
+      //   }
+
+      }
+    }
+    console.log(field)
+  } else {
+    console.log('no local stor')
+    draw.call(CANVAS_PARAMS);
+  }
+}
+window.addEventListener('load', getLocalStorage.call(CANVAS_PARAMS));
