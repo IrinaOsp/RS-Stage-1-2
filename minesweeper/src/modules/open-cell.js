@@ -45,7 +45,7 @@ export function openCell(clickedCol, clickedRow) {
         checkIfOpened(clickedCol+1, clickedRow-1);
       } else if (clickedCol < this.COLS - 1) {
         checkIfOpened(clickedCol-1, clickedRow);
-        checkIfOpened(clickedCol, clickedRow);
+        checkIfOpened(clickedCol+1, clickedRow);
         checkIfOpened(clickedCol-1, clickedRow-1);
         checkIfOpened(clickedCol, clickedRow-1);
         checkIfOpened(clickedCol+1, clickedRow-1);
@@ -82,10 +82,10 @@ export function openCell(clickedCol, clickedRow) {
   }
 
 
-  if (field[clickedRow][clickedCol].bombCount > 0) {
-    ctx.fillStyle = "#f00";
-    ctx.fillText(`${field[clickedRow][clickedCol].bombCount}`, clickedCol * this.CELL_SIZE + this.CELL_SIZE / 3, clickedRow * this.CELL_SIZE + 2 * this.CELL_SIZE / 3);
-  }
+  // if (field[clickedRow][clickedCol].bombCount > 0) {
+  //   ctx.fillStyle = "#f00";
+  //   ctx.fillText(`${field[clickedRow][clickedCol].bombCount}`, clickedCol * this.CELL_SIZE + this.CELL_SIZE / 3, clickedRow * this.CELL_SIZE + 2 * this.CELL_SIZE / 3);
+  // }
 
 }
 
@@ -101,7 +101,35 @@ function paintCell(clickedCol, clickedRow) {
 
   ctx.fillRect(clickedCol * this.CELL_SIZE, clickedRow * this.CELL_SIZE, this.CELL_SIZE, this.CELL_SIZE);
   if (field[clickedRow][clickedCol].bombCount > 0) {
-    ctx.fillStyle = "#f00";
+    switch (field[clickedRow][clickedCol].bombCount) {
+      case 1:
+        ctx.fillStyle = "#3A5FE5";
+        break;
+      case 2:
+        ctx.fillStyle = "#073E1E";
+        break;
+      case 3:
+        ctx.fillStyle = "#f00";
+        break;
+      case 4:
+        ctx.fillStyle = "#1E193C";
+        break;
+      case 5:
+        ctx.fillStyle = "#964B00";
+        break;
+      case 6:
+        ctx.fillStyle = "#0d98ba";
+        break;
+      case 7:
+        ctx.fillStyle = "#000";
+        break;
+      case 8:
+        ctx.fillStyle = "#fff";
+        break;
+      default:
+        console.log('default')
+        ctx.fillStyle = "#f00";
+    }
     ctx.fillText(`${field[clickedRow][clickedCol].bombCount}`, clickedCol * this.CELL_SIZE + this.CELL_SIZE / 3, clickedRow * this.CELL_SIZE + 2 * this.CELL_SIZE / 3);
   }
 
