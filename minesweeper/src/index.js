@@ -339,6 +339,12 @@ function setLocalStorage() {
   let canvasString = JSON.stringify(CANVAS_PARAMS);
   localStorage.setItem('Canvas params', canvasString);
 
+  let gameLvl = document.querySelector('.select').value;
+  localStorage.setItem('game level', gameLvl);
+
+  let minesNum = document.querySelector('.mines-input').value;
+  localStorage.setItem('mines number', minesNum);
+
   let minutes = document.querySelector('.minutes').innerHTML;
   let seconds = document.querySelector('.seconds').innerHTML;
   let currentTime = JSON.stringify([minutes, ':', seconds]);
@@ -363,6 +369,8 @@ function getLocalStorage() {
     // startTimer(minutes, seconds);
     console.log(field)
     document.querySelector('.clicks-num').textContent = clicksNum;
+    document.querySelector('.select').value = localStorage.getItem('game level');
+    document.querySelector('.mines-input').value = localStorage.getItem('mines number');
     const FIRST_COLOR = '#66ff66';
     const SECOND_COLOR = '#009900';
     

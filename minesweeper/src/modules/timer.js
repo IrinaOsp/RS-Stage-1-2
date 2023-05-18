@@ -11,10 +11,12 @@ export function startTimer(minutes = 0, seconds = 0) {
       seconds = 0;
     }
     if (minutes === 0) {
-      document.querySelector('.minutes').innerHTML = '00';
+      document.querySelector('.minutes').textContent = '00';
     }
-    document.querySelector('.minutes').innerHTML = minutes < 10 ? '0' + minutes : minutes;
-    document.querySelector('.seconds').innerHTML = seconds < 10 ? '0' + seconds : seconds;
+    document.querySelector('.minutes').textContent = minutes < 10 ? '0' + minutes : minutes;
+    let minutesTextcontent = document.querySelector('.minutes').textContent;
+    document.querySelector('.minutes').textContent = minutesTextcontent.slice(minutesTextcontent.length-2, minutesTextcontent.length);
+    document.querySelector('.seconds').textContent = seconds < 10 ? '0' + seconds : seconds;
   }, 1000);
 }
 
@@ -24,6 +26,6 @@ export function stopTimer () {
   timer = null;
   minutes = 0;
   seconds = 0;
-  document.querySelector('.minutes').innerHTML = '00';
-  document.querySelector('.seconds').innerHTML = '00';
+  document.querySelector('.minutes').textContent = '00';
+  document.querySelector('.seconds').textContent = '00';
 }
