@@ -62,13 +62,20 @@ module.exports = {
         },
       },
       {
-        test: /\.(jpe?g|png|webp|gif|svg|mp3)$/i,
+        test: /\.(jpe?g|png|webp|gif|svg)$/i,
         use: [
           {
             loader: 'file-loader',
           },
         ],
         type: 'asset/resource',
+      },
+      {
+        test: /\.mp3$/i,
+        loader: 'file-loader',
+        generator: {
+          filename: 'asset/sounds/[name][ext]',
+        },
       },
       {
         test: /\.m?js$/i,

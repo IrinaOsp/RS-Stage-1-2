@@ -1,9 +1,12 @@
 import { POPUP_BACK, POPUP, RESTART_GAME_BTN, GAME_OVER_TEXT } from "./game-over";
 import { clicksNum } from "../index";
+import audioWin from "../assets/sounds/Stranger_Things.mp3"
 // import { minutes, seconds } from "./timer";
 
 let gameCount = 1;
 const winnedGames = [];
+
+export const musicWin = new Audio(audioWin);
 
 export function winGamePopup() {
   POPUP_BACK.className = 'popup-background';
@@ -20,6 +23,7 @@ export function winGamePopup() {
   RESTART_GAME_BTN.className = 'restart-btn';
   RESTART_GAME_BTN.innerHTML = 'restart game';
   POPUP.appendChild(RESTART_GAME_BTN);
+  musicWin.play();
 
   winnedGames.push(gameCount);
   winnedGames.push(minutes);

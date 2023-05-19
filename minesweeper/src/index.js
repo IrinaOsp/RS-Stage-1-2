@@ -5,7 +5,10 @@ import { startTimer, stopTimer } from './modules/timer';
 import { gameOverPopUp, POPUP_BACK, POPUP, RESTART_GAME_BTN, GAME_OVER_TEXT } from './modules/game-over';
 import { openCell, paintCell } from './modules/open-cell';
 import { rightClickHandler } from './modules/right-click';
-import { winGamePopup } from './modules/win-game'
+import { winGamePopup } from './modules/win-game';
+import audioFail from './assets/sounds/stranger-things-clock-sound.mp3';
+import audioClick from './assets/sounds/VideoGameMenuSoundsMenu.mp3';
+import { musicWin } from './modules/win-game';
 
 createLayout();
 
@@ -210,14 +213,14 @@ function showField (clickedCol, clickedRow) {
     ctx.fillStyle = "#f00";
     ctx.fillText('*', clickedCol * this.CELL_SIZE + this.CELL_SIZE / 3, clickedRow * this.CELL_SIZE + 2 * this.CELL_SIZE / 3);
     stopTimer();
-    // audioFail.play();
+    musicFail.play();
     gameOverPopUp();
   }
   if (!CLICKED_CELL.isOpen && !CLICKED_CELL.hasBomb) {
     clicksNum++;
     document.querySelector('.clicks-num').textContent = '';
     document.querySelector('.clicks-num').textContent = clicksNum;
-    // audioClick.play();
+    soundClick.play();
   }
   // paint opened cells
   openCell.call(CANVAS_PARAMS, clickedCol, clickedRow);
@@ -244,6 +247,8 @@ RESTART_GAME_BTN.addEventListener('click', event => {
   POPUP.remove();
   GAME_OVER_TEXT.remove();
   POPUP_BACK.remove();
+  musicFail.pause();
+  musicWin.pause();
 })
 
 document.querySelector('.new-game-button').addEventListener('click', event => {
@@ -294,10 +299,10 @@ const changeMinesNum = document.querySelector('.mines-input').addEventListener('
 });
 
 // Audio
-// const audioClick = new Audio('https://www.fesliyanstudios.com/play-mp3/2909');
+const soundClick = new Audio(audioClick);
 
-// const audioFail = new Audio('./assets/sounds/stranger-things-clock-sound.mp3');
-
+const musicFail = new Audio(audioFail);
+console.log(typeof musicFail)
 //Game results
 const getGameResults = document.querySelector('.results-button').addEventListener('click', event => {
 

@@ -57,7 +57,8 @@ export function createLayout() {
   numOfClicks.innerHTML = '0';
   clicksField.appendChild(numOfClicks);
 
-  const TIMER = document.createElement('div')
+  const TIMER = document.createElement('div');
+  TIMER.className = 'timer';
   GAME_INFO.appendChild(TIMER);
   const timerArr = ['00', ':', '00'];
   if (localStorage.getItem('Time')) {
