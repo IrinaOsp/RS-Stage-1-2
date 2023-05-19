@@ -1,7 +1,7 @@
 import './index.html';
 import './style.css';
 import { createLayout, CANVAS } from './modules/DOM-rendering';
-import { minutes, seconds, startTimer, stopTimer } from './modules/timer';
+import { startTimer, stopTimer } from './modules/timer';
 import { gameOverPopUp, POPUP_BACK, POPUP, RESTART_GAME_BTN, GAME_OVER_TEXT } from './modules/game-over';
 import { openCell, paintCell } from './modules/open-cell';
 import { rightClickHandler } from './modules/right-click';
@@ -217,7 +217,7 @@ function showField (clickedCol, clickedRow) {
     clicksNum++;
     document.querySelector('.clicks-num').textContent = '';
     document.querySelector('.clicks-num').textContent = clicksNum;
-    audioClick.play();
+    // audioClick.play();
   }
   // paint opened cells
   openCell.call(CANVAS_PARAMS, clickedCol, clickedRow);
@@ -294,41 +294,86 @@ const changeMinesNum = document.querySelector('.mines-input').addEventListener('
 });
 
 // Audio
-const audioClick = new Audio('https://www.fesliyanstudios.com/play-mp3/2909');
-// path = './assets/sounds/stranger-things-clock-sound.mp3'
-// console.log(path)
-const audioFail = new Audio('./assets/sounds/stranger-things-clock-sound.mp3');
+// const audioClick = new Audio('https://www.fesliyanstudios.com/play-mp3/2909');
+
+// const audioFail = new Audio('./assets/sounds/stranger-things-clock-sound.mp3');
 
 //Game results
 const getGameResults = document.querySelector('.results-button').addEventListener('click', event => {
-  // let i=1;
-  // console.log(localStorage.getItem(`game time ${i} minutes`))
-  // console.log(localStorage.getItem(`game time ${i} seconds`))
-  // console.log(localStorage.getItem(`game time ${i} clicks`))
-  const gamesResults = {
-    minutes: 0,
-    seconds: 0,
-    clicks: 0
-  };
+
   const gamesResultsArr = [];
   for (let i = 1; i <= 10; i++) {
-      console.log('for ')
-      if (localStorage.getItem(`game time ${i} minutes`)) {
-        gamesResults.minutes = localStorage.getItem(`game time ${i} minutes`);
-      }
-      if (localStorage.getItem(`game time ${i} seconds`)) {
-        gamesResults.seconds = localStorage.getItem(`game time ${i} seconds`);
-      }
-      if (localStorage.getItem(`game time ${i} clicks`)) {
-        gamesResults.clicks = localStorage.getItem(`game time ${i} clicks`);
-        console.log('push')
+    if (localStorage.getItem(`game ${i}`)) {
+        let gamesResults = JSON.parse(localStorage.getItem(`game ${i}`));
         gamesResultsArr.push(gamesResults);
-        console.log(gamesResultsArr)
-      }
-      console.log(gamesResults);
-
+    }
   }
-  console.log(gamesResultsArr)
+  console.log(gamesResultsArr);
+  POPUP_BACK.className = 'popup-background';
+  document.body.appendChild(POPUP_BACK);
+
+  const WINNED_GAMES_TABLE = document.createElement('table');
+  WINNED_GAMES_TABLE.className = 'results-table';
+  POPUP_BACK.appendChild(WINNED_GAMES_TABLE);
+  const TABLE_HEADER = document.createElement('thead');
+  WINNED_GAMES_TABLE.appendChild(TABLE_HEADER);
+  const TABLE_HEADER_ROW1 = document.createElement('tr');
+  TABLE_HEADER.appendChild(TABLE_HEADER_ROW1);
+  const TABLE_HEADER_ROW2 = document.createElement('tr');
+  TABLE_HEADER.appendChild(TABLE_HEADER_ROW2);
+
+  const TABLE_HEADER_CELL11 = document.createElement('th');
+  TABLE_HEADER_CELL11.setAttribute('colspan', 3);
+  TABLE_HEADER_CELL11.textContent = 'WINNED GAMES'
+  TABLE_HEADER_ROW1.appendChild(TABLE_HEADER_CELL11);
+
+  const TABLE_HEADER_CELL21 = document.createElement('th');
+  TABLE_HEADER_CELL21.textContent = 'GAME #';
+  TABLE_HEADER_ROW2.appendChild(TABLE_HEADER_CELL21);
+
+  const TABLE_HEADER_CELL22 = document.createElement('th');
+  TABLE_HEADER_CELL22.textContent = 'TIME';
+  TABLE_HEADER_ROW2.appendChild(TABLE_HEADER_CELL22);
+
+  const TABLE_HEADER_CELL23 = document.createElement('th');
+  TABLE_HEADER_CELL23.textContent = 'CLICKS';
+  TABLE_HEADER_ROW2.appendChild(TABLE_HEADER_CELL23);
+
+  const TABLE_BODY = document.createElement('tbody');
+  TABLE_BODY.className = 'results-table-body';
+  WINNED_GAMES_TABLE.appendChild(TABLE_BODY);
+
+  gamesResultsArr.forEach((el, ind) => {
+    console.log(el);
+    const TABLE_BODY_ROW = document.createElement('tr');
+    TABLE_BODY.appendChild(TABLE_BODY_ROW);
+    el.forEach((e, i) => {
+      const TABLE_BODY_CELL = document.createElement('td');
+      if (i === 0) {
+        TABLE_BODY_ROW.appendChild(TABLE_BODY_CELL);
+        TABLE_BODY_CELL.textContent = e;
+      } else if (i === 1 || i === 2) {
+        if (i === 1) {
+          TABLE_BODY_CELL.className = 'results-table-time';
+          TABLE_BODY_ROW.appendChild(TABLE_BODY_CELL);
+          TABLE_BODY_CELL.textContent = e + ' : ';
+        } else if (i === 2) {
+          console.log(document.querySelectorAll('.results-table-time')[ind].textContent)
+          document.querySelectorAll('.results-table-time')[ind].textContent += e;
+        }
+      } else {
+        TABLE_BODY_ROW.appendChild(TABLE_BODY_CELL);
+        TABLE_BODY_CELL.textContent = e;
+      }
+    })
+  })
+  document.querySelector('.popup-background').addEventListener('click', event => {
+    while (POPUP_BACK.firstChild) {
+      POPUP_BACK.removeChild(POPUP_BACK.firstChild);
+    }
+    POPUP_BACK.remove();
+  })
+
 });
 
 function setLocalStorage() {
@@ -356,8 +401,6 @@ window.addEventListener('beforeunload', setLocalStorage);
 
 function getLocalStorage() {
   console.log('start getLocalStorage')
-  console.log(field)
-  console.log(localStorage.getItem('game state'))
   if (localStorage.getItem('game state') && localStorage.getItem('game state') !== '[]') { //will work if empty arrow is saved []
     console.log('has local stor')
 
@@ -371,6 +414,7 @@ function getLocalStorage() {
     document.querySelector('.clicks-num').textContent = clicksNum;
     document.querySelector('.select').value = localStorage.getItem('game level');
     document.querySelector('.mines-input').value = localStorage.getItem('mines number');
+
     const FIRST_COLOR = '#66ff66';
     const SECOND_COLOR = '#009900';
     
@@ -405,8 +449,8 @@ function getLocalStorage() {
 }
 window.addEventListener('load', getLocalStorage.call(CANVAS_PARAMS));
 
-window.addEventListener("resize", adjustCanvas);
-window.addEventListener("load", adjustCanvas);
+// window.addEventListener("resize", adjustCanvas);
+// window.addEventListener("load", adjustCanvas);
 
 const adjustCanvas = () => {
   if (window.innerWidth < 640) {

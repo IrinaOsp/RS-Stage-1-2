@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'Roboto', sans-serif;
   src: url('./assets/fonts/Roboto-Regular.ttf'), 
-    url(./assets/fonts/Roboto-Bold.ttf);
+    url('./assets/fonts/Roboto-Bold.ttf');
 }
 
 * {
@@ -9,7 +9,7 @@
 }
 
 body {
-  font: 14px/1.2 Roboto;
+  font: 14px/1.2 'Roboto', sans-serif;
 }
 
 .wrapper {
@@ -31,11 +31,11 @@ body {
 }
 
 .select {
-
+  font: 14px/1.2 'Roboto', sans-serif;
 }
 
 .level-option {
-
+  font: 14px/1.2 'Roboto', sans-serif;
 }
 
 .button {
@@ -43,10 +43,12 @@ body {
   height: 20px;
   border: none;
   cursor: pointer;
+  font: 14px/1.2 'Roboto', sans-serif;
 }
 
 .mines-input {
   /* width: 50px; */
+  font: 14px/1.2 'Roboto', sans-serif;
 }
 
 .canvas {
@@ -90,3 +92,16 @@ body {
   margin-bottom: 20px;
 }
 
+.results-table {
+  width: 300px;
+  height: fit-content;
+  border: #333 solid;
+  margin: 0 auto;
+  background-color: #FFFFFF;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.results-table-body, tr, td, th {
+  border: #333 solid 0.5px;
+}
