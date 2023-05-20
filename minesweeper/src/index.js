@@ -403,9 +403,6 @@ function setLocalStorage() {
 }
 window.addEventListener('beforeunload', setLocalStorage);
 
-const FLAG_IMG = new Image();
-FLAG_IMG.src = bulb;
-
 function getLocalStorage() {
   console.log('start getLocalStorage')
   if (localStorage.getItem('game state') && localStorage.getItem('game state') !== '[]') { //will work if empty arrow is saved []
@@ -431,16 +428,20 @@ function getLocalStorage() {
         if (field[i][j].hasBomb) {
           bombs.push({ i, j })
         }
-        if (field[i][j].isOpen) {
-          paintCell.call(CANVAS_PARAMS, j, i);
-        }
         if (!field[i][j].isOpen) {
           const color = (i + j) % 2 === 0 ? FIRST_COLOR : SECOND_COLOR;
           ctx.fillStyle = color;
           ctx.fillRect(j * CANVAS_PARAMS.CELL_SIZE, i * CANVAS_PARAMS.CELL_SIZE, CANVAS_PARAMS.CELL_SIZE, CANVAS_PARAMS.CELL_SIZE);
         }
         if (field[i][j].hasFlag) {
-          ctx.drawImage(FLAG_IMG, j * CANVAS_PARAMS.CELL_SIZE, i * CANVAS_PARAMS.CELL_SIZE, CANVAS_PARAMS.CELL_SIZE, CANVAS_PARAMS.CELL_SIZE);
+          const FLAG_IMG = new Image();
+          FLAG_IMG.src = bulb;
+          FLAG_IMG.onload = function() {
+            ctx.drawImage(FLAG_IMG, j * CANVAS_PARAMS.CELL_SIZE, i * CANVAS_PARAMS.CELL_SIZE, CANVAS_PARAMS.CELL_SIZE, CANVAS_PARAMS.CELL_SIZE);
+          };
+        }
+        if (field[i][j].isOpen) {
+          paintCell.call(CANVAS_PARAMS, j, i);
         }
       }
     }
