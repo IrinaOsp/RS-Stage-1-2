@@ -7,6 +7,9 @@ function checkIfOpened (Col, Row) {
   }
 }
 
+const FIRST_COLOR_OPEN = '#EDEEF1';
+const SECOND_COLOR_OPEN = '#768591';
+
 export function openCell(clickedCol, clickedRow) {
   console.log('start openCell');
   const ctx = document.querySelector('canvas').getContext('2d');
@@ -86,9 +89,9 @@ export function paintCell(clickedCol, clickedRow) {
   field[clickedRow][clickedCol].isOpen = true;
 
   if ((clickedCol + clickedRow) % 2 === 0) {
-    ctx.fillStyle = '#FFE5CC';
+    ctx.fillStyle = FIRST_COLOR_OPEN;
   } else {
-    ctx.fillStyle = '#FFCC99';
+    ctx.fillStyle = SECOND_COLOR_OPEN;
   }
   ctx.fillRect(clickedCol * this.CELL_SIZE, clickedRow * this.CELL_SIZE, this.CELL_SIZE, this.CELL_SIZE);
 
@@ -122,6 +125,7 @@ export function paintCell(clickedCol, clickedRow) {
         console.log('default')
         ctx.fillStyle = "#f00";
     }
+    ctx.font = 'bold 20px serif';
     ctx.fillText(`${field[clickedRow][clickedCol].bombCount}`, clickedCol * this.CELL_SIZE + this.CELL_SIZE / 3, clickedRow * this.CELL_SIZE + 2 * this.CELL_SIZE / 3);
   }
 }

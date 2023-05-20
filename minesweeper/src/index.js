@@ -5,17 +5,17 @@ import { startTimer, stopTimer } from './modules/timer';
 import { gameOverPopUp, POPUP_BACK, POPUP, RESTART_GAME_BTN, GAME_OVER_TEXT } from './modules/game-over';
 import { openCell, paintCell } from './modules/open-cell';
 import { rightClickHandler } from './modules/right-click';
-import { winGamePopup } from './modules/win-game';
+import { winGamePopup, musicWin } from './modules/win-game';
 import audioFail from './assets/sounds/stranger-things-clock-sound.mp3';
 import audioClick from './assets/sounds/VideoGameMenuSoundsMenu.mp3';
-import { musicWin } from './modules/win-game';
+import img from './assets/img/images.jpg';
+import bulb from './assets/img/bulb.png';
 
 createLayout();
 
 const ctx = document.querySelector('canvas').getContext('2d');
 
 export let field = [];
-console.log('fead change')
 let bombs = [];
 export let clicksNum;
 
@@ -24,17 +24,19 @@ export let CANVAS_PARAMS = {
   ROWS: 10,
   COLS: 10,
   BOMB_COUNT: 10,
-}
+};
 
-// CELL_SIZE = 35, ROWS = 10, COLS = 10, BOMB_COUNT = 10
+export const FIRST_COLOR = '#E52A29';
+export const SECOND_COLOR = '#040825';
+const BOMB_IMG = new Image();
+BOMB_IMG.src = img;
+
 export function draw() {
   clicksNum = 0;
   isFirstClick = true;
   stopTimer();
   document.querySelector('.clicks-num').innerHTML = clicksNum;
   console.log('start draw')
-  const FIRST_COLOR = '#66ff66';
-  const SECOND_COLOR = '#009900';
   
   CANVAS.width = this.CELL_SIZE * this.COLS;
   CANVAS.height = this.CELL_SIZE * this.ROWS;
@@ -58,8 +60,6 @@ export function draw() {
     }
   }
 };
-// draw.call(CANVAS_PARAMS);
-
 
 function clickHandler(x, y) {
 console.log('start clickHandler', this.CELL_SIZE)
@@ -210,8 +210,7 @@ function showField (clickedCol, clickedRow) {
   const CLICKED_CELL = field[clickedRow][clickedCol];
 
   if (CLICKED_CELL.hasBomb) {
-    ctx.fillStyle = "#f00";
-    ctx.fillText('*', clickedCol * this.CELL_SIZE + this.CELL_SIZE / 3, clickedRow * this.CELL_SIZE + 2 * this.CELL_SIZE / 3);
+    ctx.drawImage(BOMB_IMG, clickedCol * this.CELL_SIZE, clickedRow * this.CELL_SIZE, this.CELL_SIZE, this.CELL_SIZE);
     stopTimer();
     musicFail.play();
     gameOverPopUp();
@@ -404,6 +403,9 @@ function setLocalStorage() {
 }
 window.addEventListener('beforeunload', setLocalStorage);
 
+const FLAG_IMG = new Image();
+FLAG_IMG.src = bulb;
+
 function getLocalStorage() {
   console.log('start getLocalStorage')
   if (localStorage.getItem('game state') && localStorage.getItem('game state') !== '[]') { //will work if empty arrow is saved []
@@ -419,9 +421,6 @@ function getLocalStorage() {
     document.querySelector('.clicks-num').textContent = clicksNum;
     document.querySelector('.select').value = localStorage.getItem('game level');
     document.querySelector('.mines-input').value = localStorage.getItem('mines number');
-
-    const FIRST_COLOR = '#66ff66';
-    const SECOND_COLOR = '#009900';
     
     CANVAS.width = CANVAS_PARAMS.CELL_SIZE * CANVAS_PARAMS.COLS;
     CANVAS.height = CANVAS_PARAMS.CELL_SIZE * CANVAS_PARAMS.ROWS;
@@ -441,8 +440,7 @@ function getLocalStorage() {
           ctx.fillRect(j * CANVAS_PARAMS.CELL_SIZE, i * CANVAS_PARAMS.CELL_SIZE, CANVAS_PARAMS.CELL_SIZE, CANVAS_PARAMS.CELL_SIZE);
         }
         if (field[i][j].hasFlag) {
-          ctx.fillStyle = "#f00";
-          ctx.fillText('F', j * CANVAS_PARAMS.CELL_SIZE + CANVAS_PARAMS.CELL_SIZE / 3, i * CANVAS_PARAMS.CELL_SIZE + 2 * CANVAS_PARAMS.CELL_SIZE / 3);
+          ctx.drawImage(FLAG_IMG, j * CANVAS_PARAMS.CELL_SIZE, i * CANVAS_PARAMS.CELL_SIZE, CANVAS_PARAMS.CELL_SIZE, CANVAS_PARAMS.CELL_SIZE);
         }
       }
     }
