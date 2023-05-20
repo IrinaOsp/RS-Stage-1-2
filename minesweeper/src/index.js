@@ -280,7 +280,11 @@ const changeGameLvl = document.querySelector('.select').addEventListener('input'
       break;
     case 'hard':
       console.log('hard');
-      CANVAS_PARAMS.CELL_SIZE = 25;
+      if (window.innerWidth < 640) {
+        CANVAS_PARAMS.CELL_SIZE = 15;
+      } else {
+        CANVAS_PARAMS.CELL_SIZE = 25;
+      }
       CANVAS_PARAMS.ROWS = 25;
       CANVAS_PARAMS.COLS = 25;
       CANVAS_PARAMS.BOMB_COUNT = 80;
@@ -453,15 +457,16 @@ function getLocalStorage() {
 }
 window.addEventListener('load', getLocalStorage.call(CANVAS_PARAMS));
 
-// window.addEventListener("resize", adjustCanvas);
-// window.addEventListener("load", adjustCanvas);
-
 const adjustCanvas = () => {
   if (window.innerWidth < 640) {
-    // CANVAS_PARAMS.CELL_SIZE
-  // } else if (window.innerWidth > 767 && window.innerWidth < 1280) {
-  //   return offset = 620
-  // } else {
-  //   return offset = 305
+    if (document.querySelector('.select').value === 'hard') {
+      CANVAS_PARAMS.CELL_SIZE = 15;
+      draw.call(CANVAS_PARAMS);
+    }
+  } else if (window.innerWidth >= 640 && document.querySelector('.select').value === 'hard') {
+    CANVAS_PARAMS.CELL_SIZE = 25;
   }
 }
+
+window.addEventListener("resize", adjustCanvas);
+window.addEventListener("load", adjustCanvas);

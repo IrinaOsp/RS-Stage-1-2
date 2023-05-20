@@ -1,7 +1,7 @@
 import { field, CANVAS_PARAMS } from "../index";
 
 function checkIfOpened (Col, Row) {
-  if (!field[Row][Col].isOpen) {
+  if (!field[Row][Col].isOpen && !field[Row][Col].hasFlag) {
     paintCell.call(CANVAS_PARAMS, Col, Row);
     openCell.call(CANVAS_PARAMS, Col, Row);
   }
@@ -86,8 +86,10 @@ export function openCell(clickedCol, clickedRow) {
 
 export function paintCell(clickedCol, clickedRow) {
   const ctx = document.querySelector('canvas').getContext('2d');
+  if (field[clickedRow][clickedCol].hasFlag) {
+    return;
+  }
   field[clickedRow][clickedCol].isOpen = true;
-
   if ((clickedCol + clickedRow) % 2 === 0) {
     ctx.fillStyle = FIRST_COLOR_OPEN;
   } else {
@@ -125,7 +127,12 @@ export function paintCell(clickedCol, clickedRow) {
         console.log('default')
         ctx.fillStyle = "#f00";
     }
-    ctx.font = 'bold 20px serif';
-    ctx.fillText(`${field[clickedRow][clickedCol].bombCount}`, clickedCol * this.CELL_SIZE + this.CELL_SIZE / 3, clickedRow * this.CELL_SIZE + 2 * this.CELL_SIZE / 3);
+    if (this.CELL_SIZE < 25) {
+      ctx.font = 'bold 14px serif';
+      ctx.fillText(`${field[clickedRow][clickedCol].bombCount}`, clickedCol * this.CELL_SIZE + this.CELL_SIZE / 3, clickedRow * this.CELL_SIZE + 2 * this.CELL_SIZE / 2.5);
+    } else {
+      ctx.font = 'bold 20px serif';
+      ctx.fillText(`${field[clickedRow][clickedCol].bombCount}`, clickedCol * this.CELL_SIZE + this.CELL_SIZE / 3, clickedRow * this.CELL_SIZE + 2 * this.CELL_SIZE / 3);
+    }
   }
 }

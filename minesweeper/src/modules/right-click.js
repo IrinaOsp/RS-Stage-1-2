@@ -21,14 +21,14 @@ export function rightClickHandler (x, y) {
     // ctx.fillText('F', clickedCol * this.CELL_SIZE + this.CELL_SIZE / 3, clickedRow * this.CELL_SIZE + 2 * this.CELL_SIZE / 3);
   } else {
     field[clickedRow][clickedCol].hasFlag = false;
-    ctx.resetTransform();
+    ctx.clearRect(clickedCol * this.CELL_SIZE, clickedRow * this.CELL_SIZE, this.CELL_SIZE, this.CELL_SIZE);
     // ctx.fillStyle = FLAG_COLOR;
     // ctx.font = 'bold 20px serif';
     // ctx.clearRect(clickedCol * this.CELL_SIZE + this.CELL_SIZE / 3, clickedRow * this.CELL_SIZE -10 + 2 * this.CELL_SIZE / 3, 10, 10);
 
-  const color = (clickedRow + clickedCol) % 2 === 0 ? FIRST_COLOR : SECOND_COLOR;
+    const color = (clickedRow + clickedCol) % 2 === 0 ? FIRST_COLOR : SECOND_COLOR;
     ctx.fillStyle = color;
-    ctx.fillRect(clickedCol * this.CELL_SIZE - 1 + this.CELL_SIZE / 3, clickedRow * this.CELL_SIZE - 11 + 2 * this.CELL_SIZE / 3, 12, 12)
+    ctx.fillRect(clickedCol * this.CELL_SIZE, clickedRow * this.CELL_SIZE, this.CELL_SIZE, this.CELL_SIZE);
   }
 
 }
