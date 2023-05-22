@@ -4,7 +4,11 @@ import { startTimer } from "./timer";
 const CANVAS = document.createElement('canvas');
 
 export function createLayout() {
-  const WRAPPER = document.createElement('div');
+  const HEADER = document.createElement('header');
+  HEADER.className = 'header';
+  HEADER.textContent = 'stranger game';
+
+  const WRAPPER = document.createElement('main');
   WRAPPER.className = 'wrapper';
 
   const GAME_INFO = document.createElement('div');
@@ -16,6 +20,7 @@ export function createLayout() {
 
   CANVAS.className = 'canvas';
 
+  document.body.appendChild(HEADER);
   document.body.appendChild(WRAPPER);
   WRAPPER.appendChild(GAME_INFO);
   GAME_INFO.appendChild(SELECT_LEVEL);
@@ -88,6 +93,26 @@ export function createLayout() {
   GAME_INFO.appendChild(resultsBtn);
 
   WRAPPER.appendChild(CANVAS);
+
+  const FOOTER = document.createElement('footer');
+  FOOTER.className = 'footer';
+  document.body.appendChild(FOOTER);
+
+  const SOUND = document.createElement('button');
+  SOUND.className = 'sound-btn';
+  FOOTER.appendChild(SOUND);
+
+
+  const INPUT_COLOR_MODE = document.createElement('input');
+  INPUT_COLOR_MODE.className = 'color-mode-input'
+  INPUT_COLOR_MODE.type = 'checkbox';
+  INPUT_COLOR_MODE.id = 'switch-color';
+  FOOTER.appendChild(INPUT_COLOR_MODE);
+
+  const LABEL_COLOR_MODE = document.createElement('label');
+  LABEL_COLOR_MODE.className = 'color-mode';
+  LABEL_COLOR_MODE.setAttribute('for', 'switch-color');
+  FOOTER.appendChild(LABEL_COLOR_MODE);
 };
 
 export { CANVAS };

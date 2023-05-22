@@ -26,8 +26,8 @@ export let CANVAS_PARAMS = {
   BOMB_COUNT: 10,
 };
 
-export const FIRST_COLOR = '#E52A29';
-export const SECOND_COLOR = '#040825';
+export let FIRST_COLOR = '#E52A29'; //red
+export let SECOND_COLOR = '#040825'; //black
 const BOMB_IMG = new Image();
 BOMB_IMG.src = img;
 
@@ -36,7 +36,6 @@ export function draw() {
   isFirstClick = true;
   stopTimer();
   document.querySelector('.clicks-num').innerHTML = clicksNum;
-  console.log('start draw')
   
   CANVAS.width = this.CELL_SIZE * this.COLS;
   CANVAS.height = this.CELL_SIZE * this.ROWS;
@@ -62,14 +61,9 @@ export function draw() {
 };
 
 function clickHandler(x, y) {
-console.log('start clickHandler', this.CELL_SIZE)
-console.log(field)
   const clickedCol = Math.floor(x / this.CELL_SIZE);
   const clickedRow = Math.floor(y / this.CELL_SIZE);
   if (bombs.length > 0) {
-    console.log('Бомбы уже расставлены');
-    console.log(field);
-
     if (field[clickedRow][clickedCol].hasFlag) {
       return;
     }
@@ -78,7 +72,6 @@ console.log(field)
   } else {
     createBombLayout.call(CANVAS_PARAMS);
     while (field[clickedRow][clickedCol].hasBomb) {
-      console.log('resort bombs');
       bombs = [];
       createBombLayout.call(CANVAS_PARAMS);
 
@@ -105,7 +98,6 @@ CANVAS.addEventListener("contextmenu", (event) => {
 });
 
 function createBombLayout() {
-  console.log('start createBombLayout')
   // clear field
   for (let i = 0; i < this.ROWS; i++) {
     for (let j = 0; j < this.COLS; j++) {
@@ -187,25 +179,15 @@ function createBombLayout() {
       }
     }
   }
-  console.log('field')
-  console.log(field)
-  console.log('bombs')
-  console.log(bombs)
 }
 
 let isFirstClick = true;
 let openedCells;
 
 function showField (clickedCol, clickedRow) {
-  console.log('start showField', 'col ' + clickedCol, 'row ' + clickedRow, this.CELL_SIZE)
-
   if (isFirstClick) {
-    console.log('first click')
     startTimer();
-  } else {
-    console.log('second click')
   }
-  console.log(clickedCol, clickedRow);
 
   const CLICKED_CELL = field[clickedRow][clickedCol];
 
@@ -235,7 +217,6 @@ function showField (clickedCol, clickedRow) {
   if (openedCells === this.COLS * this.ROWS - this.BOMB_COUNT) {
     winGamePopup();
   }
-  console.log('openedCells ' + openedCells)
   isFirstClick = false;
 }
 
@@ -251,7 +232,6 @@ RESTART_GAME_BTN.addEventListener('click', event => {
 })
 
 document.querySelector('.new-game-button').addEventListener('click', event => {
-  console.log(field);
   isFirstClick = true;
   draw.call(CANVAS_PARAMS);
   stopTimer();
@@ -261,7 +241,6 @@ document.querySelector('.new-game-button').addEventListener('click', event => {
 const changeGameLvl = document.querySelector('.select').addEventListener('input', event => {
   switch (event.target.value) {
     case 'easy':
-      console.log('easy');
       CANVAS_PARAMS.CELL_SIZE = 35;
       CANVAS_PARAMS.ROWS = 10;
       CANVAS_PARAMS.COLS = 10;
@@ -270,7 +249,6 @@ const changeGameLvl = document.querySelector('.select').addEventListener('input'
       draw.call(CANVAS_PARAMS);
       break;
     case 'medium':
-      console.log('medium');
       CANVAS_PARAMS.CELL_SIZE = 30;
       CANVAS_PARAMS.ROWS = 15;
       CANVAS_PARAMS.COLS = 15;
@@ -279,7 +257,6 @@ const changeGameLvl = document.querySelector('.select').addEventListener('input'
       draw.call(CANVAS_PARAMS);
       break;
     case 'hard':
-      console.log('hard');
       if (window.innerWidth < 640) {
         CANVAS_PARAMS.CELL_SIZE = 15;
       } else {
@@ -292,7 +269,6 @@ const changeGameLvl = document.querySelector('.select').addEventListener('input'
       draw.call(CANVAS_PARAMS);
       break;
     default:
-      console.log('error on changeGameLvl')
       break;
   }
 });
@@ -305,7 +281,6 @@ const changeMinesNum = document.querySelector('.mines-input').addEventListener('
 const soundClick = new Audio(audioClick);
 
 const musicFail = new Audio(audioFail);
-console.log(typeof musicFail)
 //Game results
 const getGameResults = document.querySelector('.results-button').addEventListener('click', event => {
 
@@ -316,9 +291,9 @@ const getGameResults = document.querySelector('.results-button').addEventListene
         gamesResultsArr.push(gamesResults);
     }
   }
-  console.log(gamesResultsArr);
   POPUP_BACK.className = 'popup-background';
   document.body.appendChild(POPUP_BACK);
+  POPUP_BACK.style.opacity = 1;
 
   const WINNED_GAMES_TABLE = document.createElement('table');
   WINNED_GAMES_TABLE.className = 'results-table';
@@ -352,7 +327,6 @@ const getGameResults = document.querySelector('.results-button').addEventListene
   WINNED_GAMES_TABLE.appendChild(TABLE_BODY);
 
   gamesResultsArr.forEach((el, ind) => {
-    console.log(el);
     const TABLE_BODY_ROW = document.createElement('tr');
     TABLE_BODY.appendChild(TABLE_BODY_ROW);
     el.forEach((e, i) => {
@@ -366,7 +340,6 @@ const getGameResults = document.querySelector('.results-button').addEventListene
           TABLE_BODY_ROW.appendChild(TABLE_BODY_CELL);
           TABLE_BODY_CELL.textContent = e + ' : ';
         } else if (i === 2) {
-          console.log(document.querySelectorAll('.results-table-time')[ind].textContent)
           document.querySelectorAll('.results-table-time')[ind].textContent += e;
         }
       } else {
@@ -376,6 +349,11 @@ const getGameResults = document.querySelector('.results-button').addEventListene
     })
   })
   document.querySelector('.popup-background').addEventListener('click', event => {
+    if (POPUP_BACK.hasChildNodes) {
+      if (POPUP_BACK.firstChild.lastChild === RESTART_GAME_BTN) {
+        return;
+      }
+    }
     while (POPUP_BACK.firstChild) {
       POPUP_BACK.removeChild(POPUP_BACK.firstChild);
     }
@@ -385,7 +363,6 @@ const getGameResults = document.querySelector('.results-button').addEventListene
 });
 
 function setLocalStorage() {
-  console.log('start setLocalStorage')
   let fieldString = JSON.stringify(field);
   localStorage.setItem('game state', fieldString);
 
@@ -408,17 +385,12 @@ function setLocalStorage() {
 window.addEventListener('beforeunload', setLocalStorage);
 
 function getLocalStorage() {
-  console.log('start getLocalStorage')
   if (localStorage.getItem('game state') && localStorage.getItem('game state') !== '[]') { //will work if empty arrow is saved []
-    console.log('has local stor')
-
     isFirstClick = false;
-    
     field = JSON.parse(localStorage.getItem('game state'));
     CANVAS_PARAMS = JSON.parse(localStorage.getItem('Canvas params'));
     clicksNum = localStorage.getItem('number of clicks')
     // startTimer(minutes, seconds);
-    console.log(field)
     document.querySelector('.clicks-num').textContent = clicksNum;
     document.querySelector('.select').value = localStorage.getItem('game level');
     document.querySelector('.mines-input').value = localStorage.getItem('mines number');
@@ -449,9 +421,7 @@ function getLocalStorage() {
         }
       }
     }
-    console.log(field)
   } else {
-    console.log('no local stor')
     draw.call(CANVAS_PARAMS);
   }
 }
@@ -470,3 +440,33 @@ const adjustCanvas = () => {
 
 window.addEventListener("resize", adjustCanvas);
 window.addEventListener("load", adjustCanvas);
+const SOUND = document.querySelector('.sound-btn');
+SOUND.addEventListener('click', event => {
+  if (soundClick.volume !== 0) {
+    soundClick.volume = 0;
+    musicFail.volume = 0;
+    musicWin.volume = 0;
+  } else {
+    soundClick.volume = 1;
+    musicFail.volume = 1;
+    musicWin.volume = 1;
+  }
+  SOUND.classList.toggle('mute');
+})
+
+const INPUT_COLOR_MODE = document.querySelector('.color-mode-input');
+INPUT_COLOR_MODE.addEventListener('change', event => {
+  if (INPUT_COLOR_MODE.checked) {
+    SECOND_COLOR = '#3a5fe5'; //blue
+    document.body.classList.add('body-blue');
+    document.querySelector('.header').classList.add('header-blue');
+    document.querySelector('.game-info').classList.add('blue');
+    draw.call(CANVAS_PARAMS);
+  } else {
+    SECOND_COLOR = '#040825'; //black
+    document.body.classList.remove('body-blue');
+    document.querySelector('.header').classList.remove('header-blue');
+    document.querySelector('.game-info').classList.remove('blue');
+    draw.call(CANVAS_PARAMS);
+  }
+})

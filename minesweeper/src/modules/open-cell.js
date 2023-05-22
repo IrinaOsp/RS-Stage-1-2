@@ -11,7 +11,6 @@ const FIRST_COLOR_OPEN = '#EDEEF1';
 const SECOND_COLOR_OPEN = '#768591';
 
 export function openCell(clickedCol, clickedRow) {
-  console.log('start openCell');
   const ctx = document.querySelector('canvas').getContext('2d');
 
   const CLICKED_CELL = field[clickedRow][clickedCol];
@@ -124,7 +123,6 @@ export function paintCell(clickedCol, clickedRow) {
         ctx.fillStyle = "#fff";
         break;
       default:
-        console.log('default')
         ctx.fillStyle = "#f00";
     }
     if (this.CELL_SIZE < 25) {

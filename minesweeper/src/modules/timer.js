@@ -3,7 +3,6 @@ export let seconds = 0;
 let timer;
 
 export function startTimer(minutes = 0, seconds = 0) {
-  console.log('start timer')
   timer = setInterval(() => {
     seconds++;
     if (seconds === 60) {
@@ -21,7 +20,6 @@ export function startTimer(minutes = 0, seconds = 0) {
 }
 
 export function stopTimer () {
-  console.log('stop timer');
   clearInterval(timer);
   timer = null;
   minutes = 0;

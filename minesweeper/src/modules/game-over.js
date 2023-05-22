@@ -16,7 +16,7 @@ export function gameOverPopUp() {
     GAME_OVER_TEXT.innerHTML = 'Game over. Try again';
     POPUP.appendChild(GAME_OVER_TEXT);
 
-    RESTART_GAME_BTN.className = 'restart-btn';
+    RESTART_GAME_BTN.className = 'restart-btn button';
     RESTART_GAME_BTN.innerHTML = 'restart game';
     POPUP.appendChild(RESTART_GAME_BTN);
   }, 1000);
