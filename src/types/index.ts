@@ -9,7 +9,7 @@ export default interface NewsData {
     source: SourceName;
 }
 
-interface SourceName {
+export interface SourceName {
     id: string;
     name: string;
 }
