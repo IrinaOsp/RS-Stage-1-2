@@ -30,3 +30,22 @@ export interface SourcesData extends SourceName {
     name: string;
     url: string;
 }
+
+export type OptionsForLoader = {
+    sources?: string;
+};
+
+export type APIOption = {
+    apiKey: string;
+};
+
+export type URLOptions = APIOption & Partial<OptionsForLoader>;
+
+export enum ErrorsStatusCode {
+    OK = 200,
+    BadRequest = 400,
+    Unauthorized = 401,
+    NotFound = 404,
+    TooManyRequests = 429,
+    ServerError = 500,
+}
