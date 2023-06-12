@@ -1,5 +1,4 @@
-import { TopNewsData, NewsSources, SourcesData } from '../../types/index';
-import NewsData from '../../types/index';
+import { CombinedType, SourcesData } from '../../types/index';
 import News from './news/news';
 import Sources from './sources/sources';
 
@@ -12,12 +11,12 @@ export class AppView {
         this.sources = new Sources();
     }
 
-    public drawNews(data: TopNewsData): void {
-        const values: NewsData[] | never[] = data?.articles ? data?.articles : [];
+    public drawNews(data: CombinedType): void {
+        const values = data?.articles ? data?.articles : [];
         this.news.draw(values);
     }
 
-    public drawSources(data: NewsSources): void {
+    public drawSources(data: CombinedType): void {
         const values: SourcesData[] | never[] = data?.sources ? data?.sources : [];
         this.sources.draw(values);
     }

@@ -14,12 +14,9 @@ export interface SourceName {
     name: string;
 }
 
-export interface TopNewsData {
-    articles: NewsData[] | never[];
-}
-
 export interface NewsSources {
-    sources: SourcesData[] | never[];
+    sources?: SourcesData[] | never[];
+    articles?: NewsData[] | never[];
 }
 
 export interface SourcesData extends SourceName {
@@ -30,6 +27,8 @@ export interface SourcesData extends SourceName {
     name: string;
     url: string;
 }
+
+export type CombinedType = NewsData & NewsSources;
 
 export type OptionsForLoader = {
     sources?: string;

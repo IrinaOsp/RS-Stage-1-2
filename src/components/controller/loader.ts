@@ -26,10 +26,9 @@ class Loader {
         const urlOptions: URLOptions = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
-        Object.keys(urlOptions).forEach(([key, value]): void => {
+        Object.entries(urlOptions).forEach(([key, value]): void => {
             url += `${key}=${value ?? ''}&`;
         });
-
         return url.slice(0, -1);
     }
 
