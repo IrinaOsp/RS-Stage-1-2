@@ -1,0 +1,43 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.body {
+  display: flex;
+  justify-content: center;
+}
+.wrapper {
+  flex-grow: 3;
+}
+.main {
+  padding: 20px;
+}
+.task-header {
+  text-align: center;
+}
+.game-wrapper {
+  padding: 20px;
+  text-align: center;
+}
+.table {
+  margin: 0 auto;
+  padding: 10px;
+}
+.code-table {
+  display: flex;
+  border: 1px solid;
+}
+.editor-panel {
+  flex-grow: 1;
+}
+.code-panel {
+  display: flex;
+}
+.aside {
+  flex-grow: 1;
+  height: 100vh;
+  padding: 20px;
+  border: 1px solid;
+}
