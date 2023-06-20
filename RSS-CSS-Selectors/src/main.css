@@ -14,25 +14,23 @@
 .main {
   padding: 20px;
 }
-.task-header {
-  text-align: center;
-}
 .game-wrapper {
   padding: 20px;
   text-align: center;
 }
-.table {
+.grass {
   margin: 0 auto;
   padding: 10px;
+  
 }
-.code-table {
+.code-panel {
   display: flex;
   border: 1px solid;
 }
 .editor-panel {
   flex-grow: 1;
 }
-.code-panel {
+.code-panel-CSS, .code-panel-HTML {
   display: flex;
 }
 .aside {
@@ -40,4 +38,12 @@
   height: 100vh;
   padding: 20px;
   border: 1px solid;
+}
+.aside-levels-list {
+  list-style: "\2611"; /*зеленая галка \2705 */
+  padding-left: 15px;
+}
+.game-lvl {
+  padding: 10px;
+  font-size: 18px;
 }
