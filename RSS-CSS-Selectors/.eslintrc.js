@@ -19,6 +19,12 @@ module.exports = {
     'prettier/prettier': 'error',
     'no-console': 0,
     'class-methods-use-this': 'off',
-    '@typescript-eslint/no-explicit-any': 2,
+    '@typescript-eslint/no-explicit-any': 'error',
+    'import/extensions': 0,
+    'import/prefer-default-export': 0,
+    "import/no-unresolved": 0,
+    'import/no-unresolved': 'off',
+    "import/no-dynamic-require": 0,
+    "import/order": 1,
   },
 };
