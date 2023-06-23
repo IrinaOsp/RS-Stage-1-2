@@ -14,14 +14,21 @@
 .main {
   padding: 20px;
 }
+.game-task {
+  text-align: center;
+}
 .game-wrapper {
-  padding: 20px;
+  padding: 10px;
   text-align: center;
 }
 .grass {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
   margin: 0 auto;
-  padding: 10px;
-  
+  padding: 0 10px;
+  min-height: 250px;
+  background: url(./assets/img/grass.png) no-repeat bottom/80%;
 }
 .code-panel {
   display: flex;
@@ -46,4 +53,47 @@
 .game-lvl {
   padding: 10px;
   font-size: 18px;
+}
+dog {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 100px;
+  background: url(./assets/img/dog.png) no-repeat bottom/100%;
+}
+cat {
+  height: 100px;
+  width: 100px;
+  background: url(./assets/img/cat.png) no-repeat bottom/90%;
+}
+rug {
+  display: flex;
+  justify-content: center;
+  height: 100px;
+  min-width: 100px;
+  background: url(./assets/img/rug.png) no-repeat bottom/100%;
+}
+bench {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 185px;
+  min-width: 100px;
+  background: url(./assets/img/bench.png) no-repeat bottom/90%;
+}
+.corgi {
+  background: url(./assets/img/dog-corgi.png) no-repeat bottom/100%;
+}
+name {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  height: 20px;
+  width: 20px;
+  background: url(./assets/img/name-tag.png) no-repeat bottom/100%;
+}
+dog:has(name) {
+  margin-left: 10px;
 }
