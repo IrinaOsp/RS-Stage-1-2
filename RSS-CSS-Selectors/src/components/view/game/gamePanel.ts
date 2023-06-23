@@ -2,7 +2,7 @@ import { htmlCodeType, multiArr } from '../../../types/types';
 import levels from '../../data/levels';
 import DetectGameLvl from '../../controller/gameLvlDetector';
 
-class DrawGame {
+class GamePanelDrawer {
     public level: DetectGameLvl;
 
     public gameField: HTMLDivElement | null = document.querySelector('.grass');
@@ -66,4 +66,4 @@ class DrawGame {
 
 
 
-export default DrawGame;
+export default GamePanelDrawer;
