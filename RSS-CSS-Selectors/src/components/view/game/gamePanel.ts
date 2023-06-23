@@ -1,6 +1,6 @@
 import { htmlCodeType, multiArr } from '../../../types/types';
 import levels from '../../data/levels';
-import DetectGameLvl from './detectGameLvl';
+import DetectGameLvl from '../../controller/gameLvlDetector';
 
 class DrawGame {
     public level: DetectGameLvl;
@@ -17,10 +17,13 @@ class DrawGame {
         const gameTaskHeading: HTMLHeadingElement | null = document.querySelector('.game-task');
         if (gameTaskHeading !== null) gameTaskHeading.textContent = levelData['task'];
 
-        if (this.gameField) this.appendTags(levelData['htmlCode']);
+        if (this.gameField) {
+          this.appendTags(levelData['htmlCode']);
+          this.setActiveItems(levelData['selector']);
+        }
     }
 
-    public appendTags(arr: multiArr[], nodeEl: HTMLElement | null = this.gameField): void {
+    private appendTags(arr: multiArr[], nodeEl: HTMLElement | null = this.gameField): void {
 
         arr.forEach((el) => {
           if (nodeEl) {
@@ -39,7 +42,7 @@ class DrawGame {
         });
     }
 
-    public setAttributes(obj: htmlCodeType): HTMLElement {
+    private setAttributes(obj: htmlCodeType): HTMLElement {
       let newElement: HTMLElement = document.createElement(obj['tag']);
       Object.keys(obj).forEach((key, ind: number): void => {
         if (ind > 0) {
@@ -54,6 +57,10 @@ class DrawGame {
         }
       })
       return newElement;
+    }
+
+    private setActiveItems (selector: string) {
+      document.querySelectorAll(selector)?.forEach(el => el.classList.add('animated'));
     }
 }
 
