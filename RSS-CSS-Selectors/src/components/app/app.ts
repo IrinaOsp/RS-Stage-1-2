@@ -1,14 +1,19 @@
-import DrawGame from '../view/game/drawGame';
+import AppView from '../view/appView';
+import AppController from '../controller/appController';
 
 class App {
-    public game: DrawGame;
+    public view: AppView;
+
+    public gameController: AppController;
 
     constructor() {
-        this.game = new DrawGame();
+        this.view = new AppView();
+        this.gameController = new AppController();
     }
 
     public start(): void {
-        this.game.draw();
+        this.view.drawPage();
+        this.gameController.startGame();
     }
 }
 
