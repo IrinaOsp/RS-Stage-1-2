@@ -14,6 +14,7 @@ export class AppView {
     public drawPage(): void {
         this.game.draw();
         this.levelPanel.highlightCurrentLvl();
+        this.levelPanel.changeLvlafterClick();
     }
 }
 
