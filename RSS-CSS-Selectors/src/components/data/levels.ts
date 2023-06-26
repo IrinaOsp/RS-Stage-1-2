@@ -90,7 +90,7 @@ const levels: Record<string, LevelInfo> = {
     },
     level_7: {
         task: 'Select second dog on the bench',
-        selector: 'bench:nth-child(2)',
+        selector: 'bench dog:nth-child(2)',
         htmlCode: [{ tag: 'dog' }, [{ tag: 'bench' }, { tag: 'dog' }, { tag: 'dog' }, { tag: 'cat' }, { tag: 'dog' }]],
         //     <dog/>
         //     <bench/>
@@ -103,7 +103,7 @@ const levels: Record<string, LevelInfo> = {
     },
     level_8: {
         task: 'Select first dog',
-        selector: ':first-of-type ',
+        selector: 'dog:first-of-type ',
         htmlCode: [
             { tag: 'cat' },
             [{ tag: 'rug' }, { tag: 'cat' }],
