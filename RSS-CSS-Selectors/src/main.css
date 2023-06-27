@@ -51,6 +51,13 @@
 }
 .code-panel-CSS, .code-panel-HTML {
   display: flex;
+  width: 100%;
+}
+.code-wrapper {
+  width: calc(100% - 20px);
+}
+.code-input {
+  width: calc(100% - 70px);;
 }
 .aside {
   flex-grow: 1;
@@ -59,8 +66,11 @@
   border: 1px solid;
 }
 .aside-levels-list {
-  list-style: "\2611"; /*зеленая галка \2705 */
+  list-style: "\2611";
   padding-left: 15px;
+}
+.completed {
+  list-style: "\2705";
 }
 .game-lvl {
   padding: 10px;
@@ -70,7 +80,7 @@
 .current-lvl {
   background-color: rgb(239 236 167);
 }
-.reset_btn {
+.reset-btn {
   padding: 3px;
   margin-top: 20px;
 }
@@ -95,7 +105,7 @@ rug {
   display: flex;
   justify-content: center;
   height: 100px;
-  min-width: 100px;
+  min-width: 130px;
   background: url(./assets/img/rug.png) no-repeat bottom/100%;
 }
 bench {
@@ -119,6 +129,9 @@ name {
 }
 dog:has(name) {
   margin-left: 10px;
+}
+dog:hover, cat:hover, rug:hover, bench:hover, name:hover {
+  filter: drop-shadow(6px -2px 3px rgba(0, 0, 0, 0.5));
 }
 .animated {
   animation: heartbeat .5s cubic-bezier(0.245, 0.325, 0.510, 1.305) infinite alternate
@@ -156,3 +169,15 @@ dog:has(name) {
     transform: scale(0)
   }
 }
+
+
+/* .input-animated {
+  animation: animated-text 2s linear;
+  overflow: hidden;
+  white-space: nowrap;
+}
+/* text animation */
+/*@keyframes animated-text {
+  0% { width: 0; }
+  100% { width: 50%; }
+} */
