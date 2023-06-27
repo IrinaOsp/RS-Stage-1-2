@@ -15,6 +15,7 @@ export class AppView {
         this.game.draw();
         this.levelPanel.highlightCurrentLvl();
         this.levelPanel.changeLvlafterClick();
+        this.levelPanel.checkCompletedLvls();
     }
 }
 

@@ -34,7 +34,11 @@ export default class LevelPanel {
         }
     }
 
-    // public checkCompletedLvls(): void {
-
-    // }
+    public checkCompletedLvls(): void {
+        const completedLvlsStr: string | null = localStorage.getItem('completed_levels');
+        if (completedLvlsStr) JSON.parse(completedLvlsStr).forEach((el: string) => {
+            const lvlElement: Element = document.querySelectorAll('.game-lvl')[Number(el) - 1];
+            lvlElement.classList.add('completed');
+        });
+    }
 }
