@@ -18,6 +18,11 @@
 .game-task {
   text-align: center;
 }
+.help-btn {
+  display: inline-block;
+  margin: 15px 40% 15px;
+  padding: 3px;
+}
 .game-wrapper {
   padding: 10px;
   text-align: center;
@@ -65,6 +70,13 @@
 .current-lvl {
   background-color: rgb(239 236 167);
 }
+.reset_btn {
+  padding: 3px;
+  margin-top: 20px;
+}
+
+/* Custom elements style and animation */
+
 dog {
   position: relative;
   display: flex;
