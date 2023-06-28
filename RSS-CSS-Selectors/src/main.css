@@ -13,7 +13,7 @@
   flex-grow: 3;
 }
 .main {
-  padding: 20px;
+  padding: 10px 20px;
 }
 .game-task {
   text-align: center;
@@ -33,7 +33,7 @@
   align-items: flex-end;
   margin: 0 auto;
   padding: 0 10px;
-  min-height: 250px;
+  min-height: 230px;
   background: url(./assets/img/grass.png) no-repeat bottom/80%;
 }
 .code-panel {
@@ -85,6 +85,39 @@
   margin-top: 20px;
 }
 
+footer {
+  flex-shrink: 0;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 10px;
+}
+footer .year {
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+}
+footer .logo {
+  height: 50px;
+  width: 100px;
+}
+footer .logo-link:hover {
+  filter: invert(100%);
+}
+footer .logo-link {
+  filter: invert(70%);
+}
+footer .github {
+  height: 50px;
+  width: 50px;
+}
+footer .git-link {
+  filter: invert(70%);
+}
+footer .git-link:hover {
+  filter: invert(100%);
+}
 /* Custom elements style and animation */
 
 dog {
