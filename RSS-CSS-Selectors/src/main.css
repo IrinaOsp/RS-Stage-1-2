@@ -59,6 +59,10 @@
 .code-input {
   width: calc(100% - 70px);;
 }
+.HTML-code {
+  display: flex;
+  flex-direction: column;
+}
 .aside {
   flex-grow: 1;
   height: 100vh;

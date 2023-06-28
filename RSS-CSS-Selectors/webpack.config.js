@@ -55,6 +55,10 @@ module.exports = {
         test: /\.(png|jpg|svg|jpeg|gif)$/i,
         type: 'asset/resource',
       },
+      {
+        test: require.resolve('highlight.js'),
+        use: 'imports-loader?define=>false',
+      },
     ],
   },
   resolve: {
