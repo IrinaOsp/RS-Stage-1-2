@@ -1,4 +1,5 @@
 import DetectGameLvl from './gameLvlDetector';
+import eventEmitter from './eventEmitter/eventEmitter';
 import LevelPanel from '../view/game/levels/levelsPanel';
 
 export default class LevelController {
@@ -18,11 +19,11 @@ export default class LevelController {
     public changeLvlafterWin() {
         if (Number(this.level) >= 10) return;
         const currentLevel = Number(this.level) + 1;
+        eventEmitter.emit('levelChange', currentLevel);
         this.completedLvls.push(this.level);
         localStorage.setItem('completed_levels', JSON.stringify(this.completedLvls));
         localStorage.setItem('current_level', currentLevel.toString());
-        const lvlPanel = new LevelPanel();
-        lvlPanel.highlightCurrentLvl();
-        lvlPanel.checkCompletedLvls();
+        const levelPanel = new LevelPanel();
+        levelPanel.checkCompletedLvls();
     }
 }

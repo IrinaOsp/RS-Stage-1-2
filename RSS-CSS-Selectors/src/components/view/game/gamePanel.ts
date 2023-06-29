@@ -1,26 +1,29 @@
 import { htmlCodeType, multiArr } from '../../../types/types';
 import levels from '../../data/levels';
-import DetectGameLvl from '../../controller/gameLvlDetector';
+// import DetectGameLvl from '../../controller/gameLvlDetector';
+import eventEmitter from '../../controller/eventEmitter/eventEmitter';
 
 class GamePanelDrawer {
-    public level: DetectGameLvl;
+    // public level: number;
 
     public gameField: HTMLDivElement | null = document.querySelector('.grass');
 
-    constructor() {
-        this.level = new DetectGameLvl();
-    }
+    // constructor() {
+    //     this.level = new DetectGameLvl();
+    // }
 
-    public draw(): void {
+    public draw(level = 1): void {
         // clear game field from elements
+        const input: HTMLInputElement | null = document.querySelector('.code-input');
+        if (input) input.value = '';
         if (this.gameField && this.gameField.hasChildNodes()) {
             while (this.gameField.firstChild) {
                 this.gameField.removeChild(this.gameField.firstChild);
             }
         }
-        const levelData = levels[`level_${this.level.getDataFromLS()}`];
-        console.log(`level_${this.level.getDataFromLS()}`);
-        console.log(levelData);
+        const levelData = levels[`level_${level}`];
+        console.log(`level_${level}`);
+        console.log(levels[`level_${level}`]['htmlCode']);
         const gameTaskHeading: HTMLHeadingElement | null = document.querySelector('.game-task');
         if (gameTaskHeading !== null) gameTaskHeading.textContent = levelData['task'];
 
@@ -28,6 +31,12 @@ class GamePanelDrawer {
           console.log(levelData['htmlCode']);
           this.appendTags(levelData['htmlCode']);
           this.setActiveItems(levelData['selector']);
+          this.gameField.addEventListener('mouseover', (event) => {
+            if (event.target !== this.gameField) {
+                console.log(event.target);
+                event.stopPropagation();
+            }
+          });
         }
     }
 
@@ -80,6 +89,7 @@ class GamePanelDrawer {
     }
 }
 
-
+const gameDrawer = new GamePanelDrawer();
+eventEmitter.on("levelChange", (newLevel) => gameDrawer.draw(newLevel as number));
 
 export default GamePanelDrawer;

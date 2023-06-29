@@ -30,8 +30,8 @@ class AnswerChecker {
                     if (isCorrect) {
                       elements.forEach(el => el.classList.add('right'));
                       //по оконч аним. запустить смену уровня
-                      const newLevel = new LevelController()
-                      newLevel.changeLvlafterWin();
+                      const setNewLevel = new LevelController()
+                      setNewLevel.changeLvlafterWin();
                     } else {
                       console.log('wrong');
                       document.querySelectorAll('.animated').forEach(el => el.classList.add('wrong'));

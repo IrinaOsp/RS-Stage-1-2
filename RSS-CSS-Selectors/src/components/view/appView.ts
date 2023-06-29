@@ -9,18 +9,25 @@ export class AppView {
 
     private htmlPanel: HTMLViewer;
 
+    private level: number;
+
     constructor() {
         this.game = new GamePanelDrawer();
         this.levelPanel = new LevelPanel();
         this.htmlPanel = new HTMLViewer();
+        if (localStorage.getItem('current_level')) {
+            this.level = Number(localStorage.getItem('current_level'));
+        } else {
+            this.level = 1;
+        }
     }
 
     public drawPage(): void {
-        this.game.draw();
-        this.levelPanel.highlightCurrentLvl();
+        this.game.draw(this.level);
+        this.levelPanel.highlightCurrentLvl(this.level);
+        this.htmlPanel.drawView(this.level);
         this.levelPanel.changeLvlafterClick();
         this.levelPanel.checkCompletedLvls();
-        this.htmlPanel.drawView();
     }
 }
 

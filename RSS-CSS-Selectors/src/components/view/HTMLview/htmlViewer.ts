@@ -10,13 +10,12 @@ export default class HTMLViewer {
         this.view = document.querySelector('.HTML-code');
     }
 
-    drawView() {
+    drawView(level: number) {
         if (this.view) {
-
             const highlightedCode = hljs.highlight(
                 `
             <div class="grass">
-            ${levels.level_2.innerHTML}
+            ${levels[`level_${level}`].innerHTML}
             </div>
             `,
                 {
