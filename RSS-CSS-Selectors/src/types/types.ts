@@ -10,8 +10,9 @@ export type htmlCodeType = {
   class?: string;
   lang?: string;
   innerText?: string;
+  innerElement?: htmlCodeType[];
 }
 
-export type multiArr = htmlCodeType | htmlCodeType[];
+export type multiArr = htmlCodeType; // | htmlCodeType{};
 
 export type EventHandler<T> = (...args: T[]) => void;

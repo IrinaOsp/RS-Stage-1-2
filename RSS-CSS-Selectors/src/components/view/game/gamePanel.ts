@@ -1,16 +1,9 @@
 import { htmlCodeType, multiArr } from '../../../types/types';
 import levels from '../../data/levels';
-// import DetectGameLvl from '../../controller/gameLvlDetector';
 import eventEmitter from '../../controller/eventEmitter/eventEmitter';
 
 class GamePanelDrawer {
-    // public level: number;
-
     public gameField: HTMLDivElement | null = document.querySelector('.grass');
-
-    // constructor() {
-    //     this.level = new DetectGameLvl();
-    // }
 
     public draw(level = 1): void {
         // clear game field from elements
@@ -45,13 +38,12 @@ class GamePanelDrawer {
         arr.forEach((el) => {
           if (nodeEl) {
             console.log(el);
-            console.log(Array.isArray(el));
-            if (Array.isArray(el)) {
-              console.log(el[0]);
-              const elementToAppend: HTMLElement = this.setAttributes(el[0]);
+            if (el['innerElement']) {
+            //   console.log(el[0]);
+              const elementToAppend: HTMLElement = this.setAttributes(el);
               nodeEl.appendChild(elementToAppend);
-              el.shift();
-              this.appendTags(el, elementToAppend);
+            //   el.shift();
+            //   this.appendTags(el, elementToAppend);
             } else {
               const elementToAppend: HTMLElement = this.setAttributes(el);
               nodeEl.appendChild(elementToAppend);
@@ -68,13 +60,18 @@ class GamePanelDrawer {
           console.log(key);
           switch(key) {
             case 'class':
-              newElement.classList.add(Object.values(obj)[ind]);
+              newElement.classList.add(obj['class']? obj['class'] : '');
               break;
             case 'lang':
-              newElement.setAttribute(key, Object.values(obj)[ind]);
+              newElement.setAttribute(key, obj['lang']? obj['lang'] : '');
               break;
             case 'innerText':
-              newElement.innerText = Object.values(obj)[ind];
+              newElement.innerText = obj['innerText']? obj['innerText'] : '';
+              break;
+            case 'innerElement':
+              if (obj['innerElement']) obj['innerElement'].forEach((tag) => {
+                newElement.appendChild(this.setAttributes(tag));
+              });
               break;
             default:
               console.log('error in setAttributes');

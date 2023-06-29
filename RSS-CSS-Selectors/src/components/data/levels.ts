@@ -13,7 +13,7 @@ const levels: Record<string, LevelInfo> = {
     level_2: {
         task: 'Select the dog on the rug',
         selector: 'rug dog',
-        htmlCode: [{ tag: 'dog' }, { tag: 'rug' }, [{ tag: 'rug' }, { tag: 'dog' }], { tag: 'cat' }],
+        htmlCode: [{ tag: 'dog' }, { tag: 'rug' }, { tag: 'rug', innerElement: [{ tag: 'dog' }] }, { tag: 'cat' }],
         innerHTML: `
         <dog/>
         <rug/>
@@ -26,7 +26,12 @@ const levels: Record<string, LevelInfo> = {
     level_3: {
         task: 'Select the corgis',
         selector: '.corgi',
-        htmlCode: [{ tag: 'dog' }, { tag: 'dog', class: 'corgi' }, [{ tag: 'rug' }, { tag: 'dog' }], { tag: 'cat' }],
+        htmlCode: [
+            { tag: 'dog' },
+            { tag: 'dog', class: 'corgi' },
+            { tag: 'rug', innerElement: [{ tag: 'dog' }] },
+            { tag: 'cat' },
+        ],
         innerHTML: `
             <dog/>
             <dog class="corgi"/>
@@ -39,7 +44,12 @@ const levels: Record<string, LevelInfo> = {
     level_4: {
         task: 'Select all pets on the rugs',
         selector: 'rug *',
-        htmlCode: [{ tag: 'dog' }, [{ tag: 'rug' }, { tag: 'dog' }], [{ tag: 'rug' }, { tag: 'cat' }], { tag: 'cat' }],
+        htmlCode: [
+            { tag: 'dog' },
+            { tag: 'rug', innerElement: [{ tag: 'dog' }] },
+            { tag: 'rug', innerElement: [{ tag: 'cat' }] },
+            { tag: 'cat' },
+        ],
         innerHTML: `
             <dog/>
             <rug>
@@ -55,7 +65,7 @@ const levels: Record<string, LevelInfo> = {
         task: 'Select every corgi that directly follows cat',
         selector: 'cat + .corgi',
         htmlCode: [
-            [{ tag: 'rug' }, { tag: 'dog', class: 'corgi' }],
+            { tag: 'rug', innerElement: [{ tag: 'dog', class: 'corgi' }] },
             { tag: 'cat' },
             { tag: 'dog', class: 'corgi' },
             { tag: 'cat' },
@@ -80,8 +90,8 @@ const levels: Record<string, LevelInfo> = {
             { tag: 'cat' },
             { tag: 'dog', class: 'corgi' },
             { tag: 'dog' },
-            [{ tag: 'rug' }, { tag: 'dog' }],
-            [{ tag: 'rug' }, { tag: 'cat' }],
+            { tag: 'rug', innerElement: [{ tag: 'dog' }] },
+            { tag: 'rug', innerElement: [{ tag: 'cat' }] },
         ],
         innerHTML: `
             <cat/>
@@ -98,7 +108,10 @@ const levels: Record<string, LevelInfo> = {
     level_7: {
         task: 'Select second dog on the bench',
         selector: 'bench dog:nth-child(2)',
-        htmlCode: [{ tag: 'dog' }, [{ tag: 'bench' }, { tag: 'dog' }, { tag: 'dog' }, { tag: 'cat' }, { tag: 'dog' }]],
+        htmlCode: [
+            { tag: 'dog' },
+            { tag: 'bench', innerElement: [{ tag: 'dog' }, { tag: 'dog' }, { tag: 'cat' }, { tag: 'dog' }] },
+        ],
         innerHTML: `
             <dog/>
             <bench/>
@@ -114,7 +127,7 @@ const levels: Record<string, LevelInfo> = {
         selector: 'dog:first-of-type ',
         htmlCode: [
             { tag: 'cat' },
-            [{ tag: 'rug' }, { tag: 'cat' }],
+            { tag: 'rug', innerElement: [{ tag: 'cat' }] },
             { tag: 'dog' },
             { tag: 'dog' },
             { tag: 'dog', class: 'corgi' },
@@ -136,9 +149,9 @@ const levels: Record<string, LevelInfo> = {
         selector: 'rug:empty',
         htmlCode: [
             { tag: 'dog' },
-            [{ tag: 'rug' }, { tag: 'dog' }],
+            { tag: 'rug', innerElement: [{ tag: 'dog' }] },
             { tag: 'rug' },
-            [{ tag: 'rug' }, { tag: 'cat' }, { tag: 'dog' }],
+            { tag: 'rug', innerElement: [{ tag: 'cat' }, { tag: 'dog' }] },
             { tag: 'rug' },
         ],
         innerHTML: `
@@ -158,10 +171,10 @@ const levels: Record<string, LevelInfo> = {
         task: 'Select dog with Polish name',
         selector: 'dog:has(name:lang(pl-PL))',
         htmlCode: [
-            [{ tag: 'dog' }, { tag: 'name', lang: 'en-US', innerText: 'Sam' }],
-            [{ tag: 'dog' }, { tag: 'name', lang: 'pl-PL', innerText: 'Michał' }],
-            [{ tag: 'dog' }, { tag: 'name', lang: 'en-US', innerText: 'Jack' }],
-            [{ tag: 'dog' }, { tag: 'name', lang: 'en-US', innerText: 'Daisy' }],
+            { tag: 'dog', innerElement: [{ tag: 'name', lang: 'en-US', innerText: 'Sam' }] },
+            { tag: 'dog', innerElement: [{ tag: 'name', lang: 'pl-PL', innerText: 'Michał' }] },
+            { tag: 'dog', innerElement: [{ tag: 'name', lang: 'en-US', innerText: 'Jack' }] },
+            { tag: 'dog', innerElement: [{ tag: 'name', lang: 'en-US', innerText: 'Daisy' }] },
             { tag: 'dog' },
         ],
         innerHTML: `
