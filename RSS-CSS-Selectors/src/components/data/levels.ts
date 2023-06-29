@@ -5,46 +5,51 @@ const levels: Record<string, LevelInfo> = {
         task: 'Select the dogs',
         selector: 'dog',
         htmlCode: [{ tag: 'dog' }, { tag: 'dog' }],
+        innerHTML: `
+        <dog/>
+        <dog/>
+        `,
     },
     level_2: {
         task: 'Select the dog on the rug',
         selector: 'rug dog',
         htmlCode: [{ tag: 'dog' }, { tag: 'rug' }, [{ tag: 'rug' }, { tag: 'dog' }], { tag: 'cat' }],
-        // `
-        // <dog/>
-        // <rug/>
-        // <rug>
-        //   <dog/>
-        // </rug>
-        // <cat/>
-        // `
+        innerHTML: `
+        <dog/>
+        <rug/>
+        <rug>
+        <dog/>
+        </rug>
+        <cat/>
+        `,
     },
     level_3: {
         task: 'Select the corgis',
         selector: '.corgi',
         htmlCode: [{ tag: 'dog' }, { tag: 'dog', class: 'corgi' }, [{ tag: 'rug' }, { tag: 'dog' }], { tag: 'cat' }],
-        //      `
-        //     <dog/>
-        //     <dog class="corgi"/>
-        //     <rug>
-        //       <dog class="corgi"/>
-        //     </rug>
-        //     <cat/>
-        //     `,
+        innerHTML: `
+            <dog/>
+            <dog class="corgi"/>
+            <rug>
+              <dog/>
+            </rug>
+            <cat/>
+            `,
     },
     level_4: {
         task: 'Select all pets on the rugs',
         selector: 'rug *',
         htmlCode: [{ tag: 'dog' }, [{ tag: 'rug' }, { tag: 'dog' }], [{ tag: 'rug' }, { tag: 'cat' }], { tag: 'cat' }],
-        //     <dog/>
-        //     <rug>
-        //       <dog/>
-        //     </rug>
-        //     <rug>
-        //       <cat/>
-        //     </rug>
-        //     <cat/>
-        //     `,
+        innerHTML: `
+            <dog/>
+            <rug>
+              <dog/>
+            </rug>
+            <rug>
+              <cat/>
+            </rug>
+            <cat/>
+            `,
     },
     level_5: {
         task: 'Select every corgi that directly follows cat',
@@ -57,15 +62,16 @@ const levels: Record<string, LevelInfo> = {
             { tag: 'dog', class: 'corgi' },
             { tag: 'dog' },
         ],
-        //     <rug>
-        //       <dog class="corgi"/>
-        //     </rug>
-        //     <cat/>
-        //     <dog class="corgi"/>
-        //     <cat/>
-        //     <dog class="corgi"/>
-        //     <dog/>
-        //     `,
+        innerHTML: `
+            <rug>
+              <dog class="corgi"/>
+            </rug>
+            <cat/>
+            <dog class="corgi"/>
+            <cat/>
+            <dog class="corgi"/>
+            <dog/>
+            `,
     },
     level_6: {
         task: 'Select every dog that directly follows cat',
@@ -77,29 +83,31 @@ const levels: Record<string, LevelInfo> = {
             [{ tag: 'rug' }, { tag: 'dog' }],
             [{ tag: 'rug' }, { tag: 'cat' }],
         ],
-        //     <cat/>
-        //     <dog class="corgi"/>
-        //     <dog/>
-        //     <rug>
-        //       <dog/>
-        //     </rug>
-        //     <rug>
-        //       <cat/>
-        //     </rug>
-        //     `,
+        innerHTML: `
+            <cat/>
+            <dog class="corgi"/>
+            <dog/>
+            <rug>
+              <dog/>
+            </rug>
+            <rug>
+              <cat/>
+            </rug>
+            `,
     },
     level_7: {
         task: 'Select second dog on the bench',
         selector: 'bench dog:nth-child(2)',
         htmlCode: [{ tag: 'dog' }, [{ tag: 'bench' }, { tag: 'dog' }, { tag: 'dog' }, { tag: 'cat' }, { tag: 'dog' }]],
-        //     <dog/>
-        //     <bench/>
-        //       <dog/>
-        //       <dog/>
-        //       <cat/>
-        //       <dog/>
-        //     </bench>
-        //     `,
+        innerHTML: `
+            <dog/>
+            <bench/>
+              <dog/>
+              <dog/>
+              <cat/>
+              <dog/>
+            </bench>
+            `,
     },
     level_8: {
         task: 'Select first dog',
@@ -109,18 +117,19 @@ const levels: Record<string, LevelInfo> = {
             [{ tag: 'rug' }, { tag: 'cat' }],
             { tag: 'dog' },
             { tag: 'dog' },
-            [{ tag: 'rug' }, { tag: 'dog' }],
+            { tag: 'dog', class: 'corgi' },
         ],
-        //     <cat/>
-        //     <rug>
-        //       <cat/>
-        //     </rug>
-        //     <dog/>
-        //     <dog/>
-        //     <rug/>
-        //       <dog/>
-        //     </rug>
-        //     `,
+        innerHTML: `
+            <cat/>
+            <rug>
+              <cat/>
+            </rug>
+            <dog/>
+            <dog/>
+            <rug/>
+              <dog class="corgi"/>
+            </rug>
+            `,
     },
     level_9: {
         task: 'Select the rugs with no pet',
@@ -132,20 +141,18 @@ const levels: Record<string, LevelInfo> = {
             [{ tag: 'rug' }, { tag: 'cat' }, { tag: 'dog' }],
             { tag: 'rug' },
         ],
-        //     <dog/>
-        //     <rug>
-        //       <dog/>
-        //     </rug>
-        //     <rug>
-        //       <cat/>
-        //     </rug>
-        //     <rug/>
-        //     <rug>
-        //       <cat/>
-        //       <dog/>
-        //     </rug>
-        //     <rug/>
-        //     `,
+        innerHTML: `
+            <dog/>
+            <rug>
+              <dog/>
+            </rug>
+            <rug/>
+            <rug>
+              <cat/>
+              <dog/>
+            </rug>
+            <rug/>
+            `,
     },
     level_10: {
         task: 'Select dog with Polish name',
@@ -157,21 +164,22 @@ const levels: Record<string, LevelInfo> = {
             [{ tag: 'dog' }, { tag: 'name', lang: 'en-US', innerText: 'Daisy' }],
             { tag: 'dog' },
         ],
-        //     <dog>
-        //       <name lang="en-US">Sam</name>
-        //     </dog>
-        //     <dog>
-        //       <name lang="pl-PL">Michał</name>
-        //     </dog>
-        //     <rug>
-        //       <dog>
-        //         <name lang="en-US">Jack</name>
-        //       </dog>
-        //     </rug>
-        //     <dog>
-        //       <name lang="en-US">Daisy</name>
-        //     </dog>
-        //     `
+        innerHTML: `
+            <dog>
+              <name lang="en-US">Sam</name>
+            </dog>
+            <dog>
+              <name lang="pl-PL">Michał</name>
+            </dog>
+            <rug>
+              <dog>
+                <name lang="en-US">Jack</name>
+              </dog>
+            </rug>
+            <dog>
+              <name lang="en-US">Daisy</name>
+            </dog>
+            `,
     },
 };
 
