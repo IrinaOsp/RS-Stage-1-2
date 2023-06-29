@@ -11,6 +11,10 @@
 }
 .wrapper {
   flex-grow: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 1000px;
 }
 .main {
   padding: 10px 20px;
@@ -33,7 +37,7 @@
   align-items: flex-end;
   margin: 0 auto;
   padding: 0 10px;
-  min-height: 230px;
+  min-height: 200px;
   background: url(./assets/img/grass.png) no-repeat bottom/80%;
 }
 .code-panel {
@@ -53,6 +57,15 @@
   display: flex;
   width: 100%;
 }
+.code-panel-HTML {
+  overflow-y: scroll;
+  height: 300px;
+  scrollbar-width: none;
+}
+.code-panel-HTML::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
 .code-wrapper {
   width: calc(100% - 20px);
 }
@@ -65,9 +78,10 @@
 }
 .aside {
   flex-grow: 1;
-  height: 100vh;
+  height: calc(100vh - 20px);
   padding: 20px;
   border: 1px solid;
+  max-width: 250px;
 }
 .aside-levels-list {
   list-style: "\2611";
@@ -91,7 +105,7 @@
 
 footer {
   flex-shrink: 0;
-  height: 100px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -115,6 +129,9 @@ footer .logo-link {
 footer .github {
   height: 50px;
   width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 footer .git-link {
   filter: invert(70%);
@@ -158,11 +175,13 @@ bench {
 }
 name {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  height: 20px;
-  width: 20px;
+  top: 15px;
+  left: -31px;
+  height: 39px;
+  width: 70px;
   background: url(./assets/img/name-tag.png) no-repeat bottom/100%;
+  font-size: 12px;
+  line-height: 38px;
 }
 dog:has(name) {
   margin-left: 10px;
