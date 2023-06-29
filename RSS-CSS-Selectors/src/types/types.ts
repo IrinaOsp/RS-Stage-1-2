@@ -1,7 +1,8 @@
 export interface LevelInfo {
   task: string;
   selector: string;
-  htmlCode: Array<multiArr>;
+  htmlCode: multiArr[];
+  innerHTML?: string;
 }
 
 export type htmlCodeType = {
@@ -11,4 +12,6 @@ export type htmlCodeType = {
   innerText?: string;
 }
 
-export type multiArr = htmlCodeType | Array<htmlCodeType>;
+export type multiArr = htmlCodeType | htmlCodeType[];
+
+export type EventHandler<T> = (...args: T[]) => void;
