@@ -55,6 +55,9 @@ class GamePanelDrawer {
     private setAttributes(obj: htmlCodeType): HTMLElement {
       console.log(obj);
       let newElement: HTMLElement = document.createElement(obj['tag']);
+      const tooltip: HTMLSpanElement = document.createElement('span');
+      tooltip.classList.add('tooltiptext');
+      newElement.appendChild(tooltip);
       Object.keys(obj).forEach((key, ind: number): void => {
         if (ind > 0) {
           console.log(key);
@@ -67,6 +70,9 @@ class GamePanelDrawer {
               break;
             case 'innerText':
               newElement.innerText = obj['innerText']? obj['innerText'] : '';
+              break;
+            case 'tooltipText':
+              tooltip.textContent = obj['tooltipText']? obj['tooltipText'] : '';
               break;
             case 'innerElement':
               if (obj['innerElement']) obj['innerElement'].forEach((tag) => {
