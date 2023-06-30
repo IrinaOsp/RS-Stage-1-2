@@ -4,7 +4,10 @@ const levels: Record<string, LevelInfo> = {
     level_1: {
         task: 'Select the dogs',
         selector: 'dog',
-        htmlCode: [{ tag: 'dog' }, { tag: 'dog' }],
+        htmlCode: [
+            { tag: 'dog', tooltipText: '<dog></dog>' },
+            { tag: 'dog', tooltipText: '<dog></dog>' },
+        ],
         innerHTML: `
         <dog/>
         <dog/>
@@ -13,7 +16,12 @@ const levels: Record<string, LevelInfo> = {
     level_2: {
         task: 'Select the dog on the rug',
         selector: 'rug dog',
-        htmlCode: [{ tag: 'dog' }, { tag: 'rug' }, { tag: 'rug', innerElement: [{ tag: 'dog' }] }, { tag: 'cat' }],
+        htmlCode: [
+            { tag: 'dog', tooltipText: '<dog></dog>' },
+            { tag: 'rug', tooltipText: '<rug></rug>' },
+            { tag: 'rug', tooltipText: '<rug></rug>', innerElement: [{ tag: 'dog', tooltipText: '<dog></dog>' }] },
+            { tag: 'cat', tooltipText: '<cat></cat>' },
+        ],
         innerHTML: `
         <dog/>
         <rug/>
@@ -27,10 +35,10 @@ const levels: Record<string, LevelInfo> = {
         task: 'Select the corgis',
         selector: '.corgi',
         htmlCode: [
-            { tag: 'dog' },
-            { tag: 'dog', class: 'corgi' },
-            { tag: 'rug', innerElement: [{ tag: 'dog' }] },
-            { tag: 'cat' },
+            { tag: 'dog', tooltipText: '<dog></dog>' },
+            { tag: 'dog', tooltipText: '<dog class="corgi"></dog>', class: 'corgi' },
+            { tag: 'rug', tooltipText: '<rug></rug>', innerElement: [{ tag: 'dog', tooltipText: '<dog></dog>' }] },
+            { tag: 'cat', tooltipText: '<cat></cat>' },
         ],
         innerHTML: `
             <dog/>
@@ -45,10 +53,10 @@ const levels: Record<string, LevelInfo> = {
         task: 'Select all pets on the rugs',
         selector: 'rug *',
         htmlCode: [
-            { tag: 'dog' },
-            { tag: 'rug', innerElement: [{ tag: 'dog' }] },
-            { tag: 'rug', innerElement: [{ tag: 'cat' }] },
-            { tag: 'cat' },
+            { tag: 'dog', tooltipText: '<dog></dog>' },
+            { tag: 'rug', tooltipText: '<rug></rug>', innerElement: [{ tag: 'dog', tooltipText: '<dog></dog>' }] },
+            { tag: 'rug', tooltipText: '<rug></rug>', innerElement: [{ tag: 'cat', tooltipText: '<cat></cat>' }] },
+            { tag: 'cat', tooltipText: '<cat></cat>' },
         ],
         innerHTML: `
             <dog/>
@@ -65,12 +73,16 @@ const levels: Record<string, LevelInfo> = {
         task: 'Select every corgi that directly follows cat',
         selector: 'cat + .corgi',
         htmlCode: [
-            { tag: 'rug', innerElement: [{ tag: 'dog', class: 'corgi' }] },
-            { tag: 'cat' },
-            { tag: 'dog', class: 'corgi' },
-            { tag: 'cat' },
-            { tag: 'dog', class: 'corgi' },
-            { tag: 'dog' },
+            {
+                tag: 'rug',
+                tooltipText: '<rug></rug>',
+                innerElement: [{ tag: 'dog', tooltipText: '<dog class="corgi></dog>', class: 'corgi' }],
+            },
+            { tag: 'cat', tooltipText: '<cat></cat>' },
+            { tag: 'dog', tooltipText: '<dog class="corgi></dog>', class: 'corgi' },
+            { tag: 'cat', tooltipText: '<cat></cat>' },
+            { tag: 'dog', tooltipText: '<dog class="corgi></dog>', class: 'corgi' },
+            { tag: 'dog', tooltipText: '<dog></dog>' },
         ],
         innerHTML: `
             <rug>
@@ -87,11 +99,11 @@ const levels: Record<string, LevelInfo> = {
         task: 'Select every dog that directly follows cat',
         selector: 'cat ~ dog',
         htmlCode: [
-            { tag: 'cat' },
-            { tag: 'dog', class: 'corgi' },
-            { tag: 'dog' },
-            { tag: 'rug', innerElement: [{ tag: 'dog' }] },
-            { tag: 'rug', innerElement: [{ tag: 'cat' }] },
+            { tag: 'cat', tooltipText: '<cat></cat>' },
+            { tag: 'dog', tooltipText: '<dog></dog>', class: 'corgi' },
+            { tag: 'dog', tooltipText: '<dog></dog>' },
+            { tag: 'rug', tooltipText: '<rug></rug>', innerElement: [{ tag: 'dog', tooltipText: '<dog></dog>' }] },
+            { tag: 'rug', tooltipText: '<rug></rug>', innerElement: [{ tag: 'cat', tooltipText: '<cat></cat>' }] },
         ],
         innerHTML: `
             <cat/>
@@ -109,8 +121,17 @@ const levels: Record<string, LevelInfo> = {
         task: 'Select second dog on the bench',
         selector: 'bench dog:nth-child(2)',
         htmlCode: [
-            { tag: 'dog' },
-            { tag: 'bench', innerElement: [{ tag: 'dog' }, { tag: 'dog' }, { tag: 'cat' }, { tag: 'dog' }] },
+            { tag: 'dog', tooltipText: '<dog></dog>' },
+            {
+                tag: 'bench',
+                tooltipText: '<bench></bench>',
+                innerElement: [
+                    { tag: 'dog', tooltipText: '<dog></dog>' },
+                    { tag: 'dog', tooltipText: '<dog></dog>' },
+                    { tag: 'cat', tooltipText: '<cat></cat>' },
+                    { tag: 'dog', tooltipText: '<dog></dog>' },
+                ],
+            },
         ],
         innerHTML: `
             <dog/>
@@ -126,11 +147,11 @@ const levels: Record<string, LevelInfo> = {
         task: 'Select first dog',
         selector: 'dog:first-of-type ',
         htmlCode: [
-            { tag: 'cat' },
-            { tag: 'rug', innerElement: [{ tag: 'cat' }] },
-            { tag: 'dog' },
-            { tag: 'dog' },
-            { tag: 'dog', class: 'corgi' },
+            { tag: 'cat', tooltipText: '<cat></cat>' },
+            { tag: 'rug', tooltipText: '<rug></rug>', innerElement: [{ tag: 'cat', tooltipText: '<cat></cat>' }] },
+            { tag: 'dog', tooltipText: '<dog></dog>' },
+            { tag: 'dog', tooltipText: '<dog></dog>' },
+            { tag: 'dog', tooltipText: '<dog class="corgi></dog>', class: 'corgi' },
         ],
         innerHTML: `
             <cat/>
@@ -148,11 +169,18 @@ const levels: Record<string, LevelInfo> = {
         task: 'Select the rugs with no pet',
         selector: 'rug:empty',
         htmlCode: [
-            { tag: 'dog' },
-            { tag: 'rug', innerElement: [{ tag: 'dog' }] },
-            { tag: 'rug' },
-            { tag: 'rug', innerElement: [{ tag: 'cat' }, { tag: 'dog' }] },
-            { tag: 'rug' },
+            { tag: 'dog', tooltipText: '<dog></dog>' },
+            { tag: 'rug', tooltipText: '<rug></rug>', innerElement: [{ tag: 'dog', tooltipText: '<dog></dog>' }] },
+            { tag: 'rug', tooltipText: '<rug></rug>' },
+            {
+                tag: 'rug',
+                tooltipText: '<rug></rug>',
+                innerElement: [
+                    { tag: 'cat', tooltipText: '<cat></cat>' },
+                    { tag: 'dog', tooltipText: '<dog></dog>' },
+                ],
+            },
+            { tag: 'rug', tooltipText: '<dog></dog>' },
         ],
         innerHTML: `
             <dog/>
@@ -171,11 +199,38 @@ const levels: Record<string, LevelInfo> = {
         task: 'Select dog with Polish name',
         selector: 'dog:has(name:lang(pl-PL))',
         htmlCode: [
-            { tag: 'dog', innerElement: [{ tag: 'name', lang: 'en-US', innerText: 'Sam' }] },
-            { tag: 'dog', innerElement: [{ tag: 'name', lang: 'pl-PL', innerText: 'Michał' }] },
-            { tag: 'dog', innerElement: [{ tag: 'name', lang: 'en-US', innerText: 'Jack' }] },
-            { tag: 'dog', innerElement: [{ tag: 'name', lang: 'en-US', innerText: 'Daisy' }] },
-            { tag: 'dog' },
+            {
+                tag: 'dog',
+                tooltipText: '<dog></dog>',
+                innerElement: [
+                    { tag: 'name', tooltipText: '<name lang="en-US"></name>', lang: 'en-US', innerText: 'Sam' },
+                ],
+            },
+            {
+                tag: 'dog',
+                tooltipText: '<dog></dog>',
+                innerElement: [
+                    { tag: 'name', tooltipText: '<name lang="pl-PL"></name>', lang: 'pl-PL', innerText: 'Michał' },
+                ],
+            },
+            {
+                tag: 'dog',
+                tooltipText: '<dog></dog>',
+                innerElement: [
+                    { tag: 'name', tooltipText: '<name lang="en-US"></name>', lang: 'en-US', innerText: 'Jack' },
+                ],
+            },
+            {
+                tag: 'dog',
+                tooltipText: '<dog></dog>',
+                innerElement: [
+                    { tag: 'name', tooltipText: '<name lang="en-US"></name>', lang: 'en-US', innerText: 'Daisy' },
+                ],
+            },
+            {
+                tag: 'dog',
+                tooltipText: '<dog></dog>',
+            },
         ],
         innerHTML: `
             <dog>
