@@ -11,6 +11,7 @@ export type htmlCodeType = {
   lang?: string;
   innerText?: string;
   innerElement?: htmlCodeType[];
+  tooltipText: string;
 }
 
 export type multiArr = htmlCodeType; // | htmlCodeType{};
