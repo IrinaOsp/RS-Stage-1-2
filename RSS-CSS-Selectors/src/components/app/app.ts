@@ -23,6 +23,7 @@ class App {
         this.gameController.startGame();
         this.helpBtn.addListener();
         this.resetBtn.addListener();
+        if (!localStorage.getItem('current_level')) localStorage.setItem('current_level', '1');
     }
 }
 

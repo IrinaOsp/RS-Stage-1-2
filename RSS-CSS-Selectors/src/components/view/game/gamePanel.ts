@@ -7,7 +7,7 @@ class GamePanelDrawer {
 
     public draw(level = 1): void {
         // clear game field from elements
-        const input: HTMLInputElement | null = document.querySelector('.code-input');
+        const input: HTMLTextAreaElement | null = document.querySelector('.code-input');
         if (input) input.value = '';
         if (this.gameField && this.gameField.hasChildNodes()) {
             while (this.gameField.firstChild) {
@@ -15,35 +15,26 @@ class GamePanelDrawer {
             }
         }
         const levelData = levels[`level_${level}`];
-        console.log(`level_${level}`);
-        console.log(levels[`level_${level}`]['htmlCode']);
         const gameTaskHeading: HTMLHeadingElement | null = document.querySelector('.game-task');
         if (gameTaskHeading !== null) gameTaskHeading.textContent = levelData['task'];
 
         if (this.gameField) {
-          console.log(levelData['htmlCode']);
           this.appendTags(levelData['htmlCode']);
           this.setActiveItems(levelData['selector']);
           this.gameField.addEventListener('mouseover', (event) => {
             if (event.target !== this.gameField) {
-                console.log(event.target);
-                event.stopPropagation();
+                event.stopImmediatePropagation();
             }
           });
         }
     }
 
     private appendTags(arr: multiArr[], nodeEl: HTMLElement | null = this.gameField): void {
-        console.log(arr);
         arr.forEach((el) => {
           if (nodeEl) {
-            console.log(el);
             if (el['innerElement']) {
-            //   console.log(el[0]);
               const elementToAppend: HTMLElement = this.setAttributes(el);
               nodeEl.appendChild(elementToAppend);
-            //   el.shift();
-            //   this.appendTags(el, elementToAppend);
             } else {
               const elementToAppend: HTMLElement = this.setAttributes(el);
               nodeEl.appendChild(elementToAppend);
@@ -53,14 +44,9 @@ class GamePanelDrawer {
     }
 
     private setAttributes(obj: htmlCodeType): HTMLElement {
-      console.log(obj);
       let newElement: HTMLElement = document.createElement(obj['tag']);
-      const tooltip: HTMLSpanElement = document.createElement('span');
-      tooltip.classList.add('tooltiptext');
-      newElement.appendChild(tooltip);
       Object.keys(obj).forEach((key, ind: number): void => {
         if (ind > 0) {
-          console.log(key);
           switch(key) {
             case 'class':
               newElement.classList.add(obj['class']? obj['class'] : '');
@@ -72,7 +58,8 @@ class GamePanelDrawer {
               newElement.innerText = obj['innerText']? obj['innerText'] : '';
               break;
             case 'tooltipText':
-              tooltip.textContent = obj['tooltipText']? obj['tooltipText'] : '';
+              const text: string = obj['tooltipText'] ? obj['tooltipText'] : ''
+              newElement.dataset.before = text;
               break;
             case 'innerElement':
               if (obj['innerElement']) obj['innerElement'].forEach((tag) => {
@@ -80,7 +67,6 @@ class GamePanelDrawer {
               });
               break;
             default:
-              console.log('error in setAttributes');
           }
         }
       })
@@ -93,6 +79,6 @@ class GamePanelDrawer {
 }
 
 const gameDrawer = new GamePanelDrawer();
-eventEmitter.on("levelChange", (newLevel) => gameDrawer.draw(newLevel as number));
+eventEmitter.on("levelChange", (newLevel: string) => gameDrawer.draw(Number(newLevel)));
 
 export default GamePanelDrawer;

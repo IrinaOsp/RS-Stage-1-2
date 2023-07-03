@@ -47,29 +47,3 @@ export default class HTMLViewer {
 const htmlPanel = new HTMLViewer();
 eventEmitter.on('levelChange', (newLevel) => htmlPanel.drawView(Number(newLevel)));
 
-(function burger() {
-    const burgerItem: Element | null = document.querySelector('.header-burger');
-    const aside: Element | null = document.querySelector('.aside');
-    const wrapper: Element | null = document.querySelector('.wrapper');
-    const closeItem: Element | null = document.querySelector('.aside-close');
-    const asideLevels: NodeListOf<Element> = document.querySelectorAll('.game-lvl');
-    if (burgerItem && aside && wrapper && closeItem && asideLevels) {
-        burgerItem.addEventListener('click', () => {
-            console.log('burger-menu');
-            aside.classList.add('aside-active');
-        });
-        closeItem.addEventListener('click', () => {
-            aside.classList.remove('aside-active');
-        });
-        wrapper.addEventListener('click', () => {
-            aside.classList.remove('aside-active');
-        });
-        if (window.innerWidth <= 870) {
-            for (let i = 0; i < asideLevels.length; i += 1) {
-                asideLevels[i].addEventListener('click', () => {
-                    aside.classList.remove('aside-active');
-                });
-            }
-        }
-    }
-})();
