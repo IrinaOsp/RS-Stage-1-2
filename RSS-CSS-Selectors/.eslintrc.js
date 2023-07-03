@@ -20,6 +20,7 @@ module.exports = {
     'no-console': 0,
     'class-methods-use-this': 'off',
     '@typescript-eslint/no-explicit-any': 'error',
+    "@typescript-eslint/no-var-requires": "off",
     'import/extensions': 0,
     'import/prefer-default-export': 0,
     "import/no-unresolved": 0,
