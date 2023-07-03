@@ -46,4 +46,3 @@ export default class HTMLViewer {
 
 const htmlPanel = new HTMLViewer();
 eventEmitter.on('levelChange', (newLevel) => htmlPanel.drawView(Number(newLevel)));
-
