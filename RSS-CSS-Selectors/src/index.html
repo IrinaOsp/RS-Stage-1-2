@@ -13,7 +13,9 @@
     </header>
     <main class="main">
       <h2 class="game-task"></h2>
-      <button class="help-btn">Help, I'm stuck!</button>
+      <div class="help-btn-wrapper">
+        <button class="help-btn">Help, I'm stuck!</button>
+      </div>
       <div class="game-wrapper">
         <div class="grass">
         </div>
@@ -30,8 +32,13 @@
               11<br>12<br>13<br>14<br>15
             </div>
             <div class="code-wrapper">
-              <input type="text" class="code-input" placeholder="Type in a CSS selector">
+              <textarea class="code-input" placeholder="Type in a CSS selector" autofocus rows="1" cols="17"></textarea>
               <button class="enter-button">Enter</button>
+              <div class="divForText"></div>
+              <p class="css-text">{<br>
+                /* Styles would go here. */<br>
+                }
+                </p>
             </div>
           </div>
         </div>
@@ -69,6 +76,10 @@
     </footer>
   </div>
   <aside class="aside">
+    <div class="aside-close">
+      <span class="aside-close-line"></span>
+      <span class="aside-close-line"></span>
+    </div>
     <div class="aside-heading">
       <h3 class="level-heading">Level</h3>
     </div>
@@ -88,5 +99,10 @@
     </div>
     <button class="reset-btn">Reset Progress</button>
   </aside>
+  <div class="header-burger">
+    <span class="burger-line burger-line-1"></span>
+    <span class="burger-line burger-line-2"></span>
+    <span class="burger-line burger-line-3"></span>
+  </div>
 </body>
 </html>

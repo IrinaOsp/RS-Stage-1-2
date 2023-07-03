@@ -1,13 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2&family=Kaisei+Opti:wght@700&family=Roboto:wght@700&display=swap');
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: "Exo 2", "Lato", "Helvetica Neue", sans-serif;;
 }
 
 .body {
   display: flex;
   justify-content: center;
   background-color: beige;
+  overflow: hidden;
 }
 .wrapper {
   flex-grow: 3;
@@ -16,15 +20,27 @@
   justify-content: space-between;
   max-width: 1000px;
 }
+.header {
+  padding: 3px;
+  width: 100%;
+}
+.main-heading {
+  width: 90%;
+  padding-left: 10px;
+  font-size: 18px;
+}
 .main {
-  padding: 10px 20px;
+  padding: 10px 5px 10px 20px;
 }
 .game-task {
   text-align: center;
 }
+.help-btn-wrapper {
+  text-align: center;
+}
 .help-btn {
   display: inline-block;
-  margin: 15px 40% 15px;
+  margin-top: 10px;
   padding: 3px;
 }
 .game-wrapper {
@@ -38,24 +54,38 @@
   margin: 0 auto;
   padding: 0 10px;
   min-height: 200px;
-  background: url(./assets/img/grass.png) no-repeat bottom/80%;
+  background: url(./assets/img/grass.png) no-repeat bottom/100%;
 }
 .code-panel {
   display: flex;
-  border: 1px solid;
+  border: 10px solid #77b662;
+  margin: 10px;
+}
+.code-panel * {
+  font-family: monospace;
 }
 .editor-panel {
   flex-grow: 1;
+  border: 1px solid gray;
+  width: 50%;
+  background-color: #EFEFEF;
+}
+.HTML-viewer {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 .editor-heading {
   display: flex;
   justify-content: space-between;
-  padding-left: 10px;
-  padding-right: 10px;
+  border-bottom: 1px solid gray;
+  padding: 0 10px 5px;
+}
+.editor-heading span:first-child {
+  font-weight: 700;
 }
 .code-panel-CSS, .code-panel-HTML {
   display: flex;
   width: 100%;
+  height: 93%;
 }
 .code-panel-HTML {
   overflow-y: scroll;
@@ -67,10 +97,52 @@
   height: 0;
 }
 .code-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
   width: calc(100% - 20px);
+  position: relative;
+  padding: 5px;
+}
+.code-lines {
+  height: 100%;
+  padding: 5px;
+  border-right: 1px solid gray;
+}
+.divForText {
+  visibility: hidden;
+  position: absolute;
+  top: 11px;
+  left: 6px;
+  width: fit-content;
+  height: fit-content;
+  font-family: monospace;
+  font-size: 14px;
+  background-color: white;
+  color: black;
+  z-index: 1;
+  padding-left: 5px;
+  padding-right: 1px;
+}
+.visible {
+  visibility: visible;
 }
 .code-input {
-  width: calc(100% - 70px);;
+  width: calc(100% - 70px);
+  height: 30px;
+  resize: none;
+  line-height: 27px;
+  font-family: monospace;
+  font-size: 14px;
+  border: none;
+}
+.enter-button {
+  display: inline-block;
+  width: fit-content;
+  height: fit-content;
+  padding: 1px;
+  margin: 5px 10px;
 }
 .HTML-code {
   display: flex;
@@ -78,10 +150,12 @@
 }
 .aside {
   flex-grow: 1;
-  height: calc(100vh - 20px);
+  height: 100vh;
   padding: 20px;
-  border: 1px solid;
+  border-left: 1px solid gray;
   max-width: 250px;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.2)
 }
 .aside-levels-list {
   list-style: "\2611";
@@ -102,10 +176,34 @@
   padding: 3px;
   margin-top: 20px;
 }
+.header-burger {
+  display: none;
+  margin-top: 20px;
+  width: 40px;
+  height: 19px;
+  position: relative;
+}
+.burger-line {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #717171;
+  position: absolute;
+  left: 0;
+}
+.burger-line-1 {
+  top: 0;
+}
+.burger-line-2 {
+  top: 8px;
+}
+.burger-line-3 {
+  bottom: 0;
+}
 
 footer {
   flex-shrink: 0;
-  height: 50px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -117,11 +215,11 @@ footer .year {
   text-align: center;
 }
 footer .logo {
-  height: 50px;
+  height: 40px;
   width: 100px;
 }
 footer .logo-link:hover {
-  filter: invert(100%);
+  filter: invert(30%);
 }
 footer .logo-link {
   filter: invert(70%);
@@ -137,7 +235,7 @@ footer .git-link {
   filter: invert(70%);
 }
 footer .git-link:hover {
-  filter: invert(100%);
+  filter: invert(30%);
 }
 /* Custom elements style and animation */
 
@@ -146,37 +244,47 @@ dog {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100px;
-  width: 100px;
-  background: url(./assets/img/dog.png) no-repeat bottom/100%;
+  margin-left: 17px;
+  margin-right: 17px;
+  height: 120px;
+  width: 76px;
+  background: url(./assets/img/dog.png) no-repeat bottom/150%;
 }
 cat {
-  height: 100px;
-  width: 100px;
-  background: url(./assets/img/cat.png) no-repeat bottom/90%;
+  position: relative;
+  height: 120px;
+  width: 76px;
+  background: url(./assets/img/cat.png) no-repeat bottom/120%;
 }
 rug {
+  position: relative;
   display: flex;
   justify-content: center;
-  height: 100px;
+  height: 20px;
   min-width: 130px;
   background: url(./assets/img/rug.png) no-repeat bottom/100%;
+}
+rug dog {
+  top: -110px;
+}
+rug cat {
+  top: -100px;
 }
 bench {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  min-height: 185px;
+  min-height: 205px;
   min-width: 100px;
   background: url(./assets/img/bench.png) no-repeat bottom/90%;
 }
 .corgi {
-  background: url(./assets/img/dog-corgi.png) no-repeat bottom/100%;
+  background: url(./assets/img/dog-corgi.png) no-repeat bottom/130%;
 }
 name {
   position: absolute;
   top: 15px;
-  left: -31px;
+  left: -44px;
   height: 39px;
   width: 70px;
   background: url(./assets/img/name-tag.png) no-repeat bottom/100%;
@@ -226,14 +334,181 @@ dog:hover, cat:hover, rug:hover, bench:hover, name:hover {
   }
 }
 
-
-/* .input-animated {
-  animation: animated-text 2s linear;
-  overflow: hidden;
-  white-space: nowrap;
+.grass *::before { /*было .grass .tooltiptext */
+  filter: none;
+  animation: none;
+  visibility: hidden;
+  width: 120px;
+  background-color: white;
+  color: black;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 120%;
+  left: 50%;
+  margin-left: -60px;
+  font-size: 12px;
+  font-family: monospace;
+  content: attr(data-before);
 }
-/* text animation */
-/*@keyframes animated-text {
-  0% { width: 0; }
-  100% { width: 50%; }
-} */
+
+.grass *:hover::before { /*было .grass *:hover .tooltiptext */
+  visibility: visible;
+}
+
+@media (max-width: 900px) {
+  .wrapper {
+    max-width: 700px;
+  }
+}
+
+@media (max-width: 870px) {
+  .header-burger {
+    display: block;
+  }
+  .aside {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    padding: 50px;
+    transform: translateX(360%);
+    transition: .2s all linear;
+    background-color: #77b662;
+    filter: contrast(50%);
+  }
+  .aside-active {
+    transform: translateX(71vw);
+  }
+  .aside-close {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 20px;
+    right: 33px;
+    z-index: 11;
+    background-color: #77b662;
+  }
+  .aside-close-line {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: rgb(230, 219, 219);
+    position: absolute;
+    top: 50%;
+  }
+  .aside-close-line:first-child {
+    transform: translateY(50%) rotate(45deg);
+  }
+  .aside-close-line:last-child {
+    transform: translateY(50%) rotate(-45deg);
+  }
+  .wrapper{
+    width: calc(100% - 20px);
+  }
+  dog {
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 100px;
+    width: 65px;
+    background: url(./assets/img/dog.png) no-repeat bottom/132%;
+  }
+  cat {
+    height: 110px;
+    width: 71px;
+    background: url(./assets/img/cat.png) no-repeat bottom/110%;
+  }
+  rug {
+    height: 20px;
+    min-width: 97px;
+    background: url(./assets/img/rug.png) no-repeat bottom/95%;
+  }
+  rug dog {
+    top: -88px;
+  }
+  rug cat {
+    top: -90px;
+  }
+  bench {
+    background: url(./assets/img/bench.png) no-repeat bottom/95%;
+  }
+  bench dog, bench cat {
+    top: 29px;
+    left: 0;
+  }
+  .corgi {
+    background: url(./assets/img/dog-corgi.png) no-repeat bottom/113%;
+  }
+  name {
+    top: 15px;
+    left: -44px;
+    height: 39px;
+    width: 70px;
+    background: url(./assets/img/name-tag.png) no-repeat bottom/100%;
+    font-size: 12px;
+    line-height: 38px;
+  }
+}
+
+@media (max-width: 800px) {
+  .aside-active {
+      transform: translateX(70vw);
+  }
+}
+
+@media (max-width: 720px) {
+  .aside-active {
+      transform: translateX(65vw);
+  }
+  .code-panel {
+    display: block;
+  }
+  .code-panel-CSS .code-lines {
+    display: none;
+  }
+  .css-text {
+    display: none;
+  }
+  .editor-panel {
+    width: 100%;
+  }
+}
+
+@media (max-width: 632px) {
+  .aside-active {
+      transform: translateX(60vw);
+  }
+}
+@media (max-width: 590px) {
+  dog {
+    height: 90px;
+    width: 45px;
+    background: url(http://localhost:8080/assets/dog.png) no-repeat bottom/164%;
+  }
+  cat {
+    width: 64px;
+  }
+  .corgi {
+    background: url(http://localhost:8080/assets/dog-corgi.png) no-repeat bottom/155%;
+  }
+  rug dog {
+    top: -80px;
+  }
+  bench dog, bench cat {
+    top: 49px;
+  }
+  name {
+    top: -27px;
+    left: -13px;
+  }
+}
+
+@media (max-width: 550px) {
+  .aside-active {
+      transform: translateX(55vw);
+  }
+}
