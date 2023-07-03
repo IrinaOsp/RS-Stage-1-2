@@ -1,7 +1,7 @@
 import levels from '../data/levels';
 
 function HelpBtnOnClick(): void {
-    const input: HTMLInputElement | null = document.querySelector('.code-input');
+    const input: HTMLTextAreaElement | null = document.querySelector('.code-input');
     const lvl: string | null = localStorage.getItem('current_level');
     if (input && lvl) {
         // input.classList.add('input-animated');
@@ -20,7 +20,7 @@ function HelpBtnOnClick(): void {
 }
 
 function ResetBtnOnClick(): void {
-    const input: HTMLInputElement | null = document.querySelector('.code-input');
+    const input: HTMLTextAreaElement | null = document.querySelector('.code-input');
     if (input) {
         localStorage.setItem('completed_levels', '[]');
         document.querySelectorAll('.completed').forEach((el) => el.classList.remove('completed'));
