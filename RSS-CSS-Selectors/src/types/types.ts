@@ -16,4 +16,4 @@ export type htmlCodeType = {
 
 export type multiArr = htmlCodeType; // | htmlCodeType{};
 
-export type EventHandler<T> = (...args: T[]) => void;
+export type EventHandler<T> = (arg: T) => void;
