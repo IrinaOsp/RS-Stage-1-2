@@ -1,28 +1,28 @@
 import { EventHandler } from '../../../types/types';
 
-class EventEmitter<T> {
-    private events: { [eventName: string]: EventHandler<T>[] };
+class EventEmitter {
+    private events: { [eventName: string]: EventHandler<string>[] };
 
     constructor() {
         this.events = {};
     }
 
-    on(eventName: string, handler: EventHandler<T>) {
+    public on(eventName: string, handler: EventHandler<string>) {
         if (!this.events[eventName]) {
             this.events[eventName] = [];
         }
         this.events[eventName].push(handler);
     }
 
-    off(eventName: string, handler: EventHandler<T>) {
+    public off(eventName: string, handler: EventHandler<string>) {
         if (this.events[eventName]) {
             this.events[eventName] = this.events[eventName].filter((eventHandler) => eventHandler !== handler);
         }
     }
 
-    emit(eventName: string, ...args: T[]) {
+    public emit(eventName: string, arg: string) {
         if (this.events[eventName]) {
-            this.events[eventName].forEach((handler) => handler(...args));
+            this.events[eventName].forEach((handler) => handler(arg));
         }
     }
 }
