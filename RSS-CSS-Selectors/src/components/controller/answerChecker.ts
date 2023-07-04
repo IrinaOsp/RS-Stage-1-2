@@ -27,25 +27,31 @@ class AnswerChecker {
                 try {
                     const elements = document.querySelectorAll(text);
                     if (elements.length) {
-                        const isCorrect = Boolean([...elements].filter(el => el.classList.contains('animated')).length ===
-                        elements.length && [...elements].filter(el => el.classList.contains('animated')).length === document.querySelectorAll('.animated').length);
+                        const isCorrect = Boolean(
+                            [...elements].filter((el) => el.classList.contains('animated')).length ===
+                                elements.length &&
+                                [...elements].filter((el) => el.classList.contains('animated')).length ===
+                                    document.querySelectorAll('.animated').length
+                        );
                         if (isCorrect) {
-                          //по оконч аним. запустить смену уровня
-                          elements.forEach((el) => el.classList.add('right'));
-                          const setNewLevel = new LevelController();
-                          setTimeout(() => setNewLevel.changeLvlafterWin(), 300);
+                            // по оконч аним. запустить смену уровня
+                            elements.forEach((el) => el.classList.add('right'));
+                            const setNewLevel = new LevelController();
+                            setTimeout(() => setNewLevel.changeLvlafterWin(), 300);
                         } else {
-                          wrongAnswer();
+                            wrongAnswer();
                         }
                     } else {
-                      wrongAnswer();
+                        wrongAnswer();
                     }
                 } catch (error) {
-                  wrongAnswer();
+                    wrongAnswer();
                 }
-              document.querySelectorAll('.animated').forEach(el => el.addEventListener('animationend', handleAnimationEnd as EventListener));
+                document
+                    .querySelectorAll('.animated')
+                    .forEach((el) => el.addEventListener('animationend', handleAnimationEnd as EventListener));
             }
-    }
+        }
     }
 }
 
