@@ -1,6 +1,7 @@
 import DetectGameLvl from './gameLvlDetector';
 import eventEmitter from './eventEmitter/eventEmitter';
 import LevelPanel from '../view/game/levels/levelsPanel';
+import WinMessage from '../view/game/winMessage';
 
 export default class LevelController {
     public level: string;
@@ -13,7 +14,11 @@ export default class LevelController {
 
     public changeLvlafterWin() {
         this.level = new DetectGameLvl().getDataFromLS();
-        if (Number(this.level) >= 10) return;
+        if (Number(this.level) >= 10) {
+            const winMessage = new WinMessage();
+            winMessage.drawWinMesssage();
+            return;
+        }
         const currentLevel = Number(this.level) + 1;
         eventEmitter.emit('levelChange', currentLevel.toString());
         if (localStorage.getItem('completed_levels')) {

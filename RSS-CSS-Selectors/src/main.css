@@ -29,6 +29,25 @@
   padding-left: 10px;
   font-size: 18px;
 }
+.popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.popup .text {
+  width: 30vw;
+  height: 30vh;
+  padding-top: 13vh;
+  background-color: #77b662;
+  color: #fff;
+}
 .main {
   padding: 10px 5px 10px 20px;
 }
