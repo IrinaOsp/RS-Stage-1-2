@@ -16,9 +16,9 @@ export default class HTMLViewer {
 
     public drawView(level: number) {
         if (this.view) {
-            const str = `<div class="grass"> ${levels[`level_${level}`].innerHTML} </div>`;
+            const str = `${levels[`level_${level}`].innerHTML}`;
             const highlightedCode = hljs.highlight(str, { language: 'xml' }).value;
-            this.view.innerHTML = highlightedCode;
+            this.view.innerHTML = `&lt;div class="grass"> ${highlightedCode} &lt;/div>`;
             let linesNumber = str.split('>').length;
             if (this.lines?.hasChildNodes()) {
                 while (this.lines.firstChild) {
@@ -32,15 +32,76 @@ export default class HTMLViewer {
                 this.lines?.appendChild(line);
             }
             this.formatView();
+            this.highlightCode();
         }
     }
 
-    public formatView() {
+    private formatView() {
         const tags: NodeListOf<Element> = document.querySelectorAll('.hljs-tag');
         tags.forEach((el: Element, ind: number) => {
             el.setAttribute('style', 'padding-left: 1rem;');
-            if (ind === 0 || ind === tags.length - 1) el.removeAttribute('style');
+            if (!el.textContent?.includes('/') || el.textContent?.includes('</')) {
+                el.classList.add('parent');
+            } else if (
+                ind > 0 &&
+                ((tags[ind - 1].classList.contains('parent') && !tags[ind - 1].textContent?.includes('</')) ||
+                    tags[ind - 1].classList.contains('child'))
+            ) {
+                el.classList.add('child');
+            }
         });
+    }
+
+    public highlightCode() {
+        const elements: NodeListOf<Element> = document.querySelectorAll('.grass *');
+        const codeLines = this.view?.querySelectorAll('.hljs-tag');
+        if (elements && codeLines) {
+            elements.forEach((el, ind) => {
+                el.addEventListener('mouseover', (event) => {
+                    console.log('mouseover');
+                    event.stopPropagation();
+                    if (codeLines.length === elements.length) {
+                        elements[ind].classList.add('hover');
+                        codeLines[ind].classList.add('highlighted-code');
+                    } else {
+                        elements[ind].classList.add('hover');
+                        let parents: number = 0;
+                        codeLines.forEach((el) => el.classList.contains('parent') ? parents += 1 : parents);
+                        // console.log(parents / 2);
+                        if (codeLines[ind].classList.contains('parent')) {
+                            console.log('first');
+                            codeLines[ind].classList.add('highlighted-code');
+                            ind < elements.length - 2 ? codeLines[ind + 2].closest('.parent')?.classList.add('highlighted-code') : '';
+                        } else if (ind > 0 && codeLines[ind - 1].classList.contains('parent') && codeLines[ind - 1].textContent?.includes('</')) {
+                            // console.log('second');
+                            codeLines[ind + 1].classList.add('highlighted-code');
+                        } else {
+                            // console.log('3d');
+                            codeLines[ind].classList.add('highlighted-code');
+                        }
+                    }
+                });
+                el.addEventListener('mouseout', (event) => {
+                    event.stopPropagation();
+                    codeLines.forEach((el) => el.classList.remove('highlighted-code'));
+                    elements.forEach((el) => el.classList.remove('hover'));
+                });
+            });
+            codeLines.forEach((line, ind) => {
+                if (ind > 1 && ind < codeLines.length - 1) {
+                    line.addEventListener('mouseover', (event) => {
+                        event.stopPropagation();
+                        codeLines[ind + 1].classList.add('highlighted-code');
+                        elements[ind].classList.add('hover');
+                    });
+                    line.addEventListener('mouseout', (event) => {
+                        event.stopPropagation();
+                        codeLines[ind + 1].classList.remove('highlighted-code');
+                        elements[ind].classList.remove('hover');
+                    });
+                }
+            });
+        }
     }
 }
 

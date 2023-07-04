@@ -148,6 +148,12 @@
   display: flex;
   flex-direction: column;
 }
+.highlighted-code, .highlighted-code * {
+  color: #fff;
+}
+.child {
+ padding-left: 2rem !important;
+}
 .aside {
   flex-grow: 1;
   height: 100vh;
@@ -295,6 +301,9 @@ dog:has(name) {
   margin-left: 10px;
 }
 dog:hover, cat:hover, rug:hover, bench:hover, name:hover {
+  filter: drop-shadow(6px -2px 3px rgba(0, 0, 0, 0.5));
+}
+dog.hover, cat.hover, rug.hover, bench.hover, name.hover {
   filter: drop-shadow(6px -2px 3px rgba(0, 0, 0, 0.5));
 }
 .animated {

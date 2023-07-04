@@ -135,7 +135,7 @@ const levels: Record<string, LevelInfo> = {
         ],
         innerHTML: `
             <dog/>
-            <bench/>
+            <bench>
               <dog/>
               <dog/>
               <cat/>
@@ -160,9 +160,7 @@ const levels: Record<string, LevelInfo> = {
             </rug>
             <dog/>
             <dog/>
-            <rug/>
               <dog class="corgi"/>
-            </rug>
             `,
     },
     level_9: {
