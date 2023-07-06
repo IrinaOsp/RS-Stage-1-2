@@ -178,7 +178,7 @@ const levels: Record<string, LevelInfo> = {
                     { tag: 'dog', tooltipText: '<dog></dog>' },
                 ],
             },
-            { tag: 'rug', tooltipText: '<dog></dog>' },
+            { tag: 'rug', tooltipText: '<rug></rug>' },
         ],
         innerHTML: `
             <dog/>
