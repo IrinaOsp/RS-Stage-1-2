@@ -64,6 +64,18 @@ export default class HTMLViewer {
                 line.textContent = i.toString();
                 this.lines?.appendChild(line);
             }
+            if (level === 10) {
+                const namesArr: NodeListOf<Element> = document.querySelectorAll('.hljs-tag:has(> span.hljs-string)');
+                namesArr.forEach((name, ind) => {
+                    const nameTag = name;
+                    const nameData = levels.level_10.htmlCode[ind].innerElement;
+                    if (nameData && nameData[0] && nameData[0].innerText) {
+                        const text = document.createElement('span');
+                        text.innerText = nameData[0].innerText;
+                        nameTag.appendChild(text);
+                    }
+                });
+            }
             this.formatView();
             this.highlightCode();
         }
@@ -117,7 +129,6 @@ export default class HTMLViewer {
                     elementInd += 1;
                 }
             });
-            console.log(indexMap);
             elements.forEach((el, ind) => {
                 el.addEventListener('mouseover', (event) => {
                     event.stopPropagation();
@@ -125,7 +136,6 @@ export default class HTMLViewer {
                         elements[ind].classList.add('hover');
                         codeLines[ind].classList.add('highlighted-code');
                     } else {
-                        console.log(ind);
                         elements[ind].classList.add('hover');
                         const keysArr: (string | number)[] = findKeysByValue(indexMap, ind);
                         keysArr.forEach((key) => {
@@ -144,7 +154,6 @@ export default class HTMLViewer {
             codeLines.forEach((line, ind) => {
                 line.addEventListener('mouseover', (event) => {
                     event.stopPropagation();
-                    console.log(ind);
                     if (codeLines.length === elements.length) {
                         elements[ind].classList.add('hover');
                         codeLines[ind].classList.add('highlighted-code');

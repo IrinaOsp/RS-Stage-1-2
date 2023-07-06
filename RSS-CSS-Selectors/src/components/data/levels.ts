@@ -232,18 +232,18 @@ const levels: Record<string, LevelInfo> = {
         ],
         innerHTML: `
             <dog>
-              <name lang="en-US">Sam</name>
+              <name lang="en-US"></name>
             </dog>
             <dog>
-              <name lang="pl-PL">Michał</name>
+              <name lang="pl-PL"></name>
             </dog>
             <rug>
               <dog>
-                <name lang="en-US">Jack</name>
+                <name lang="en-US"></name>
               </dog>
             </rug>
             <dog>
-              <name lang="en-US">Daisy</name>
+              <name lang="en-US"></name>
             </dog>
             `,
     },
