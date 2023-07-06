@@ -4,6 +4,39 @@ import eventEmitter from '../../controller/eventEmitter/eventEmitter';
 const hljs = require('highlight.js/lib/core');
 hljs.registerLanguage('xml', require('highlight.js/lib/languages/xml'));
 
+function findKeyWithLetter(map: Map<number | string, number>, letter: string) {
+    const iterator = map.keys();
+    for (let i = 1; i <= map.size; i += 1) {
+        const keyInMap = iterator.next().value;
+        if (typeof keyInMap === 'string' && keyInMap.includes(letter)) {
+            return keyInMap;
+        }
+    }
+    return null;
+}
+
+function replaceKey(map: Map<number | string, number>, oldKey: string, newKey: number) {
+    if (map.has(oldKey)) {
+        const value: number | undefined = map.get(oldKey);
+        if (value || value === 0) {
+            map.delete(oldKey);
+            map.set(newKey, value);
+        }
+    }
+}
+
+function findKeysByValue(map: Map<number | string, number>, value: number) {
+    const keys = [];
+    const iterator = map.entries();
+    for (let i = 1; i <= map.size; i += 1) {
+        const entry = iterator.next().value;
+        if (entry[1] === value) {
+            keys.push(entry[0]);
+        }
+    }
+    return keys;
+}
+
 export default class HTMLViewer {
     private view: HTMLDivElement | null;
 
@@ -56,50 +89,83 @@ export default class HTMLViewer {
         const elements: NodeListOf<Element> = document.querySelectorAll('.grass *');
         const codeLines = this.view?.querySelectorAll('.hljs-tag');
         if (elements && codeLines) {
+            const indexMap: Map<number | string, number> = new Map();
+            let elementInd = 0;
+            let parents = 0;
+            codeLines.forEach((line, index) => {
+                if (line.classList.contains('parent')) {
+                    if (parents > 0) {
+                        if (parents % 2 !== 0) {
+                            const key = findKeyWithLetter(indexMap, 'p');
+                            let ind: number | undefined;
+                            if (key) {
+                                ind = indexMap.get(key);
+                                if (ind) indexMap.set(index, ind);
+                                replaceKey(indexMap, key, Number(key.slice(0, -1)));
+                            }
+                        } else {
+                            indexMap.set(`${index}p`, elementInd);
+                            elementInd += 1;
+                        }
+                    } else {
+                        indexMap.set(`${index}p`, elementInd);
+                        elementInd += 1;
+                    }
+                    parents += 1;
+                } else {
+                    indexMap.set(index, elementInd);
+                    elementInd += 1;
+                }
+            });
+            console.log(indexMap);
             elements.forEach((el, ind) => {
                 el.addEventListener('mouseover', (event) => {
-                    console.log('mouseover');
                     event.stopPropagation();
                     if (codeLines.length === elements.length) {
                         elements[ind].classList.add('hover');
                         codeLines[ind].classList.add('highlighted-code');
                     } else {
+                        console.log(ind);
                         elements[ind].classList.add('hover');
-                        let parents: number = 0;
-                        codeLines.forEach((el) => el.classList.contains('parent') ? parents += 1 : parents);
-                        // console.log(parents / 2);
-                        if (codeLines[ind].classList.contains('parent')) {
-                            console.log('first');
-                            codeLines[ind].classList.add('highlighted-code');
-                            ind < elements.length - 2 ? codeLines[ind + 2].closest('.parent')?.classList.add('highlighted-code') : '';
-                        } else if (ind > 0 && codeLines[ind - 1].classList.contains('parent') && codeLines[ind - 1].textContent?.includes('</')) {
-                            // console.log('second');
-                            codeLines[ind + 1].classList.add('highlighted-code');
-                        } else {
-                            // console.log('3d');
-                            codeLines[ind].classList.add('highlighted-code');
-                        }
+                        const keysArr: (string | number)[] = findKeysByValue(indexMap, ind);
+                        keysArr.forEach((key) => {
+                            if (typeof key === 'number') {
+                                codeLines[Number(key)].classList.add('highlighted-code');
+                            }
+                        });
                     }
                 });
                 el.addEventListener('mouseout', (event) => {
                     event.stopPropagation();
-                    codeLines.forEach((el) => el.classList.remove('highlighted-code'));
-                    elements.forEach((el) => el.classList.remove('hover'));
+                    codeLines.forEach((elem) => elem.classList.remove('highlighted-code'));
+                    elements.forEach((elem) => elem.classList.remove('hover'));
                 });
             });
             codeLines.forEach((line, ind) => {
-                if (ind > 1 && ind < codeLines.length - 1) {
-                    line.addEventListener('mouseover', (event) => {
-                        event.stopPropagation();
-                        codeLines[ind + 1].classList.add('highlighted-code');
+                line.addEventListener('mouseover', (event) => {
+                    event.stopPropagation();
+                    console.log(ind);
+                    if (codeLines.length === elements.length) {
                         elements[ind].classList.add('hover');
-                    });
-                    line.addEventListener('mouseout', (event) => {
-                        event.stopPropagation();
-                        codeLines[ind + 1].classList.remove('highlighted-code');
-                        elements[ind].classList.remove('hover');
-                    });
-                }
+                        codeLines[ind].classList.add('highlighted-code');
+                    } else {
+                        const value = indexMap.get(ind);
+                        if (value || value === 0) {
+                            elements[value].classList.add('hover');
+                            const keysArr: (string | number)[] = findKeysByValue(indexMap, value);
+                            keysArr.forEach((key) => {
+                                if (typeof key === 'number') {
+                                    codeLines[Number(key)].classList.add('highlighted-code');
+                                }
+                            });
+                        }
+                    }
+                });
+                line.addEventListener('mouseout', (event) => {
+                    event.stopPropagation();
+                    codeLines.forEach((elem) => elem.classList.remove('highlighted-code'));
+                    elements.forEach((elem) => elem.classList.remove('hover'));
+                });
             });
         }
     }
