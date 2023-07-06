@@ -182,11 +182,14 @@
   background-color: rgba(0, 0, 0, 0.2)
 }
 .aside-levels-list {
-  list-style: "\2611";
+  list-style: "\2610";
   padding-left: 15px;
 }
 .completed {
   list-style: "\2705";
+}
+.completed-with-help {
+  list-style: "\2611";
 }
 .game-lvl {
   padding: 10px;

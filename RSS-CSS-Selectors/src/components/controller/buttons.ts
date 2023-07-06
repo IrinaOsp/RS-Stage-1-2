@@ -4,7 +4,6 @@ function HelpBtnOnClick(): void {
     const input: HTMLTextAreaElement | null = document.querySelector('.code-input');
     const lvl: string | null = localStorage.getItem('current_level');
     if (input && lvl) {
-        // input.classList.add('input-animated');
         const text = levels[`level_${lvl}`].selector;
         let currentIndex = 0;
         const animateText = () => {
@@ -15,7 +14,19 @@ function HelpBtnOnClick(): void {
             }
         };
         animateText();
-        // input.addEventListener('animationend', () => input.classList.remove('input-animated'));
+        const levelsStr = localStorage.getItem('levels_with_help');
+        let levelsArr: string[] = [];
+        if (levelsStr) {
+            levelsArr = JSON.parse(levelsStr);
+            if (lvl) {
+                if (levelsArr.indexOf(lvl) === -1) {
+                    levelsArr.push(lvl);
+                }
+            }
+        } else {
+            levelsArr.push(lvl);
+        }
+        localStorage.setItem('levels_with_help', JSON.stringify(levelsArr));
     }
 }
 

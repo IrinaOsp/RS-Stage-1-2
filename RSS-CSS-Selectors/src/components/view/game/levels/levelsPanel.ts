@@ -38,6 +38,14 @@ export default class LevelPanel {
                 lvlElement.classList.add('completed');
             });
         }
+        const completedLvlsStrWithHelp: string | null = localStorage.getItem('levels_with_help');
+        if (completedLvlsStrWithHelp) {
+            JSON.parse(completedLvlsStrWithHelp).forEach((el: string) => {
+                const lvlElement: Element = document.querySelectorAll('.game-lvl')[Number(el) - 1];
+                lvlElement.classList.remove('completed');
+                lvlElement.classList.add('completed-with-help');
+            });
+        }
     }
 }
 
