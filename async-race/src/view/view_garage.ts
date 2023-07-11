@@ -1,10 +1,10 @@
-import { MAIN } from './view_main';
+import { MAIN, WRAPPER } from './view_main';
 import createButton from './view_buttons';
 
 const drawGarageInputs: () => void = () => {
   const CONTROL_BLOCK = document.createElement('div');
   CONTROL_BLOCK.classList.add('control-block');
-  MAIN.append(CONTROL_BLOCK);
+  MAIN.prepend(CONTROL_BLOCK);
 
   const CREATE_NAME = document.createElement('input');
   CREATE_NAME.setAttribute('type', 'text');
@@ -42,9 +42,20 @@ const drawGarageInputs: () => void = () => {
 };
 
 const drawGarageCars = () => {
-  const GARAGE_HEADING = document.createElement('h2');
-  GARAGE_HEADING.className = 'garage-heading';
-  GARAGE_HEADING.textContent = 'Garage';
+  const CAR_CONTAINER = document.createElement('div');
+  CAR_CONTAINER.className = 'car-container';
+  WRAPPER.appendChild(CAR_CONTAINER);
+  const BUTTON_SELECT = createButton(CAR_CONTAINER, 'button-garage', 'select');
+  const BUTTON_REMOVE = createButton(CAR_CONTAINER, 'button-garage', 'remove');
+  const CAR_NAME = document.createElement('span');
+  CAR_NAME.className = 'car-name';
+  CAR_NAME.textContent = 'Porshe';
+  const BUTTON_START = createButton(CAR_CONTAINER, 'button-move', 'a');
+  const BUTTON_STOP = createButton(CAR_CONTAINER, 'button-move', 'b');
+  const CAR = document.createElement('div');
+  CAR.className = 'car';
+  CAR.setAttribute('backdround-image', '');
+  CAR_CONTAINER.append(BUTTON_SELECT, BUTTON_REMOVE, CAR_NAME, BUTTON_START, BUTTON_STOP, CAR);
 };
 
 const drawGarage = () => {
