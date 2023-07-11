@@ -1,7 +1,6 @@
-const drawMain: () => void = () => {
-  const MAIN = document.createElement('main');
+export const MAIN = document.createElement('main');
+
+export const drawMain: () => void = () => {
   MAIN.classList.add('main');
   document.body.append(MAIN);
 };
-
-export default drawMain;

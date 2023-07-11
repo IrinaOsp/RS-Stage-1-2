@@ -1,12 +1,55 @@
 body {
   background-color: #000;
 }
+button {
+  text-transform: uppercase;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
 .button_header {
   margin-left: 10px;
   padding: 2px 4px;
-  text-transform: uppercase;
-  font-weight: 600;
   background-color: #9dba1d;
   border-bottom: 4px solid #617211;
-  border-radius: 6px;
+}
+.main {
+  margin-top: 10px;
+  padding: 10px;
+}
+.button-garage {
+  padding: 1px 13px;
+  background-color: rgb(196, 226, 241);
+  border-bottom: 3px solid rgb(145, 191, 213);
+  font-size: 0.7em;
+  grid-column: span 1;
+}
+.control-block {
+  max-width: 400px;
+  display: grid;
+  grid-template-columns: 100px 3fr 1fr;
+  grid-template-rows: auto;
+  row-gap: 10px;
+  column-gap: 5px;
+  align-content: center;
+  justify-content: center;
+}
+.input-name {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+.control-block button:last-child {
+  grid-column-start: 3;
+  grid-column-end: 5;
+}
+.input-color {
+  height: 1.5em;
+  border: none;
+  padding: 0;
+}
+.button-yellow {
+  justify-self: center;
+  width: 100px;
+  background-color: #d5f3a0;
+  border-color: #9eb575;
 }
