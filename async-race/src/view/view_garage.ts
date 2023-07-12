@@ -1,7 +1,7 @@
 import { MAIN, WRAPPER } from './view_main';
 import createButton from './view_buttons';
 
-const drawGarageInputs: () => void = () => {
+export const drawGarageInputs: () => void = () => {
   const CONTROL_BLOCK = document.createElement('div');
   CONTROL_BLOCK.classList.add('control-block');
   MAIN.prepend(CONTROL_BLOCK);
@@ -41,26 +41,29 @@ const drawGarageInputs: () => void = () => {
   BUTTON_GENERATE.addEventListener('click', () => console.log('generate cars'));
 };
 
-const drawGarageCars = () => {
+export const drawGarageCars = (name: string, color: string) => {
+  console.log('drawGarageCars');
   const CAR_CONTAINER = document.createElement('div');
   CAR_CONTAINER.className = 'car-container';
   WRAPPER.appendChild(CAR_CONTAINER);
+  const CONTAINER_HEAD = document.createElement('div');
+  CONTAINER_HEAD.className = 'car_subcontainer';
+  CAR_CONTAINER.append(CONTAINER_HEAD);
   const BUTTON_SELECT = createButton(CAR_CONTAINER, 'button-garage', 'select');
   const BUTTON_REMOVE = createButton(CAR_CONTAINER, 'button-garage', 'remove');
   const CAR_NAME = document.createElement('span');
   CAR_NAME.className = 'car-name';
-  CAR_NAME.textContent = 'Porshe';
+  CAR_NAME.textContent = name;
+  CONTAINER_HEAD.append(BUTTON_SELECT, BUTTON_REMOVE, CAR_NAME);
   const BUTTON_START = createButton(CAR_CONTAINER, 'button-move', 'a');
   const BUTTON_STOP = createButton(CAR_CONTAINER, 'button-move', 'b');
   const CAR = document.createElement('div');
   CAR.className = 'car';
-  CAR.setAttribute('backdround-image', '');
-  CAR_CONTAINER.append(BUTTON_SELECT, BUTTON_REMOVE, CAR_NAME, BUTTON_START, BUTTON_STOP, CAR);
+  // const img = document.createElement('img');
+  // img.src = imageSrc;
+  // img.alt = 'car';
+  // CAR.append(img);
+  // CAR.innerHTML = '<img src="../assets/car-hatchback-svgrepo-com.svg" alt="car">';
+  CAR.style.backgroundColor = color;
+  CAR_CONTAINER.append(BUTTON_START, BUTTON_STOP, CAR);
 };
-
-const drawGarage = () => {
-  drawGarageInputs();
-  drawGarageCars();
-}
-
-export default drawGarage;

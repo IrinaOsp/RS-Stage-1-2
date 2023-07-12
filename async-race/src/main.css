@@ -75,6 +75,11 @@ button {
   display: flex;
   flex-wrap: wrap;
 }
+.car_subcontainer {
+  display: flex;
+  justify-content: start;
+  width: 100%;
+}
 .car-name {
   margin-left: 10px;
   margin-right: calc(100vw - 240px);
@@ -90,24 +95,27 @@ button {
   border-radius: 5px;
   font-size: 0.8em;
 }
-.car-container button:nth-of-type(3) {
+.car-container button.button-move:nth-of-type(1) {
   border-color: #d5f3a0;
   color: #d5f3a0;
 }
-.car-container button:nth-of-type(4) {
+.car-container button.button-move:nth-of-type(2) {
   border-color: #d06b49;
   color: #d06b49;
 }
-.car-container button:nth-of-type(3):hover, .car-container button:nth-of-type(4):hover {
+.car-container button.button-move:nth-of-type(1):hover, .car-container button.button-move:nth-of-type(2):hover {
   border-color: rgb(196, 226, 241);
   color: rgb(196, 226, 241);
 }
-.car-container button:nth-of-type(3).unactive, .car-container button:nth-of-type(4).unactive {
+.car-container button:nth-of-type(1).unactive, .car-container button:nth-of-type(2).unactive {
   border-color: gray;
   color: gray;
 }
 .car {
-  width: 100px;
+  width: 75px;
   height: 50px;
   margin: 3px 10px 0;
+  background: url(./assets/car-hatchback-svgrepo-com.svg) no-repeat;
+  transform: scale(-1, 1);
+  filter: drop-shadow(0px -1px 4px rgb(255, 255, 255));
 }
