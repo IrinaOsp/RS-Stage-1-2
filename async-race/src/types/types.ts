@@ -2,11 +2,15 @@ interface IqueryParams {
   key: string;
   value: number;
 }
-export type Query = IqueryParams[] | [];
+export type Query = IqueryParams[];
 export type generateStr = (a: Query) => string;
 
-export interface Icars {
+export interface Icar {
   name: string;
   color: string;
-  id: number;
+  id?: number;
+}
+export interface getCarsResult {
+  cars: Icar[];
+  carsNumber: number;
 }
