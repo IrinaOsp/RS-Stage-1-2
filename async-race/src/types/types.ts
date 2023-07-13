@@ -14,3 +14,10 @@ export interface getCarsResult {
   cars: Icar[];
   carsNumber: number;
 }
+
+export enum HTMLTags {
+  div = 'div',
+  span = 'span',
+  input = 'input',
+  button = 'button',
+}
