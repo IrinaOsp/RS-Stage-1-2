@@ -1,7 +1,7 @@
 export const MAIN = document.createElement('main');
 export const WRAPPER = document.createElement('div');
 
-export const drawMain: () => void = () => {
+export const drawMain: (cars: number, pages: number) => void = (cars, pages) => {
   MAIN.classList.add('main');
   document.body.append(MAIN);
 
@@ -15,15 +15,15 @@ export const drawMain: () => void = () => {
   PAGE_HEADING.className = 'page-heading';
   PAGE_HEADING.textContent = 'Page #';
 
-  WRAPPER.append(GARAGE_HEADING, PAGE_HEADING);
+  WRAPPER.prepend(GARAGE_HEADING, PAGE_HEADING);
 
   const CARS_COUNT = document.createElement('span');
   CARS_COUNT.className = 'cars-count';
-  CARS_COUNT.textContent = `(${104})`;
+  CARS_COUNT.textContent = `(${cars})`;
   GARAGE_HEADING.appendChild(CARS_COUNT);
 
   const PAGE_COUNT = document.createElement('span');
   PAGE_COUNT.className = 'page-count';
-  PAGE_COUNT.textContent = `${1}`;
+  PAGE_COUNT.textContent = `${pages}`;
   PAGE_HEADING.appendChild(PAGE_COUNT);
 };
