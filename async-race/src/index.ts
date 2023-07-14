@@ -8,16 +8,17 @@ import { getCarsResult } from './types/types';
 // , getCar, createCar, updateCar, deleteCar
 
 drawHeader();
-drawMain();
 drawGarageInputs();
 
-const getCarsData: () => void = async () => {
+export const getCarsData: () => void = async () => {
   const allCars: getCarsResult = await getCars([
     { key: '_page', value: 0 },
     { key: '_limit', value: 6 },
   ]);
+  const pages = Math.ceil(allCars.carsNumber / 7);
+  drawMain(allCars.carsNumber, pages);
   console.log(allCars);
-  allCars.cars.forEach((car) => drawGarageCars(car.name, car.color));
+  allCars.cars.forEach((car) => drawGarageCars(car.name, car.color, car.id? car.id : 0));
 };
 getCarsData();
 // const main = async () => {
