@@ -1,7 +1,8 @@
-interface IqueryParams {
+export interface IqueryParams {
   key: string;
-  value: number;
+  value: number | string;
 }
+
 export type Query = IqueryParams[];
 export type generateStr = (a: Query) => string;
 

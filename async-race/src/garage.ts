@@ -5,6 +5,7 @@ const baseUrl = 'http://127.0.0.1:3000/';
 const path = {
   garage: 'garage',
   winners: 'winners',
+  engine: 'engine',
 };
 
 const generateQueryString: generateStr = (queryParams = []) =>
@@ -53,4 +54,11 @@ export const deleteCar: (param: number) => Promise<Record<never, never>> = async
   });
   const car: Record<never, never> = await response.json();
   return car;
+}
+export const startStopEngine: (queryParams: Query) => Promise<number>  = async (queryParams) => {
+  const response = await fetch(`${baseUrl}${path.engine}${generateQueryString(queryParams)}`, {
+    method: 'PATCH',
+  });
+  const startParams = await response.json();
+  return startParams.velocity;
 }
