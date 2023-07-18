@@ -21,4 +21,10 @@ export enum HTMLTags {
   span = 'span',
   input = 'input',
   button = 'button',
+  table = 'table',
+  thead = 'thead',
+  tr = 'tr',
+  th = 'th',
+  tbody = 'tbody',
+  td = 'td',
 }
