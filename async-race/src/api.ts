@@ -62,3 +62,10 @@ export const startStopEngine: (queryParams: Query) => Promise<number>  = async (
   const startParams = await response.json();
   return startParams.velocity;
 }
+export const driveMode: (queryParams: Query) => Promise<number>  = async (queryParams) => {
+  const response = await fetch(`${baseUrl}${path.engine}${generateQueryString(queryParams)}`, {
+    method: 'PATCH',
+  });
+  const status = await response.json();
+  return status;
+}
