@@ -60,7 +60,8 @@ export const startStopEngine: (queryParams: Query) => Promise<number>  = async (
     method: 'PATCH',
   });
   const startParams = await response.json();
-  return startParams.velocity;
+  console.log(startParams);
+  return startParams.distance / startParams.velocity;
 }
 export const driveMode: (queryParams: Query) => Promise<number>  = async (queryParams) => {
   const response = await fetch(`${baseUrl}${path.engine}${generateQueryString(queryParams)}`, {
