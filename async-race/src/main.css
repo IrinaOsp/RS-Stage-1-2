@@ -135,10 +135,15 @@ button {
 .winners_table {
   color: #fff;
   border: 1px solid gray;
+  text-align: center;
 }
 .winners_thead {
   background-color: rgb(61, 95, 245);
 }
 .winners_thead th {
   padding: 0 10px 0;
+}
+td.winners_car {
+  transform: scale(-0.8, 0.8);
+  filter: drop-shadow(0px -1px 4px rgb(255, 255, 255));
 }

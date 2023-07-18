@@ -15,6 +15,15 @@ export interface getCarsResult {
   cars: Icar[];
   carsNumber: number;
 }
+export interface Iwinner {
+  id: number;
+  wins: number;
+  time: number;
+}
+export interface getWinnersResult {
+  winners: Iwinner[];
+  winnersNumber: number;
+}
 
 export enum HTMLTags {
   div = 'div',
