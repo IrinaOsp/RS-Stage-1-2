@@ -1,4 +1,4 @@
-import { generateStr, Query, Icar, getCarsResult } from './types/types';
+import { generateStr, Query, Icar, getCarsResult, getWinnersResult, Iwinner } from './types/types';
 
 const baseUrl = 'http://127.0.0.1:3000/';
 
@@ -63,10 +63,31 @@ export const startStopEngine: (queryParams: Query) => Promise<number>  = async (
   console.log(startParams);
   return startParams.distance / startParams.velocity;
 }
-export const driveMode: (queryParams: Query) => Promise<number>  = async (queryParams) => {
-  const response = await fetch(`${baseUrl}${path.engine}${generateQueryString(queryParams)}`, {
+export const driveMode: (queryParams: Query) => Promise<string>  = async (queryParams) => {
+  const result: Promise<string> = await fetch(`${baseUrl}${path.engine}${generateQueryString(queryParams)}`, {
     method: 'PATCH',
-  });
-  const status = await response.json();
-  return status;
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else if (res.status === 500) {
+        console.log('Error 500');
+        throw new Error('Error 500');
+      } else if (res.status === 400 || res.status === 404 || res.status === 429) {
+        throw new Error('Error 4xx');
+      } else {
+        throw new Error('fetch error');
+      }
+    })
+    .catch((e) => e.message);
+    return result;
+}
+export const getWinners: (x: Query) => Promise<getWinnersResult> = async (queryParams) => {
+  const response = await fetch(`${baseUrl}${path.winners}${generateQueryString(queryParams)}`);
+  const winnersNumber = Number(response.headers.get('X-Total-Count'));
+  console.log(winnersNumber);
+
+  const winners: Iwinner[] = await response.json();
+  console.log({ winners, winnersNumber });
+  return { winners, winnersNumber };
 }
