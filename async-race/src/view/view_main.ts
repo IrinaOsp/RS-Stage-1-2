@@ -15,4 +15,12 @@ export const drawMain: (cars: number, pages: number) => void = (cars, pages) => 
   const PAGE_HEADING = createElem(WRAPPER, HTMLTags.h3, 'page-heading', 'Page #');
   const CARS_COUNT = createElem(GARAGE_HEADING, HTMLTags.span, 'cars-count', `(${cars})`);
   const PAGE_COUNT = createElem(PAGE_HEADING, HTMLTags.span, 'page-count', `${pages}`);
+  const PAGINATION = createElem(MAIN, HTMLTags.div, 'pagination-block');
+  const PREV = createElem(PAGINATION, HTMLTags.button, 'button-garage prev', 'prev');
+  const NEXT = createElem(PAGINATION, HTMLTags.button, 'button-garage next', 'next');
+  if (pages === 1 && PREV instanceof HTMLButtonElement && NEXT instanceof HTMLButtonElement) {
+    PREV.disabled = true;
+    NEXT.disabled = true;
+  }
+  console.log(CARS_COUNT, PAGE_COUNT);
 };
