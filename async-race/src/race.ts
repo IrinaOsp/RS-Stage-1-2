@@ -1,5 +1,7 @@
 import { startStopEngine, driveMode } from './api';
 
+export let abortController = new AbortController();
+
 export const startRace: (target: EventTarget | null) => Promise<void> = async (target) => {
   console.log(target);
   let id = '0';
@@ -17,6 +19,7 @@ export const startRace: (target: EventTarget | null) => Promise<void> = async (t
   }
 }
 
+let ANIMATION_ID: number;
 async function animationControl (el: HTMLElement, time: number, id: string) {
   console.log('wrapper');
   console.log(time);
@@ -28,7 +31,6 @@ async function animationControl (el: HTMLElement, time: number, id: string) {
     if (CONTAINER instanceof HTMLElement && initialPosition) {
       DISTANCE = CONTAINER.getClientRects()[0].width - el.clientWidth - initialPosition;
     }
-    let ANIMATION_ID: number;
     function animate(currentTime: number) {
       console.log('animate');
       const timeDelta = currentTime - startTime;
@@ -41,7 +43,7 @@ async function animationControl (el: HTMLElement, time: number, id: string) {
         el.style.left = DISTANCE + 'px';
       }
     }
-    requestAnimationFrame(animate);
+    ANIMATION_ID = requestAnimationFrame(animate);
     await driveMode([{key: 'id', value: id}, {key: 'status', value: 'drive'}])
       .then((res: any) => {
         console.log(res);
@@ -49,11 +51,28 @@ async function animationControl (el: HTMLElement, time: number, id: string) {
         if (res === 'Error 500') {
           console.log('cancelAnimationFrame');
           cancelAnimationFrame(ANIMATION_ID);
-        } else {
-          requestAnimationFrame(animate);
         }
       });
   } catch (error) {
     console.log('animation error');
+  }
+}
+
+export const stopRace: (target: EventTarget | null) => Promise<void> = async (target) => {
+  let id = '0';
+  let container: Element | null;
+  if (target instanceof HTMLButtonElement) {
+    target.disabled = true;
+    container = target.closest('.car-container');
+    if (container) {
+      container.id ? id = container.id : '0'
+      const CAR = container?.childNodes[container.childNodes.length - 2];
+      cancelAnimationFrame(ANIMATION_ID);
+      if (CAR instanceof HTMLElement) CAR.style.left = '0';
+      abortController.abort();
+      const STOP = await startStopEngine([{key: 'id', value: id}, {key: 'status', value: 'stopped'}]);
+      abortController = new AbortController();
+    }
+    target.disabled = false;
   }
 }

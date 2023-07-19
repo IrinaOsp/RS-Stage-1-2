@@ -1,4 +1,5 @@
 import { generateStr, Query, Icar, getCarsResult, getWinnersResult, Iwinner } from './types/types';
+import { abortController } from './race';
 
 const baseUrl = 'http://127.0.0.1:3000/';
 
@@ -63,9 +64,11 @@ export const startStopEngine: (queryParams: Query) => Promise<number>  = async (
   console.log(startParams);
   return startParams.distance / startParams.velocity;
 }
+
 export const driveMode: (queryParams: Query) => Promise<string>  = async (queryParams) => {
   const result: Promise<string> = await fetch(`${baseUrl}${path.engine}${generateQueryString(queryParams)}`, {
     method: 'PATCH',
+    signal: abortController.signal,
   })
     .then((res) => {
       if (res.ok) {
