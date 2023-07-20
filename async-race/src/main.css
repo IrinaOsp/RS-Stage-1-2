@@ -32,6 +32,9 @@ button {
   font-size: 0.7em;
   grid-column: span 1;
 }
+.button-garage:disabled {
+  cursor: not-allowed;
+}
 .control-block {
   max-width: 400px;
   margin-bottom: 30px;
@@ -116,7 +119,7 @@ button {
 .car-container button.stop:disabled:hover {
   border-color: gray;
   color: gray;
-  cursor: none;
+  cursor: not-allowed;
 }
 .car {
   width: 75px;

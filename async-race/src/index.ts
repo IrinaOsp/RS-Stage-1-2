@@ -2,23 +2,22 @@ import './main.css';
 import { drawGarageInputs, drawGarageCars } from './view/view_garage';
 import drawHeader from './view/view_header';
 import { drawMain } from './view/view_main';
-import { getCars } from './garage';
+import { getCars } from './api';
 import { getCarsResult } from './types/types';
-
-// , getCar, createCar, updateCar, deleteCar
 
 drawHeader();
 drawGarageInputs();
 
-export const getCarsData: () => void = async () => {
+export const getCarsData: () => Promise<getCarsResult> = async (page = 1, limit = 7) => {
   const allCars: getCarsResult = await getCars([
-    { key: '_page', value: 0 },
-    { key: '_limit', value: 6 },
+    { key: '_page', value: page },
+    { key: '_limit', value: limit },
   ]);
   const pages = Math.ceil(allCars.carsNumber / 7);
-  drawMain(allCars.carsNumber, pages);
+  drawMain(allCars.carsNumber, page, pages);
   console.log(allCars);
   allCars.cars.forEach((car) => drawGarageCars(car.name, car.color, car.id? car.id : 0));
+  return allCars;
 };
 getCarsData();
 // const main = async () => {
