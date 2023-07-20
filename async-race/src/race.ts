@@ -13,6 +13,8 @@ export const startRace: (target: EventTarget | null) => Promise<void> = async (t
       container.id ? id = container.id : '0'
       const TIME = await startStopEngine([{key: 'id', value: id}, {key: 'status', value: 'started'}]);
       console.log(TIME);
+      const BUTTON_STOP = document.querySelector('.stop');
+      if (BUTTON_STOP instanceof HTMLButtonElement) BUTTON_STOP.disabled = false;
       const CAR = container?.childNodes[container.childNodes.length - 2];
       if (CAR instanceof HTMLElement) animationControl(CAR, TIME, id).then(() => target.disabled = false);
     };
@@ -73,6 +75,5 @@ export const stopRace: (target: EventTarget | null) => Promise<void> = async (ta
       const STOP = await startStopEngine([{key: 'id', value: id}, {key: 'status', value: 'stopped'}]);
       abortController = new AbortController();
     }
-    target.disabled = false;
   }
 }
