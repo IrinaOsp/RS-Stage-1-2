@@ -52,9 +52,12 @@ export const updateCar: (param1: number, param2: Icar) => Promise<Icar> = async 
 export const deleteCar: (param: number) => Promise<Record<never, never>> = async (id) => {
   const response = await fetch(`${baseUrl}${path.garage}/${id}`, {
     method: 'DELETE',
-  });
-  const car: Record<never, never> = await response.json();
-  return car;
+  }).then((res) => {
+    if (res.ok) return res.json();
+    if (res.status === 404) throw new Error(res.statusText)
+  }).catch((e) => e.message);
+  console.log(response);
+  return response;
 }
 export const startStopEngine: (queryParams: Query) => Promise<number>  = async (queryParams) => {
   const response = await fetch(`${baseUrl}${path.engine}${generateQueryString(queryParams)}`, {
@@ -93,4 +96,56 @@ export const getWinners: (x: Query) => Promise<getWinnersResult> = async (queryP
   const winners: Iwinner[] = await response.json();
   console.log({ winners, winnersNumber });
   return { winners, winnersNumber };
+}
+export const createWinner: (param: Icar) => Promise<Icar> = async (body) => {
+  const result = await fetch(`${baseUrl}${path.winners}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else if (res.status === 500) {
+        throw new Error('Error 500');
+      } else {
+        throw new Error('createWinner fetch error');
+      }
+    })
+    .catch((e) => e.message);
+  return result;
+}
+export const deleteWinner: (param: number) => Promise<Record<never, never>> = async (id) => {
+  const result = await fetch(`${baseUrl}${path.winners}/${id}`, {
+    method: 'DELETE',
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else if (res.status === 404) {
+        throw new Error('Error 404 Not found');
+      }
+    })
+    .catch((e) => e.message);
+  return result;
+}
+export const updateWinner: (param1: number, param2: Icar) => Promise<Icar> = async (id, body) => {
+  const result = await fetch(`${baseUrl}${path.winners}/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  })
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else if (res.status === 404) {
+      throw new Error('Error 404 Not found');
+    }
+  })
+  .catch((e) => e.message);
+return result;
 }

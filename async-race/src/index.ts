@@ -4,16 +4,17 @@ import drawHeader from './view/view_header';
 import { drawMain } from './view/view_main';
 import { getCars } from './api';
 import { getCarsResult } from './types/types';
+import { CARS_PER_PAGE } from './store';
 
 drawHeader();
 drawGarageInputs();
 
-export const getCarsData: () => Promise<getCarsResult> = async (page = 1, limit = 7) => {
+export const getCarsData: () => Promise<getCarsResult> = async (page = 1, limit = CARS_PER_PAGE) => {
   const allCars: getCarsResult = await getCars([
     { key: '_page', value: page },
     { key: '_limit', value: limit },
   ]);
-  const pages = Math.ceil(allCars.carsNumber / 7);
+  const pages = Math.ceil(allCars.carsNumber / limit);
   drawMain(allCars.carsNumber, page, pages);
   console.log(allCars);
   allCars.cars.forEach((car) => drawGarageCars(car.name, car.color, car.id? car.id : 0));

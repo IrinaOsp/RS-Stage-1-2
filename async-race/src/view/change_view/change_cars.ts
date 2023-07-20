@@ -1,6 +1,7 @@
 import { drawGarageCars } from '../view_garage';
-import { createCar, deleteCar, updateCar } from '../../garage';
-import { Icar } from '../../types/types';
+import { getCars, createCar, deleteCar, updateCar } from '../../api';
+import { CARS_PER_PAGE } from '../../store';
+import { updateHeadings } from '../view_main';
 
 export const drawAddedCar: () => void = () => {
   let name = '';
@@ -10,11 +11,11 @@ export const drawAddedCar: () => void = () => {
   if (CREATE_NAME instanceof HTMLInputElement) name = CREATE_NAME.value;
   if (CREATE_COLOR instanceof HTMLInputElement) color = CREATE_COLOR.value;
   if (name && color) {
-    const newCar: () => Promise<Icar> = async () => {
-      const car = await createCar({ name, color });
-      return car;
-    };
-    newCar().then((carID) => drawGarageCars(name, color, carID.id ? carID.id : 0));
+    createCar({ name, color }).then((carID) => {
+      if (document.querySelectorAll('.car-container').length < CARS_PER_PAGE)
+        drawGarageCars(carID.name, carID.color, carID.id ? carID.id : 0);
+      updateHeadings();
+    });
   }
 };
 
@@ -72,14 +73,28 @@ export const removeCar: (param: Event) => void = (event) => {
   let id = 0;
   if (event.target instanceof HTMLElement) {
     const container = event.target.closest('.car-container');
-
-    document.querySelectorAll('.remove-car').forEach((car, ind) => {
-      if (car === event.target) id = ind + 1;
+    if (container?.hasAttribute('id')) id = Number(container.getAttribute('id'));
+    deleteCar(id).then((res) => {
+      if (res === 'Not Found') {
+        console.error('car is not found');
+      } else {
+        if (container?.parentNode) container.parentNode.removeChild(container);
+        updateHeadings();
+        if (document.querySelectorAll('.car-container').length < CARS_PER_PAGE) {
+          const LAST_CAR_ON_PAGE = document.querySelectorAll('.car-container').item(document.querySelectorAll('.car-container').length - 1);
+          let lastCarID: number;
+          if (LAST_CAR_ON_PAGE.hasAttribute('id')) lastCarID = Number(LAST_CAR_ON_PAGE.getAttribute('id'));
+          const page = Number(document.querySelector('.page-count')?.textContent?.slice(0, 1));
+          getCars([
+            { key: '_page', value: page + 1 },
+            { key: '_limit', value: CARS_PER_PAGE },
+          ]).then((res) => {
+            if (res.cars.length > 0) {
+              drawGarageCars(res.cars[0].name, res.cars[0].color, res.cars[0].id ? res.cars[0].id : 0);
+            }
+          });
+        }
+      }
     });
-
-    if (container?.parentNode) {
-      container.parentNode.removeChild(container);
-    }
   }
-  deleteCar(id);
 }
