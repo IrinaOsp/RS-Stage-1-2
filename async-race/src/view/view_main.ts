@@ -1,6 +1,8 @@
 import { HTMLTags } from '../types/types';
 import { createElem } from './view_elements';
 import { paginationGarage } from './view_pagination';
+import { getCars } from '../api';
+import { CARS_PER_PAGE } from '../store';
 
 export const MAIN = document.createElement('main');
 export const WRAPPER = document.createElement('div');
@@ -27,3 +29,19 @@ export const drawMain: (cars: number, page: number, pages: number) => void = (ca
   }
   console.log(CARS_COUNT, PAGE_COUNT);
 };
+
+export const updateHeadings = () => {
+  getCars([{ key: '_limit', value: CARS_PER_PAGE }])
+  .then((res) => {
+    const carsNumber = res.carsNumber;
+    const CARS_NUM = document.querySelector('.cars-count');
+    if (CARS_NUM) CARS_NUM.textContent = `(${carsNumber})`;
+    const PAGES_NUM = document.querySelector('.page-count');
+    if (PAGES_NUM instanceof HTMLElement && PAGES_NUM.textContent) {
+        const pages = Math.ceil(carsNumber / CARS_PER_PAGE);
+        let text = PAGES_NUM.textContent;
+        text = text.slice(0, text.indexOf('/') + 2).concat(`${pages}`);
+        PAGES_NUM.textContent = text;
+      }
+  });
+}
