@@ -34,7 +34,7 @@ export const updateCarView: () => void = () => {
     if (carNameSpan instanceof HTMLSpanElement) carNameSpan.textContent = name;
     const svgEl = CAR.firstChild;
     if (svgEl instanceof SVGElement) svgEl.style.fill = color;
-    id = Number(CAR.closest('.car-container')?.getAttribute('id'));
+    id = Number(CAR.closest('.car-container')?.getAttribute('id')?.slice(1));
   }
   updateCar(id, {name: name, color: color});
 };
@@ -73,7 +73,7 @@ export const removeCar: (param: Event) => void = (event) => {
   let id = 0;
   if (event.target instanceof HTMLElement) {
     const container = event.target.closest('.car-container');
-    if (container?.hasAttribute('id')) id = Number(container.getAttribute('id'));
+    if (container?.hasAttribute('id')) id = Number(container.getAttribute('id')?.slice(1));
     deleteCar(id).then((res) => {
       if (res === 'Not Found') {
         console.error('car is not found');

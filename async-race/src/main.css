@@ -156,3 +156,12 @@ td.winners_car {
 .prev {
   margin-right: 15px;
 }
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  width: 200px;
+  height: 100px;
+  text-align: center;
+  background-color: #d5f3a0;
+}
