@@ -1,4 +1,4 @@
-import { startStopEngine, driveMode } from './api';
+import { startStopEngine, driveMode, createWinner, getWinner, updateWinner } from './api';
 import { HTMLTags } from './types/types';
 import { createElem } from './view/view_elements';
 import { MAIN } from './view/view_main';
@@ -34,7 +34,7 @@ async function animationControl(el: HTMLElement, time: number, id: string): Prom
     const drivePromise = driveMode([{key: 'id', value: id}, {key: 'status', value: 'drive'}]);
     promisesArr.push([drivePromise, id, time]);
     console.log('-------------------------------------------', promisesArr.length);
-    if (promisesArr.length === 7) getWinner();
+    if (promisesArr.length === 7) getResult();
     drivePromise.then((res) => {
         console.log(id, res);
         if (res === 'Error 500') {
@@ -99,13 +99,16 @@ export const startRace: (t: EventTarget | null) => void = (target) => {
   });
 };
 
-function getWinner() {
+function getResult() {
   console.log(promisesArr.length);
   console.log(promisesArr);
   Promise.race(promisesArr).then((res) => {
     console.log(res[0]);
     console.log(res[1]);
-    const WINNER_NAME = document.querySelector(`.car-container#a${res[1]} .car-name`)?.textContent;
+    let WINNER_NAME = '';
+    const NODE_NAME = document.querySelector(`.car-container#a${res[1]} .car-name`)
+    if (NODE_NAME && NODE_NAME.textContent) WINNER_NAME = NODE_NAME.textContent;
+    const ID = Number(res[1]);
     console.log(WINNER_NAME);
     console.log(res[2]);
     const WINNER_TIME = Math.round(res[2] as number / 10) / 100;
@@ -116,10 +119,19 @@ function getWinner() {
     setTimeout(() => {
       POPUP.remove();
     }, 3000);
+    promisesArr.length = 0;
+    getWinner(ID).then((res) => {
+      if (res === 'Winner not found') {
+        createWinner({id: ID, wins: 1, time: WINNER_TIME});
+      } else if (typeof res !== 'string') {
+        let newTime: number;
+        const newWins = res.wins + 1;
+        res.time > WINNER_TIME ? newTime = WINNER_TIME : newTime = res.time;
+        updateWinner(ID, {wins: newWins, time: newTime})
+      }
   });
-  promisesArr.length = 0;
+  });
 }
-
 export const resetCars: (t: EventTarget | null) => void = (target) => {
   console.log('stop race');
   const BUTTON_RACE = document.querySelector('.race');

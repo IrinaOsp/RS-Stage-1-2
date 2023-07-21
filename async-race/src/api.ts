@@ -97,7 +97,21 @@ export const getWinners: (x: Query) => Promise<getWinnersResult> = async (queryP
   console.log({ winners, winnersNumber });
   return { winners, winnersNumber };
 }
-export const createWinner: (param: Icar) => Promise<Icar> = async (body) => {
+export const getWinner: (param: number) => Promise<Iwinner | string> = async (id) => {
+  const result = await fetch(`${baseUrl}${path.winners}/${id}`)
+    .then((res) => {
+      if(res.ok) {
+        return res.json();
+      } else if (res.status === 404) {
+        throw new Error('Winner not found');
+      } else {
+        throw new Error('getWinner fetch error');
+      }
+    })
+    .catch((e) => e.message);
+  return result;
+}
+export const createWinner: (param: Iwinner) => Promise<Iwinner> = async (body) => {
   const result = await fetch(`${baseUrl}${path.winners}`, {
     method: 'POST',
     headers: {
@@ -131,7 +145,7 @@ export const deleteWinner: (param: number) => Promise<Record<never, never>> = as
     .catch((e) => e.message);
   return result;
 }
-export const updateWinner: (param1: number, param2: Icar) => Promise<Icar> = async (id, body) => {
+export const updateWinner: (param1: number, param2: Iwinner) => Promise<Iwinner> = async (id, body) => {
   const result = await fetch(`${baseUrl}${path.winners}/${id}`, {
     method: 'PUT',
     headers: {

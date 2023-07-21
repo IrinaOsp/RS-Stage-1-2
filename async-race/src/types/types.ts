@@ -16,7 +16,7 @@ export interface getCarsResult {
   carsNumber: number;
 }
 export interface Iwinner {
-  id: number;
+  id?: number;
   wins: number;
   time: number;
 }
@@ -36,4 +36,6 @@ export enum HTMLTags {
   th = 'th',
   tbody = 'tbody',
   td = 'td',
+  h2 = 'h2',
+  h3 = 'h3',
 }
