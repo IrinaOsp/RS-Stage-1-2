@@ -2,7 +2,7 @@ import { HTMLTags } from '../types/types';
 import { createElem } from './view_elements';
 import { paginationGarage } from './view_pagination';
 import { getCars } from '../api';
-import { CARS_PER_PAGE } from '../store';
+import { CARS_PER_PAGE } from '../data/app_data';
 
 export const MAIN = document.createElement('main');
 export const WRAPPER = document.createElement('div');
@@ -39,9 +39,18 @@ export const updateHeadings = () => {
     const PAGES_NUM = document.querySelector('.page-count');
     if (PAGES_NUM instanceof HTMLElement && PAGES_NUM.textContent) {
       const GARAGE_TOTAL_PAGES = Math.ceil(carsNumber / CARS_PER_PAGE);
-      let text = PAGES_NUM.textContent;
-      text = text.slice(0, text.indexOf('/') + 2).concat(`${GARAGE_TOTAL_PAGES}`);
-      PAGES_NUM.textContent = text;
+      const PAGES_INFO = localStorage.getItem('garage pages');
+      if (PAGES_INFO) {
+        const PAGES_ARR = JSON.parse(PAGES_INFO);
+        if (PAGES_ARR instanceof Array) {
+          const CURRENT_PAGE = PAGES_ARR[0];
+          PAGES_NUM.textContent = `${CURRENT_PAGE} / ${GARAGE_TOTAL_PAGES}`;
+        }
+      } else {
+        let text = PAGES_NUM.textContent;
+        text = text.slice(0, text.indexOf('/') + 2).concat(`${GARAGE_TOTAL_PAGES}`);
+        PAGES_NUM.textContent = text;
+      }
     }
   });
 }

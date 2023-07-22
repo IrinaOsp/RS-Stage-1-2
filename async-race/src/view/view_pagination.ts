@@ -6,10 +6,8 @@ export const paginationGarage: (t: EventTarget | null, p1: number, p2: number) =
   let currentPage = page;
   const BTN = target;
   if (BTN instanceof HTMLButtonElement) {
-    console.log('click');
-    BTN.classList.contains('next') ? currentPage += 1 : currentPage -= 1;
     getCars([
-      { key: '_page', value: currentPage },
+      { key: '_page', value: BTN.classList.contains('next') ? (currentPage += 1) : (currentPage -= 1) },
       { key: '_limit', value: 7 },
     ]).then((res) => {
       const WRAPPER = document.querySelector('.wrapper');
@@ -21,6 +19,7 @@ export const paginationGarage: (t: EventTarget | null, p1: number, p2: number) =
       }
       document.querySelector('.pagination-block')?.remove();
       drawMain(res.carsNumber, currentPage, pages);
+      localStorage.setItem('garage pages', JSON.stringify([currentPage, pages]));
       res.cars.forEach((car) => drawGarageCars(car.name, car.color, car.id ? car.id : 0));
     });
   }
