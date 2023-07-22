@@ -14,10 +14,11 @@ export const drawMain: (cars: number, page: number, pages: number) => void = (ca
   WRAPPER.className = 'wrapper';
   MAIN.append(WRAPPER);
 
-  const GARAGE_HEADING = createElem(WRAPPER, HTMLTags.h2, 'garage-heading', 'Garage ');
+  const GARAGE_HEADING = createElem(WRAPPER, HTMLTags.h2, 'garage-heading', `Garage (${cars})`);
   const PAGE_HEADING = createElem(WRAPPER, HTMLTags.h3, 'page-heading', 'Page #');
-  const CARS_COUNT = createElem(GARAGE_HEADING, HTMLTags.span, 'cars-count', `(${cars})`);
+  // const CARS_COUNT = createElem(GARAGE_HEADING, HTMLTags.span, 'cars-count', `(${cars})`);
   const PAGE_COUNT = createElem(PAGE_HEADING, HTMLTags.span, 'page-count', `${page} / ${pages}`);
+  console.log(GARAGE_HEADING, PAGE_COUNT);
   const PAGINATION = createElem(MAIN, HTMLTags.div, 'pagination-block');
   const PREV = createElem(PAGINATION, HTMLTags.button, 'button-garage prev', 'prev');
   const NEXT = createElem(PAGINATION, HTMLTags.button, 'button-garage next', 'next');
@@ -27,21 +28,20 @@ export const drawMain: (cars: number, page: number, pages: number) => void = (ca
     PREV.addEventListener('click', (event) => paginationGarage(event.target, page, pages));
     NEXT.addEventListener('click', (event) => paginationGarage(event.target, page, pages));
   }
-  console.log(CARS_COUNT, PAGE_COUNT);
 };
 
 export const updateHeadings = () => {
   getCars([{ key: '_limit', value: CARS_PER_PAGE }])
   .then((res) => {
     const carsNumber = res.carsNumber;
-    const CARS_NUM = document.querySelector('.cars-count');
-    if (CARS_NUM) CARS_NUM.textContent = `(${carsNumber})`;
+    const CARS_NUM = document.querySelector('.garage-heading');
+    if (CARS_NUM) CARS_NUM.textContent = `Garage (${carsNumber})`;
     const PAGES_NUM = document.querySelector('.page-count');
     if (PAGES_NUM instanceof HTMLElement && PAGES_NUM.textContent) {
-        const pages = Math.ceil(carsNumber / CARS_PER_PAGE);
-        let text = PAGES_NUM.textContent;
-        text = text.slice(0, text.indexOf('/') + 2).concat(`${pages}`);
-        PAGES_NUM.textContent = text;
-      }
+      const GARAGE_TOTAL_PAGES = Math.ceil(carsNumber / CARS_PER_PAGE);
+      let text = PAGES_NUM.textContent;
+      text = text.slice(0, text.indexOf('/') + 2).concat(`${GARAGE_TOTAL_PAGES}`);
+      PAGES_NUM.textContent = text;
+    }
   });
 }

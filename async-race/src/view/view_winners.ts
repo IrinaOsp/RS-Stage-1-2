@@ -1,12 +1,13 @@
 import { HTMLTags } from '../types/types';
 import { createElem } from './view_elements';
-import { WRAPPER } from './view_main';
-import { getWinners, getCar, getCars } from '../api';
+import { WRAPPER, updateHeadings } from './view_main';
+import { getWinners, getCar } from '../api';
+import { WINNERS_PER_PAGE } from '../store';
 
 let CONTROL = document.querySelector('.control-block');
 let CARS = document.querySelectorAll('.car-container');
 let TABLE: HTMLElement;
-const GARAGE_HEADING = document.querySelector('.garage-heading');
+const currentWinnersPage = 1;
 
 export const drawWinners: () => void = () => {
   console.log('drawWinners');
@@ -23,9 +24,9 @@ export const drawWinners: () => void = () => {
     const TH = createElem(TR, HTMLTags.th, '', colName);
   });
   const TBODY = createElem(TABLE, HTMLTags.tbody, 'winners_tbody');
-  getWinners([{key: '_page', value: 1}, {key: '_limit', value: 10}, {key: '_sort', value: 'time'}])
-    .then((res) => res.winners.forEach((winner, ind) => {
-      if (GARAGE_HEADING) GARAGE_HEADING.textContent = `(${res.winnersNumber})`;
+  getWinners([{key: '_page', value: currentWinnersPage}, {key: '_limit', value: WINNERS_PER_PAGE}, {key: '_sort', value: 'time'}])
+    .then((res) => {
+      res.winners.forEach((winner, ind) => {
       const TR = createElem(TBODY, HTMLTags.tr, '');
       const TD_NUMBER = createElem(TR, HTMLTags.td, '', (ind + 1).toString());
       const TD_CAR = createElem(TR, HTMLTags.td, 'winners_car');
@@ -39,7 +40,13 @@ export const drawWinners: () => void = () => {
           const TD_TIME = createElem(TR, HTMLTags.td, '', winner.time.toString());
         })
       }
-    }));
+    });
+      let GARAGE_HEADING = document.querySelector('.garage-heading');
+      if (GARAGE_HEADING) GARAGE_HEADING.textContent = `Winners (${res.winnersNumber})`;
+      let PAGE_HEADING = document.querySelector('.page-count');
+      const winnersPages = Math.ceil(res.winnersNumber / WINNERS_PER_PAGE);
+      if (PAGE_HEADING) PAGE_HEADING.textContent = `${currentWinnersPage} / ${winnersPages}`;
+    });
 }
 
 export const hideWinners: () => void = () => {
@@ -49,7 +56,5 @@ export const hideWinners: () => void = () => {
     if (car instanceof HTMLElement) car.style.display = 'flex';
   })
   if (TABLE) TABLE.remove();
-  getCars([{ key: '_page', value: 0 }, { key: '_limit', value: 6 },]).then((res) => {
-    if (GARAGE_HEADING) GARAGE_HEADING.textContent = `(${res.carsNumber})`
-  });
+  updateHeadings();
 }
