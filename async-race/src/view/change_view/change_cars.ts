@@ -1,6 +1,6 @@
 import { drawGarageCars } from '../view_garage';
-import { getCars, createCar, deleteCar, updateCar } from '../../api';
-import { CARS_PER_PAGE } from '../../store';
+import { getCars, createCar, deleteCar, updateCar, deleteWinner } from '../../api';
+import { CARS_PER_PAGE } from '../../data/app_data';
 import { updateHeadings } from '../view_main';
 
 export const drawAddedCar: () => void = () => {
@@ -96,5 +96,6 @@ export const removeCar: (param: Event) => void = (event) => {
         }
       }
     });
+    deleteWinner(id);
   }
 }

@@ -2,7 +2,7 @@ import { HTMLTags } from '../types/types';
 import { createElem } from './view_elements';
 import { WRAPPER, updateHeadings } from './view_main';
 import { getWinners, getCar } from '../api';
-import { WINNERS_PER_PAGE } from '../store';
+import { WINNERS_PER_PAGE } from '../data/app_data';
 
 let CONTROL = document.querySelector('.control-block');
 let CARS = document.querySelectorAll('.car-container');

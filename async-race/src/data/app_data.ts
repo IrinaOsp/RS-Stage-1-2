@@ -1,4 +1,7 @@
-const CAR_MODELS: Record<string, string[]> = {
+export const CARS_PER_PAGE = 7;
+export const WINNERS_PER_PAGE = 10;
+
+export const CAR_MODELS: Record<string, string[]> = {
   Toyota: ['Camry', 'Corolla', 'Prius', 'RAV4', 'Highlander', 'Tacoma', 'Sienna', '4Runner', 'Land Cruiser', 'Supra'],
   Honda: ['Civic', 'Accord', 'CR-V', 'Pilot', 'Odyssey', 'HR-V', 'Fit', 'Ridgeline', 'Passport', 'Insight'],
   Ford: ['Mustang', 'F-150', 'Explorer', 'Escape', 'Fusion', 'Edge', 'Focus', 'Ranger', 'Expedition', 'Bronco'],
@@ -31,5 +34,3 @@ const CAR_MODELS: Record<string, string[]> = {
   Volvo: ['XC90', 'XC60', 'XC40', 'S60', 'S90', 'V60', 'V90'],
   Maserati: ['Ghibli', 'Levante', 'Quattroporte'],
 };
-
-export default CAR_MODELS;

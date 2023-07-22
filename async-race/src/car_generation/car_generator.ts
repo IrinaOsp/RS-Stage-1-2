@@ -1,4 +1,4 @@
-import CAR_MODELS from '../data/car_names_data';
+import { CAR_MODELS } from '../data/app_data';
 import { createCar } from '../api';
 import { updateHeadings } from '../view/view_main';
 
