@@ -90,11 +90,11 @@ export const drawWinners: (p?: number) => void = (page = currentWinnersPage) => 
 };
 
 export const hideWinners: () => void = () => {
-  console.log('hideWinners');
   if (CONTROL instanceof HTMLElement) CONTROL.style.display = 'grid';
   CARS.forEach((car) => {
-    if (car instanceof HTMLElement) car.style.display = 'flex';
-  })
+    const CAR = car;
+    if (CAR instanceof HTMLElement) CAR.style.display = 'flex';
+  });
   if (TABLE) TABLE.remove();
   updateHeadings();
   if (PREV instanceof HTMLElement && NEXT instanceof HTMLElement) {
@@ -105,4 +105,4 @@ export const hideWinners: () => void = () => {
     WIN_PREV.style.display = 'none';
     WIN_NEXT.style.display = 'none';
   }
-}
+};

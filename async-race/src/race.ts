@@ -9,8 +9,37 @@ let ANIMATION_ID: number;
 let count = 1;
 // const promisesArr: Promise<void | null | (Response | string | number)[]>[] = []; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+function getResult(id: string, time: number): void {
+  // console.log(id, time);
+  let WINNER_NAME = '';
+  const NODE_NAME = document.querySelector(`.car-container#a${id} .car-name`);
+  if (NODE_NAME && NODE_NAME.textContent) WINNER_NAME = NODE_NAME.textContent;
+  const ID = Number(id);
+  const WINNER_TIME = Math.round(time / 10) / 100;
+  let POPUP: HTMLElement;
+  setTimeout(() => {
+    POPUP = createElem(MAIN, HTMLTags.div, 'popup', `Winner ${WINNER_NAME}, time ${WINNER_TIME} s`);
+  }, WINNER_TIME);
+  setTimeout(() => {
+    POPUP.remove();
+  }, 3000);
+  getWinner(ID).then((res) => {
+    if (res === 'Winner not found') {
+      createWinner({ id: ID, wins: 1, time: WINNER_TIME });
+    } else if (typeof res !== 'string') {
+      let newTime: number;
+      const newWins = res.wins + 1;
+      if (res.time > WINNER_TIME) {
+        newTime = WINNER_TIME;
+      } else {
+        newTime = res.time;
+      }
+      updateWinner(ID, { wins: newWins, time: newTime });
+    }
+  });
+}
+
 async function animationControl(el: HTMLElement, time: number, id: string): Promise<void> {
-  // console.log(id, 'time', time);
   const initialPosition = el.getClientRects()[0].x;
   const startTime = performance.now();
   let DISTANCE: number;
@@ -18,32 +47,32 @@ async function animationControl(el: HTMLElement, time: number, id: string): Prom
   if (CONTAINER instanceof HTMLElement && initialPosition) {
     DISTANCE = CONTAINER.getClientRects()[0].width - el.clientWidth - initialPosition;
   }
-  function animate(currentTime: number) {
+  function animate(currentTime: number): void {
     // console.log('animate');
     const timeDelta = currentTime - startTime;
     const progress = timeDelta / time;
+    const ELEMENT = el;
     if (progress < 1 && DISTANCE) {
       const newPosition = DISTANCE * progress;
-      el.style.left = newPosition + 'px';
+      ELEMENT.style.left = `${newPosition}px`;
       ANIMATION_ID = requestAnimationFrame(animate);
     } else {
-      el.style.left = DISTANCE + 'px';
+      ELEMENT.style.left = `${DISTANCE}px`;
     }
   }
   ANIMATION_ID = requestAnimationFrame(animate);
-
-  const drivePromise: Promise<void | null | (Response | string | number)[]> = driveMode([{key: 'id', value: id}, {key: 'status', value: 'drive'}])
+  driveMode([
+    { key: 'id', value: id },
+    { key: 'status', value: 'drive' },
+  ])
     .then((res) => {
-      if (res) {
-        if (count === 0) {
-          getResult(id, time);
-          count += 1;
-        }
+      if (res && count === 0) {
+        getResult(id, time);
+        count += 1;
       }
     })
-    .catch((error) => {
+    .catch(() => {
       cancelAnimationFrame(ANIMATION_ID);
-      console.error(error.message);
     });
   // console.log('----', promisesArr.length);
   // if (promisesArr.length === document.querySelectorAll('.car').length) getResult();
@@ -65,35 +94,39 @@ export const startDrive: (target: EventTarget | null) => Promise<void> = async (
       if (BUTTON_STOP instanceof HTMLButtonElement) BUTTON_STOP.disabled = false;
       const CAR = container?.childNodes[container.childNodes.length - 2];
       if (CAR instanceof HTMLElement) animationControl(CAR, TIME, id);
-    };
+    }
   }
-}
-
+};
 
 export const stopDrive: (target: EventTarget | null) => Promise<void> = async (target) => {
   let id = '0';
+  const TARGET = target;
   let container: Element | null;
-  if (target instanceof HTMLButtonElement) {
-    target.disabled = true;
-    const BTN_MOVE = target.previousSibling;
+  if (TARGET instanceof HTMLButtonElement) {
+    TARGET.disabled = true;
+    const BTN_MOVE = TARGET.previousSibling;
     if (BTN_MOVE instanceof HTMLButtonElement) BTN_MOVE.disabled = false;
-    container = target.closest('.car-container');
+    container = TARGET.closest('.car-container');
     if (container) {
-      container.id ? id = container.id.slice(1) : '0'
+      if (container.id) id = container.id.slice(1);
       const CAR = container?.childNodes[container.childNodes.length - 2];
       cancelAnimationFrame(ANIMATION_ID);
       if (CAR instanceof HTMLElement) CAR.style.left = '0';
       abortController.abort();
-      const STOP = await startStopEngine([{key: 'id', value: id}, {key: 'status', value: 'stopped'}]);
+      await startStopEngine([
+        { key: 'id', value: id },
+        { key: 'status', value: 'stopped' },
+      ]);
       abortController = new AbortController();
     }
   }
-}
+};
 
 export const startRace: (t: EventTarget | null) => void = (target) => {
-  console.log('start race');
+  // console.log('start race');
+  const TARGET = target;
   const BUTTON_RESET = document.querySelector('.reset');
-  if (target instanceof HTMLButtonElement) target.disabled = true;
+  if (TARGET instanceof HTMLButtonElement) TARGET.disabled = true;
   if (BUTTON_RESET instanceof HTMLButtonElement) BUTTON_RESET.disabled = false;
   count = 0;
   document.querySelectorAll('.move').forEach((btn) => {
@@ -136,40 +169,16 @@ export const startRace: (t: EventTarget | null) => void = (target) => {
 // }
 export const resetCars: (t: EventTarget | null) => void = (target) => {
   // console.log('stop race');
+  const TARGET = target;
   const BUTTON_RACE = document.querySelector('.race');
-  if (target instanceof HTMLButtonElement) target.disabled = true;
+  if (TARGET instanceof HTMLButtonElement) TARGET.disabled = true;
   if (BUTTON_RACE instanceof HTMLButtonElement) BUTTON_RACE.disabled = false;
   document.querySelectorAll('.stop').forEach((btn) => {
-    if (btn instanceof HTMLButtonElement) {
-      btn.disabled = false;
-      btn.click();
-      btn.disabled = true;
+    const BUTTON = btn;
+    if (BUTTON instanceof HTMLButtonElement) {
+      BUTTON.disabled = false;
+      BUTTON.click();
+      BUTTON.disabled = true;
     }
   });
 };
-
-function getResult (id: string, time: number) {
-  // console.log(id, time);
-  let WINNER_NAME = '';
-  const NODE_NAME = document.querySelector(`.car-container#a${id} .car-name`)
-  if (NODE_NAME && NODE_NAME.textContent) WINNER_NAME = NODE_NAME.textContent;
-  const ID = Number(id);
-  const WINNER_TIME = Math.round(time as number / 10) / 100;
-  let POPUP: HTMLElement;
-  setTimeout(() => {
-    POPUP = createElem(MAIN, HTMLTags.div, 'popup', `Winner ${WINNER_NAME}, time ${WINNER_TIME} s`);
-  }, WINNER_TIME);
-  setTimeout(() => {
-    POPUP.remove();
-  }, 3000);
-  getWinner(ID).then((res) => {
-    if (res === 'Winner not found') {
-      createWinner({id: ID, wins: 1, time: WINNER_TIME});
-    } else if (typeof res !== 'string') {
-      let newTime: number;
-      const newWins = res.wins + 1;
-      res.time > WINNER_TIME ? newTime = WINNER_TIME : newTime = res.time;
-      updateWinner(ID, {wins: newWins, time: newTime})
-    }
-});
-}

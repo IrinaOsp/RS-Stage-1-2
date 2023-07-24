@@ -2,6 +2,7 @@ import { drawGarageCars } from '../view_garage';
 import { getCars, createCar, deleteCar, updateCar, deleteWinner } from '../../api';
 import { CARS_PER_PAGE } from '../../data/app_data';
 import { updateHeadings } from '../view_main';
+import { popupMessage } from '../../util/popup_message';
 
 export const drawAddedCar: () => void = () => {
   let name = '';
@@ -20,7 +21,7 @@ export const drawAddedCar: () => void = () => {
 };
 
 export const updateCarView: () => void = () => {
-  console.log('updateCar');
+  // console.log('updateCar');
   let name = '';
   let color = '';
   let id = 0;
@@ -30,13 +31,13 @@ export const updateCarView: () => void = () => {
   if (CREATE_NAME instanceof HTMLInputElement) name = CREATE_NAME.value;
   if (CREATE_COLOR instanceof HTMLInputElement) color = CREATE_COLOR.value;
   if (name && color && CAR instanceof HTMLDivElement) {
-    let carNameSpan = CAR.closest('.car-container')?.querySelector('.car-name');
+    const carNameSpan = CAR.closest('.car-container')?.querySelector('.car-name');
     if (carNameSpan instanceof HTMLSpanElement) carNameSpan.textContent = name;
     const svgEl = CAR.firstChild;
     if (svgEl instanceof SVGElement) svgEl.style.fill = color;
     id = Number(CAR.closest('.car-container')?.getAttribute('id')?.slice(1));
   }
-  updateCar(id, {name: name, color: color});
+  updateCar(id, { name, color });
 };
 
 function componentToHex(c: number): string {
@@ -47,7 +48,7 @@ function componentToHex(c: number): string {
 function rgbToHex(rgb: string): string {
   const arr = rgb.slice(4, -1).split(', ');
   const res = `#${arr.map((el) => componentToHex(Number(el))).join('')}`;
-  console.log(res)
+  // console.log(res)
   return res;
 }
 
@@ -57,7 +58,7 @@ export const selectCar: (param: Event) => void = (event) => {
     event.target.closest('.car-container')?.querySelector('.car')?.classList.add('selected');
     const SELECTED_CAR = document.querySelector('.selected');
     if (SELECTED_CAR) {
-      const styles = window.getComputedStyle(SELECTED_CAR);
+      // const styles = window.getComputedStyle(SELECTED_CAR);
       const UPDATE_NAME = document.querySelector('.update-name');
       const UPDATE_COLOR = document.querySelector('.update-color');
       if (UPDATE_NAME instanceof HTMLInputElement && UPDATE_COLOR instanceof HTMLInputElement) {
@@ -74,16 +75,16 @@ export const removeCar: (param: Event) => void = (event) => {
   if (event.target instanceof HTMLElement) {
     const container = event.target.closest('.car-container');
     if (container?.hasAttribute('id')) id = Number(container.getAttribute('id')?.slice(1));
-    deleteCar(id).then((res) => {
-      if (res === 'Not Found') {
-        console.error('car is not found');
+    deleteCar(id).then((response) => {
+      if (response === 'Not Found') {
+        popupMessage('car is not found');
       } else {
         if (container?.parentNode) container.parentNode.removeChild(container);
         updateHeadings();
         if (document.querySelectorAll('.car-container').length < CARS_PER_PAGE) {
-          const LAST_CAR_ON_PAGE = document.querySelectorAll('.car-container').item(document.querySelectorAll('.car-container').length - 1);
-          let lastCarID: number;
-          if (LAST_CAR_ON_PAGE.hasAttribute('id')) lastCarID = Number(LAST_CAR_ON_PAGE.getAttribute('id'));
+          // const LAST_CAR_ON_PAGE = document.querySelectorAll('.car-container').item(document.querySelectorAll('.car-container').length - 1);
+          // let lastCarID: number;
+          // if (LAST_CAR_ON_PAGE.hasAttribute('id')) lastCarID = Number(LAST_CAR_ON_PAGE.getAttribute('id'));
           const page = Number(document.querySelector('.page-count')?.textContent?.slice(0, 1));
           getCars([
             { key: '_page', value: page + 1 },
@@ -98,4 +99,4 @@ export const removeCar: (param: Event) => void = (event) => {
     });
     deleteWinner(id);
   }
-}
+};

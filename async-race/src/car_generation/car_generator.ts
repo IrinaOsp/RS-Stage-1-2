@@ -23,7 +23,7 @@ function generateName(): string {
 }
 
 export const generateCars: () => void = () => {
-  for (let i = 1; i <= 10; i += 1) {
+  for (let i = 1; i <= 100; i += 1) {
     const NAME = generateName();
     const COLOR = getRandomHexColor();
     createCar({ name: NAME, color: COLOR }).catch((e) => e.message);
