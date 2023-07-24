@@ -27,5 +27,9 @@ module.exports = {
     'max-lines-per-function': ['error', 40],
     '@typescript-eslint/explicit-function-return-type': 'error',
     'import/no-unresolved': 'off',
+    'no-underscore-dangle': 'off',
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': 'warn',
+    "import/no-mutable-exports": "off",
   },
 };

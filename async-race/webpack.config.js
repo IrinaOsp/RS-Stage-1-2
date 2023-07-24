@@ -46,8 +46,11 @@ module.exports = {
         exclude: ['/node_modules/'],
       },
       {
-        test: /\.(png|jpg|svg|jpeg|gif)$/i,
+        test: /\.(png|jpg|svg|jpeg|gif|svg)$/i,
         type: 'asset/resource',
+        generator: {
+          filename: 'assets/[name][ext]'
+        }
       },
     ]
   },
