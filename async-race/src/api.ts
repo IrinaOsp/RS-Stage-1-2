@@ -68,8 +68,8 @@ export const startStopEngine: (queryParams: Query) => Promise<number>  = async (
   return startParams.distance / startParams.velocity;
 }
 
-export const driveMode: (queryParams: Query) => Promise<string>  = async (queryParams) => {
-  const result: Promise<string> = await fetch(`${baseUrl}${path.engine}${generateQueryString(queryParams)}`, {
+export const driveMode: (queryParams: Query) => Promise<Response>  = async (queryParams) => {
+  const result: Promise<Response> = await fetch(`${baseUrl}${path.engine}${generateQueryString(queryParams)}`, {
     method: 'PATCH',
     signal: abortController.signal,
   })
@@ -77,15 +77,14 @@ export const driveMode: (queryParams: Query) => Promise<string>  = async (queryP
       if (res.ok) {
         return res.json();
       } else if (res.status === 500) {
-        console.log('Error 500');
         throw new Error('Error 500');
       } else if (res.status === 400 || res.status === 404 || res.status === 429) {
-        throw new Error('Error 4xx');
+        console.error('Error 4xx');
       } else {
-        throw new Error('fetch error');
+        console.error('fetch error');
       }
-    })
-    .catch((e) => e.message);
+    });
+    // .catch(() => null);
     return result;
 }
 export const getWinners: (x: Query) => Promise<getWinnersResult> = async (queryParams) => {

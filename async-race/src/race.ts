@@ -6,45 +6,47 @@ import { MAIN } from './view/view_main';
 export let abortController = new AbortController();
 
 let ANIMATION_ID: number;
-const promisesArr: (number | string | Promise<string>)[][] = [];
+let count = 1;
+// const promisesArr: Promise<void | null | (Response | string | number)[]>[] = []; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 async function animationControl(el: HTMLElement, time: number, id: string): Promise<void> {
-  console.log(id, 'time', time);
-  try {
-    const initialPosition = el.getClientRects()[0].x;
-    const startTime = performance.now();
-    let DISTANCE: number;
-    const CONTAINER = document.querySelector('.car-container');
-    if (CONTAINER instanceof HTMLElement && initialPosition) {
-      DISTANCE = CONTAINER.getClientRects()[0].width - el.clientWidth - initialPosition;
-    }
-    function animate(currentTime: number) {
-      console.log('animate');
-      const timeDelta = currentTime - startTime;
-      const progress = timeDelta / time;
-      if (progress < 1 && DISTANCE) {
-        const newPosition = DISTANCE * progress;
-        el.style.left = newPosition + 'px';
-        ANIMATION_ID = requestAnimationFrame(animate);
-      } else {
-        el.style.left = DISTANCE + 'px';
-      }
-    }
-    ANIMATION_ID = requestAnimationFrame(animate);
-    const drivePromise = driveMode([{key: 'id', value: id}, {key: 'status', value: 'drive'}]);
-    promisesArr.push([drivePromise, id, time]);
-    console.log('-------------------------------------------', promisesArr.length);
-    if (promisesArr.length === document.querySelectorAll('.car').length) getResult();
-    drivePromise.then((res) => {
-        console.log(id, res);
-        if (res === 'Error 500') {
-          console.log('cancelAnimationFrame');
-          cancelAnimationFrame(ANIMATION_ID);
-        }
-      });
-  } catch (error) {
-    console.log(error);
+  // console.log(id, 'time', time);
+  const initialPosition = el.getClientRects()[0].x;
+  const startTime = performance.now();
+  let DISTANCE: number;
+  const CONTAINER = document.querySelector('.car-container');
+  if (CONTAINER instanceof HTMLElement && initialPosition) {
+    DISTANCE = CONTAINER.getClientRects()[0].width - el.clientWidth - initialPosition;
   }
+  function animate(currentTime: number) {
+    // console.log('animate');
+    const timeDelta = currentTime - startTime;
+    const progress = timeDelta / time;
+    if (progress < 1 && DISTANCE) {
+      const newPosition = DISTANCE * progress;
+      el.style.left = newPosition + 'px';
+      ANIMATION_ID = requestAnimationFrame(animate);
+    } else {
+      el.style.left = DISTANCE + 'px';
+    }
+  }
+  ANIMATION_ID = requestAnimationFrame(animate);
+
+  const drivePromise: Promise<void | null | (Response | string | number)[]> = driveMode([{key: 'id', value: id}, {key: 'status', value: 'drive'}])
+    .then((res) => {
+      if (res) {
+        if (count === 0) {
+          getResult(id, time);
+          count += 1;
+        }
+      }
+    })
+    .catch((error) => {
+      cancelAnimationFrame(ANIMATION_ID);
+      console.error(error.message);
+    });
+  // console.log('----', promisesArr.length);
+  // if (promisesArr.length === document.querySelectorAll('.car').length) getResult();
 }
 export const startDrive: (target: EventTarget | null) => Promise<void> = async (target) => {
   let id = '0';
@@ -71,7 +73,6 @@ export const startDrive: (target: EventTarget | null) => Promise<void> = async (
 export const stopDrive: (target: EventTarget | null) => Promise<void> = async (target) => {
   let id = '0';
   let container: Element | null;
-  promisesArr.length = 0;
   if (target instanceof HTMLButtonElement) {
     target.disabled = true;
     const BTN_MOVE = target.previousSibling;
@@ -94,46 +95,47 @@ export const startRace: (t: EventTarget | null) => void = (target) => {
   const BUTTON_RESET = document.querySelector('.reset');
   if (target instanceof HTMLButtonElement) target.disabled = true;
   if (BUTTON_RESET instanceof HTMLButtonElement) BUTTON_RESET.disabled = false;
+  count = 0;
   document.querySelectorAll('.move').forEach((btn) => {
     if (btn instanceof HTMLButtonElement) btn.click();
   });
 };
 
-function getResult() {
-  console.log(promisesArr.length);
-  console.log(promisesArr);
-  Promise.race(promisesArr).then((res) => {
-    console.log(res[0]);
-    console.log(res[1]);
-    let WINNER_NAME = '';
-    const NODE_NAME = document.querySelector(`.car-container#a${res[1]} .car-name`)
-    if (NODE_NAME && NODE_NAME.textContent) WINNER_NAME = NODE_NAME.textContent;
-    const ID = Number(res[1]);
-    console.log(WINNER_NAME);
-    console.log(res[2]);
-    const WINNER_TIME = Math.round(res[2] as number / 10) / 100;
-    let POPUP: HTMLElement;
-    setTimeout(() => {
-      POPUP = createElem(MAIN, HTMLTags.div, 'popup', `Winner ${WINNER_NAME}, time ${WINNER_TIME} s`);
-    }, WINNER_TIME);
-    setTimeout(() => {
-      POPUP.remove();
-    }, 3000);
-    promisesArr.length = 0;
-    getWinner(ID).then((res) => {
-      if (res === 'Winner not found') {
-        createWinner({id: ID, wins: 1, time: WINNER_TIME});
-      } else if (typeof res !== 'string') {
-        let newTime: number;
-        const newWins = res.wins + 1;
-        res.time > WINNER_TIME ? newTime = WINNER_TIME : newTime = res.time;
-        updateWinner(ID, {wins: newWins, time: newTime})
-      }
-  });
-  });
-}
+// function getResult() {
+//   console.log(promisesArr);
+//   Promise.race(promisesArr.filter(Boolean)).then((res) => {
+//     console.log(res);
+//     if (Array.isArray(res)) {
+//       let WINNER_NAME = '';
+//       const NODE_NAME = document.querySelector(`.car-container#a${res[1]} .car-name`)
+//       if (NODE_NAME && NODE_NAME.textContent) WINNER_NAME = NODE_NAME.textContent;
+//       const ID = Number(res[1]);
+//       console.log(WINNER_NAME);
+//       console.log(res[2]);
+//       const WINNER_TIME = Math.round(res[2] as number / 10) / 100;
+//       let POPUP: HTMLElement;
+//       setTimeout(() => {
+//         POPUP = createElem(MAIN, HTMLTags.div, 'popup', `Winner ${WINNER_NAME}, time ${WINNER_TIME} s`);
+//       }, WINNER_TIME);
+//       setTimeout(() => {
+//         POPUP.remove();
+//       }, 3000);
+//       promisesArr.length = 0;
+//       getWinner(ID).then((res) => {
+//         if (res === 'Winner not found') {
+//           createWinner({id: ID, wins: 1, time: WINNER_TIME});
+//         } else if (typeof res !== 'string') {
+//           let newTime: number;
+//           const newWins = res.wins + 1;
+//           res.time > WINNER_TIME ? newTime = WINNER_TIME : newTime = res.time;
+//           updateWinner(ID, {wins: newWins, time: newTime})
+//         }
+//     });
+//     }
+//   });
+// }
 export const resetCars: (t: EventTarget | null) => void = (target) => {
-  console.log('stop race');
+  // console.log('stop race');
   const BUTTON_RACE = document.querySelector('.race');
   if (target instanceof HTMLButtonElement) target.disabled = true;
   if (BUTTON_RACE instanceof HTMLButtonElement) BUTTON_RACE.disabled = false;
@@ -145,3 +147,29 @@ export const resetCars: (t: EventTarget | null) => void = (target) => {
     }
   });
 };
+
+function getResult (id: string, time: number) {
+  // console.log(id, time);
+  let WINNER_NAME = '';
+  const NODE_NAME = document.querySelector(`.car-container#a${id} .car-name`)
+  if (NODE_NAME && NODE_NAME.textContent) WINNER_NAME = NODE_NAME.textContent;
+  const ID = Number(id);
+  const WINNER_TIME = Math.round(time as number / 10) / 100;
+  let POPUP: HTMLElement;
+  setTimeout(() => {
+    POPUP = createElem(MAIN, HTMLTags.div, 'popup', `Winner ${WINNER_NAME}, time ${WINNER_TIME} s`);
+  }, WINNER_TIME);
+  setTimeout(() => {
+    POPUP.remove();
+  }, 3000);
+  getWinner(ID).then((res) => {
+    if (res === 'Winner not found') {
+      createWinner({id: ID, wins: 1, time: WINNER_TIME});
+    } else if (typeof res !== 'string') {
+      let newTime: number;
+      const newWins = res.wins + 1;
+      res.time > WINNER_TIME ? newTime = WINNER_TIME : newTime = res.time;
+      updateWinner(ID, {wins: newWins, time: newTime})
+    }
+});
+}
