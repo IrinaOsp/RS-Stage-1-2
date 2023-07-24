@@ -34,7 +34,7 @@ async function animationControl(el: HTMLElement, time: number, id: string): Prom
     const drivePromise = driveMode([{key: 'id', value: id}, {key: 'status', value: 'drive'}]);
     promisesArr.push([drivePromise, id, time]);
     console.log('-------------------------------------------', promisesArr.length);
-    if (promisesArr.length === 7) getResult();
+    if (promisesArr.length === document.querySelectorAll('.car').length) getResult();
     drivePromise.then((res) => {
         console.log(id, res);
         if (res === 'Error 500') {
