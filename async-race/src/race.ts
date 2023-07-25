@@ -10,7 +10,7 @@ let count = 1;
 // const promisesArr: Promise<void | null | (Response | string | number)[]>[] = []; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 function getResult(id: string, time: number): void {
-  // console.log(id, time);
+  console.log(id, time);
   let WINNER_NAME = '';
   const NODE_NAME = document.querySelector(`.car-container#a${id} .car-name`);
   if (NODE_NAME && NODE_NAME.textContent) WINNER_NAME = NODE_NAME.textContent;
@@ -48,7 +48,7 @@ async function animationControl(el: HTMLElement, time: number, id: string): Prom
     DISTANCE = CONTAINER.getClientRects()[0].width - el.clientWidth - initialPosition;
   }
   function animate(currentTime: number): void {
-    // console.log('animate');
+    console.log('animate');
     const timeDelta = currentTime - startTime;
     const progress = timeDelta / time;
     const ELEMENT = el;
@@ -66,6 +66,7 @@ async function animationControl(el: HTMLElement, time: number, id: string): Prom
     { key: 'status', value: 'drive' },
   ])
     .then((res) => {
+      console.log(res);
       if (res && count === 0) {
         getResult(id, time);
         count += 1;
@@ -123,7 +124,7 @@ export const stopDrive: (target: EventTarget | null) => Promise<void> = async (t
 };
 
 export const startRace: (t: EventTarget | null) => void = (target) => {
-  // console.log('start race');
+  console.log('start race');
   const TARGET = target;
   const BUTTON_RESET = document.querySelector('.reset');
   if (TARGET instanceof HTMLButtonElement) TARGET.disabled = true;
@@ -168,7 +169,7 @@ export const startRace: (t: EventTarget | null) => void = (target) => {
 //   });
 // }
 export const resetCars: (t: EventTarget | null) => void = (target) => {
-  // console.log('stop race');
+  console.log('stop race');
   const TARGET = target;
   const BUTTON_RACE = document.querySelector('.race');
   if (TARGET instanceof HTMLButtonElement) TARGET.disabled = true;

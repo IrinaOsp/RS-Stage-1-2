@@ -82,9 +82,6 @@ export const removeCar: (param: Event) => void = (event) => {
         if (container?.parentNode) container.parentNode.removeChild(container);
         updateHeadings();
         if (document.querySelectorAll('.car-container').length < CARS_PER_PAGE) {
-          // const LAST_CAR_ON_PAGE = document.querySelectorAll('.car-container').item(document.querySelectorAll('.car-container').length - 1);
-          // let lastCarID: number;
-          // if (LAST_CAR_ON_PAGE.hasAttribute('id')) lastCarID = Number(LAST_CAR_ON_PAGE.getAttribute('id'));
           const page = Number(document.querySelector('.page-count')?.textContent?.slice(0, 1));
           getCars([
             { key: '_page', value: page + 1 },
