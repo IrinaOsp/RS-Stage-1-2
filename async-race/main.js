@@ -177,6 +177,27 @@ button {
 .winners_thead th {
   padding: 0 10px 0;
 }
+.th_wins, .th_time {
+  position: relative;
+}
+.th_wins::before, .th_wins::after, .th_time::before, .th_time::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  border: 4px solid transparent;
+  border-bottom: 4px solid gray;
+}
+.th_wins::after, .th_time::after {
+  top: 10px;
+  border-top: 4px solid gray;
+  border-bottom: none;
+}
+.ASC::before, .ASC::before {
+  border-bottom: 4px solid #fff;
+}
+.DESC::after, .DESC::after {
+  border-top: 4px solid #fff;
+}
 td.winners_car {
   transform: scale(-0.8, 0.8);
   filter: drop-shadow(0px -1px 4px rgb(255, 255, 255));
@@ -213,7 +234,7 @@ td.winners_car {
   font-size: 20px;
   cursor: pointer;
 }
-`, "",{"version":3,"sources":["webpack://./src/main.css"],"names":[],"mappings":"AAAA;EACE,sBAAsB;EACtB,SAAS;EACT,UAAU;AACZ;AACA;EACE,sBAAsB;AACxB;AACA;EACE,mBAAmB;AACrB;AACA;EACE,yBAAyB;EACzB,kBAAkB;EAClB,gBAAgB;EAChB,eAAe;AACjB;AACA;EACE,iBAAiB;EACjB,gBAAgB;EAChB,yBAAyB;EACzB,gCAAgC;AAClC;AACA;EACE,gBAAgB;EAChB,aAAa;AACf;AACA;EACE,iBAAiB;EACjB,oCAAoC;EACpC,2CAA2C;EAC3C,gBAAgB;EAChB,mBAAmB;AACrB;AACA;EACE,mBAAmB;AACrB;AACA;EACE,gBAAgB;EAChB,mBAAmB;EACnB,aAAa;EACb,oCAAoC;EACpC,wBAAwB;EACxB,aAAa;EACb,eAAe;EACf,qBAAqB;EACrB,uBAAuB;AACzB;AACA;EACE,oBAAoB;EACpB,kBAAkB;AACpB;AACA;EACE,oBAAoB;EACpB,kBAAkB;AACpB;AACA;EACE,aAAa;EACb,YAAY;EACZ,UAAU;AACZ;AACA;EACE,oBAAoB;EACpB,YAAY;EACZ,yBAAyB;EACzB,qBAAqB;AACvB;AACA;EACE,mBAAmB;AACrB;AACA;EACE,mBAAmB;EACnB,WAAW;AACb;AACA;EACE,mBAAmB;EACnB,WAAW;AACb;AACA;EACE,8BAA8B;EAC9B,aAAa;EACb,eAAe;EACf,kBAAkB;AACpB;AACA;EACE,aAAa;EACb,sBAAsB;EACtB,WAAW;AACb;AACA;EACE,iBAAiB;EACjB,aAAa;EACb,gBAAgB;AAClB;AACA;EACE,oBAAoB;EACpB,gBAAgB;EAChB,YAAY;EACZ,uBAAuB;EACvB,iBAAiB;EACjB,kBAAkB;EAClB,gBAAgB;AAClB;AACA;EACE,qBAAqB;EACrB,cAAc;AAChB;AACA;EACE,qBAAqB;EACrB,cAAc;AAChB;AACA;EACE,gCAAgC;EAChC,yBAAyB;AAC3B;AACA;;;;EAIE,kBAAkB;EAClB,WAAW;EACX,mBAAmB;AACrB;AACA;EACE,WAAW;EACX,YAAY;EACZ,uBAAuB;EACvB,uBAAuB;EACvB,oDAAoD;EACpD,kBAAkB;EAClB,OAAO;AACT;AACA;EACE,WAAW;EACX,YAAY;EACZ,wEAAyD;EACzD,kBAAkB;EAClB,WAAW;EACX;AACF;AACA;EACE,WAAW;EACX,sBAAsB;EACtB,kBAAkB;AACpB;AACA;EACE,kCAAkC;AACpC;AACA;EACE,iBAAiB;AACnB;AACA;EACE,2BAA2B;EAC3B,oDAAoD;AACtD;AACA;EACE,kBAAkB;AACpB;AACA;EACE,kBAAkB;EAClB,QAAQ;EACR,SAAS;EACT,YAAY;EACZ,aAAa;EACb,iBAAiB;EACjB,kBAAkB;EAClB,yBAAyB;AAC3B;AACA,sBAAsB;AACtB;EACE,eAAe;EACf,YAAY;EACZ,WAAW;EACX,yBAAyB;EACzB,sBAAsB;EACtB,aAAa;EACb,kBAAkB;EAClB,wCAAwC;EACxC,aAAa;AACf;AACA;EACE,kBAAkB;EAClB,QAAQ;EACR,UAAU;EACV,eAAe;EACf,eAAe;AACjB","sourcesContent":["* {\r\n  box-sizing: border-box;\r\n  margin: 0;\r\n  padding: 0;\r\n}\r\nbody {\r\n  background-color: #000;\r\n}\r\n.header {\r\n  margin: 10px 0 20px;\r\n}\r\nbutton {\r\n  text-transform: uppercase;\r\n  border-radius: 6px;\r\n  font-weight: 600;\r\n  cursor: pointer;\r\n}\r\n.button_header {\r\n  margin-left: 10px;\r\n  padding: 2px 4px;\r\n  background-color: #9dba1d;\r\n  border-bottom: 4px solid #617211;\r\n}\r\n.main {\r\n  margin-top: 10px;\r\n  padding: 10px;\r\n}\r\n.button-garage {\r\n  padding: 1px 13px;\r\n  background-color: rgb(196, 226, 241);\r\n  border-bottom: 3px solid rgb(145, 191, 213);\r\n  font-size: 0.7em;\r\n  grid-column: span 1;\r\n}\r\n.button-garage:disabled {\r\n  cursor: not-allowed;\r\n}\r\n.control-block {\r\n  max-width: 400px;\r\n  margin-bottom: 30px;\r\n  display: grid;\r\n  grid-template-columns: 100px 3fr 1fr;\r\n  grid-template-rows: auto;\r\n  row-gap: 10px;\r\n  column-gap: 5px;\r\n  align-content: center;\r\n  justify-content: center;\r\n}\r\n.input-name {\r\n  grid-column-start: 1;\r\n  grid-column-end: 3;\r\n}\r\n.control-block button:last-child {\r\n  grid-column-start: 3;\r\n  grid-column-end: 5;\r\n}\r\n.input-color {\r\n  height: 1.5em;\r\n  border: none;\r\n  padding: 0;\r\n}\r\n.button-yellow {\r\n  justify-self: center;\r\n  width: 100px;\r\n  background-color: #d5f3a0;\r\n  border-color: #9eb575;\r\n}\r\n.wrapper {\r\n  margin-bottom: 25px;\r\n}\r\n.garage-heading {\r\n  margin-bottom: 10px;\r\n  color: #fff;\r\n}\r\n.page-heading {\r\n  margin-bottom: 10px;\r\n  color: #fff;\r\n}\r\n.car-container {\r\n  border-bottom: 2px #fff dashed;\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  position: relative;\r\n}\r\n.car_subcontainer {\r\n  display: flex;\r\n  justify-content: start;\r\n  width: 100%;\r\n}\r\n.car-name {\r\n  margin-left: 10px;\r\n  color: orange;\r\n  font-weight: 600;\r\n}\r\n.button-move {\r\n  margin: 10px 3px 5px;\r\n  padding: 1px 4px;\r\n  height: 22px;\r\n  background-color: black;\r\n  border: 1px solid;\r\n  border-radius: 5px;\r\n  font-size: 0.8em;\r\n}\r\n.car-container button.move {\r\n  border-color: #d5f3a0;\r\n  color: #d5f3a0;\r\n}\r\n.car-container button.stop {\r\n  border-color: #d06b49;\r\n  color: #d06b49;\r\n}\r\n.car-container button.move:hover, .car-container button.stop:hover {\r\n  border-color: rgb(196, 226, 241);\r\n  color: rgb(196, 226, 241);\r\n}\r\n.car-container button.move:disabled,\r\n.car-container button.stop:disabled,\r\n.car-container button.move:disabled:hover\r\n.car-container button.stop:disabled:hover {\r\n  border-color: gray;\r\n  color: gray;\r\n  cursor: not-allowed;\r\n}\r\n.car {\r\n  width: 75px;\r\n  height: 50px;\r\n  margin: 3px 10px 0 20px;\r\n  transform: scale(-1, 1);\r\n  filter: drop-shadow(0px -1px 4px rgb(255, 255, 255));\r\n  position: relative;\r\n  left: 0;\r\n}\r\n.flag {\r\n  width: 60px;\r\n  height: 50px;\r\n  background: url('./assets/flag.svg') no-repeat bottom/65%;\r\n  position: absolute;\r\n  right: 70px;\r\n  top: 15px\r\n}\r\n.winners_table {\r\n  color: #fff;\r\n  border: 1px solid gray;\r\n  text-align: center;\r\n}\r\n.winners_thead {\r\n  background-color: rgb(61, 95, 245);\r\n}\r\n.winners_thead th {\r\n  padding: 0 10px 0;\r\n}\r\ntd.winners_car {\r\n  transform: scale(-0.8, 0.8);\r\n  filter: drop-shadow(0px -1px 4px rgb(255, 255, 255));\r\n}\r\n.prev, .win-prev {\r\n  margin-right: 15px;\r\n}\r\n.popup {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 40%;\r\n  width: 200px;\r\n  height: 100px;\r\n  padding-top: 35px;\r\n  text-align: center;\r\n  background-color: #d5f3a0;\r\n}\r\n/* info popup styles */\r\n.popup-message {\r\n  position: fixed;\r\n  bottom: 20px;\r\n  right: 20px;\r\n  background-color: #f0f0f0;\r\n  border: 1px solid #ccc;\r\n  padding: 10px;\r\n  border-radius: 5px;\r\n  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);\r\n  display: none;\r\n}\r\n.close-btn {\r\n  position: absolute;\r\n  top: 5px;\r\n  right: 5px;\r\n  font-size: 20px;\r\n  cursor: pointer;\r\n}\r\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/main.css"],"names":[],"mappings":"AAAA;EACE,sBAAsB;EACtB,SAAS;EACT,UAAU;AACZ;AACA;EACE,sBAAsB;AACxB;AACA;EACE,mBAAmB;AACrB;AACA;EACE,yBAAyB;EACzB,kBAAkB;EAClB,gBAAgB;EAChB,eAAe;AACjB;AACA;EACE,iBAAiB;EACjB,gBAAgB;EAChB,yBAAyB;EACzB,gCAAgC;AAClC;AACA;EACE,gBAAgB;EAChB,aAAa;AACf;AACA;EACE,iBAAiB;EACjB,oCAAoC;EACpC,2CAA2C;EAC3C,gBAAgB;EAChB,mBAAmB;AACrB;AACA;EACE,mBAAmB;AACrB;AACA;EACE,gBAAgB;EAChB,mBAAmB;EACnB,aAAa;EACb,oCAAoC;EACpC,wBAAwB;EACxB,aAAa;EACb,eAAe;EACf,qBAAqB;EACrB,uBAAuB;AACzB;AACA;EACE,oBAAoB;EACpB,kBAAkB;AACpB;AACA;EACE,oBAAoB;EACpB,kBAAkB;AACpB;AACA;EACE,aAAa;EACb,YAAY;EACZ,UAAU;AACZ;AACA;EACE,oBAAoB;EACpB,YAAY;EACZ,yBAAyB;EACzB,qBAAqB;AACvB;AACA;EACE,mBAAmB;AACrB;AACA;EACE,mBAAmB;EACnB,WAAW;AACb;AACA;EACE,mBAAmB;EACnB,WAAW;AACb;AACA;EACE,8BAA8B;EAC9B,aAAa;EACb,eAAe;EACf,kBAAkB;AACpB;AACA;EACE,aAAa;EACb,sBAAsB;EACtB,WAAW;AACb;AACA;EACE,iBAAiB;EACjB,aAAa;EACb,gBAAgB;AAClB;AACA;EACE,oBAAoB;EACpB,gBAAgB;EAChB,YAAY;EACZ,uBAAuB;EACvB,iBAAiB;EACjB,kBAAkB;EAClB,gBAAgB;AAClB;AACA;EACE,qBAAqB;EACrB,cAAc;AAChB;AACA;EACE,qBAAqB;EACrB,cAAc;AAChB;AACA;EACE,gCAAgC;EAChC,yBAAyB;AAC3B;AACA;;;;EAIE,kBAAkB;EAClB,WAAW;EACX,mBAAmB;AACrB;AACA;EACE,WAAW;EACX,YAAY;EACZ,uBAAuB;EACvB,uBAAuB;EACvB,oDAAoD;EACpD,kBAAkB;EAClB,OAAO;AACT;AACA;EACE,WAAW;EACX,YAAY;EACZ,wEAAyD;EACzD,kBAAkB;EAClB,WAAW;EACX;AACF;AACA;EACE,WAAW;EACX,sBAAsB;EACtB,kBAAkB;AACpB;AACA;EACE,kCAAkC;AACpC;AACA;EACE,iBAAiB;AACnB;AACA;EACE,kBAAkB;AACpB;AACA;EACE,WAAW;EACX,kBAAkB;EAClB,QAAQ;EACR,6BAA6B;EAC7B,6BAA6B;AAC/B;AACA;EACE,SAAS;EACT,0BAA0B;EAC1B,mBAAmB;AACrB;AACA;EACE,6BAA6B;AAC/B;AACA;EACE,0BAA0B;AAC5B;AACA;EACE,2BAA2B;EAC3B,oDAAoD;AACtD;AACA;EACE,kBAAkB;AACpB;AACA;EACE,kBAAkB;EAClB,QAAQ;EACR,SAAS;EACT,YAAY;EACZ,aAAa;EACb,iBAAiB;EACjB,kBAAkB;EAClB,yBAAyB;AAC3B;AACA,sBAAsB;AACtB;EACE,eAAe;EACf,YAAY;EACZ,WAAW;EACX,yBAAyB;EACzB,sBAAsB;EACtB,aAAa;EACb,kBAAkB;EAClB,wCAAwC;EACxC,aAAa;AACf;AACA;EACE,kBAAkB;EAClB,QAAQ;EACR,UAAU;EACV,eAAe;EACf,eAAe;AACjB","sourcesContent":["* {\r\n  box-sizing: border-box;\r\n  margin: 0;\r\n  padding: 0;\r\n}\r\nbody {\r\n  background-color: #000;\r\n}\r\n.header {\r\n  margin: 10px 0 20px;\r\n}\r\nbutton {\r\n  text-transform: uppercase;\r\n  border-radius: 6px;\r\n  font-weight: 600;\r\n  cursor: pointer;\r\n}\r\n.button_header {\r\n  margin-left: 10px;\r\n  padding: 2px 4px;\r\n  background-color: #9dba1d;\r\n  border-bottom: 4px solid #617211;\r\n}\r\n.main {\r\n  margin-top: 10px;\r\n  padding: 10px;\r\n}\r\n.button-garage {\r\n  padding: 1px 13px;\r\n  background-color: rgb(196, 226, 241);\r\n  border-bottom: 3px solid rgb(145, 191, 213);\r\n  font-size: 0.7em;\r\n  grid-column: span 1;\r\n}\r\n.button-garage:disabled {\r\n  cursor: not-allowed;\r\n}\r\n.control-block {\r\n  max-width: 400px;\r\n  margin-bottom: 30px;\r\n  display: grid;\r\n  grid-template-columns: 100px 3fr 1fr;\r\n  grid-template-rows: auto;\r\n  row-gap: 10px;\r\n  column-gap: 5px;\r\n  align-content: center;\r\n  justify-content: center;\r\n}\r\n.input-name {\r\n  grid-column-start: 1;\r\n  grid-column-end: 3;\r\n}\r\n.control-block button:last-child {\r\n  grid-column-start: 3;\r\n  grid-column-end: 5;\r\n}\r\n.input-color {\r\n  height: 1.5em;\r\n  border: none;\r\n  padding: 0;\r\n}\r\n.button-yellow {\r\n  justify-self: center;\r\n  width: 100px;\r\n  background-color: #d5f3a0;\r\n  border-color: #9eb575;\r\n}\r\n.wrapper {\r\n  margin-bottom: 25px;\r\n}\r\n.garage-heading {\r\n  margin-bottom: 10px;\r\n  color: #fff;\r\n}\r\n.page-heading {\r\n  margin-bottom: 10px;\r\n  color: #fff;\r\n}\r\n.car-container {\r\n  border-bottom: 2px #fff dashed;\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  position: relative;\r\n}\r\n.car_subcontainer {\r\n  display: flex;\r\n  justify-content: start;\r\n  width: 100%;\r\n}\r\n.car-name {\r\n  margin-left: 10px;\r\n  color: orange;\r\n  font-weight: 600;\r\n}\r\n.button-move {\r\n  margin: 10px 3px 5px;\r\n  padding: 1px 4px;\r\n  height: 22px;\r\n  background-color: black;\r\n  border: 1px solid;\r\n  border-radius: 5px;\r\n  font-size: 0.8em;\r\n}\r\n.car-container button.move {\r\n  border-color: #d5f3a0;\r\n  color: #d5f3a0;\r\n}\r\n.car-container button.stop {\r\n  border-color: #d06b49;\r\n  color: #d06b49;\r\n}\r\n.car-container button.move:hover, .car-container button.stop:hover {\r\n  border-color: rgb(196, 226, 241);\r\n  color: rgb(196, 226, 241);\r\n}\r\n.car-container button.move:disabled,\r\n.car-container button.stop:disabled,\r\n.car-container button.move:disabled:hover\r\n.car-container button.stop:disabled:hover {\r\n  border-color: gray;\r\n  color: gray;\r\n  cursor: not-allowed;\r\n}\r\n.car {\r\n  width: 75px;\r\n  height: 50px;\r\n  margin: 3px 10px 0 20px;\r\n  transform: scale(-1, 1);\r\n  filter: drop-shadow(0px -1px 4px rgb(255, 255, 255));\r\n  position: relative;\r\n  left: 0;\r\n}\r\n.flag {\r\n  width: 60px;\r\n  height: 50px;\r\n  background: url('./assets/flag.svg') no-repeat bottom/65%;\r\n  position: absolute;\r\n  right: 70px;\r\n  top: 15px\r\n}\r\n.winners_table {\r\n  color: #fff;\r\n  border: 1px solid gray;\r\n  text-align: center;\r\n}\r\n.winners_thead {\r\n  background-color: rgb(61, 95, 245);\r\n}\r\n.winners_thead th {\r\n  padding: 0 10px 0;\r\n}\r\n.th_wins, .th_time {\r\n  position: relative;\r\n}\r\n.th_wins::before, .th_wins::after, .th_time::before, .th_time::after {\r\n  content: '';\r\n  position: absolute;\r\n  right: 0;\r\n  border: 4px solid transparent;\r\n  border-bottom: 4px solid gray;\r\n}\r\n.th_wins::after, .th_time::after {\r\n  top: 10px;\r\n  border-top: 4px solid gray;\r\n  border-bottom: none;\r\n}\r\n.ASC::before, .ASC::before {\r\n  border-bottom: 4px solid #fff;\r\n}\r\n.DESC::after, .DESC::after {\r\n  border-top: 4px solid #fff;\r\n}\r\ntd.winners_car {\r\n  transform: scale(-0.8, 0.8);\r\n  filter: drop-shadow(0px -1px 4px rgb(255, 255, 255));\r\n}\r\n.prev, .win-prev {\r\n  margin-right: 15px;\r\n}\r\n.popup {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 40%;\r\n  width: 200px;\r\n  height: 100px;\r\n  padding-top: 35px;\r\n  text-align: center;\r\n  background-color: #d5f3a0;\r\n}\r\n/* info popup styles */\r\n.popup-message {\r\n  position: fixed;\r\n  bottom: 20px;\r\n  right: 20px;\r\n  background-color: #f0f0f0;\r\n  border: 1px solid #ccc;\r\n  padding: 10px;\r\n  border-radius: 5px;\r\n  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);\r\n  display: none;\r\n}\r\n.close-btn {\r\n  position: absolute;\r\n  top: 5px;\r\n  right: 5px;\r\n  font-size: 20px;\r\n  cursor: pointer;\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1061,7 +1082,7 @@ let ANIMATION_ID;
 let count = 1;
 // const promisesArr: Promise<void | null | (Response | string | number)[]>[] = []; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function getResult(id, time) {
-    // console.log(id, time);
+    console.log(id, time);
     let WINNER_NAME = '';
     const NODE_NAME = document.querySelector(`.car-container#a${id} .car-name`);
     if (NODE_NAME && NODE_NAME.textContent)
@@ -1102,7 +1123,7 @@ function animationControl(el, time, id) {
             DISTANCE = CONTAINER.getClientRects()[0].width - el.clientWidth - initialPosition;
         }
         function animate(currentTime) {
-            // console.log('animate');
+            console.log('animate');
             const timeDelta = currentTime - startTime;
             const progress = timeDelta / time;
             const ELEMENT = el;
@@ -1121,6 +1142,7 @@ function animationControl(el, time, id) {
             { key: 'status', value: 'drive' },
         ])
             .then((res) => {
+            console.log(res);
             if (res && count === 0) {
                 getResult(id, time);
                 count += 1;
@@ -1184,7 +1206,7 @@ const stopDrive = (target) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.stopDrive = stopDrive;
 const startRace = (target) => {
-    // console.log('start race');
+    console.log('start race');
     const TARGET = target;
     const BUTTON_RESET = document.querySelector('.reset');
     if (TARGET instanceof HTMLButtonElement)
@@ -1232,7 +1254,7 @@ exports.startRace = startRace;
 //   });
 // }
 const resetCars = (target) => {
-    // console.log('stop race');
+    console.log('stop race');
     const TARGET = target;
     const BUTTON_RACE = document.querySelector('.race');
     if (TARGET instanceof HTMLButtonElement)
@@ -1427,9 +1449,6 @@ const removeCar = (event) => {
                     container.parentNode.removeChild(container);
                 (0, view_main_1.updateHeadings)();
                 if (document.querySelectorAll('.car-container').length < app_data_1.CARS_PER_PAGE) {
-                    // const LAST_CAR_ON_PAGE = document.querySelectorAll('.car-container').item(document.querySelectorAll('.car-container').length - 1);
-                    // let lastCarID: number;
-                    // if (LAST_CAR_ON_PAGE.hasAttribute('id')) lastCarID = Number(LAST_CAR_ON_PAGE.getAttribute('id'));
                     const page = Number((_b = (_a = document.querySelector('.page-count')) === null || _a === void 0 ? void 0 : _a.textContent) === null || _b === void 0 ? void 0 : _b.slice(0, 1));
                     (0, api_1.getCars)([
                         { key: '_page', value: page + 1 },
@@ -1679,40 +1698,67 @@ const paginationGarage = (target, page, pages) => {
     }
 };
 exports.paginationGarage = paginationGarage;
-const paginationWinners = (target, page, pages) => {
+function getSortOrder(currentPage) {
+    let sort;
+    let order;
+    const WINS_HEADING = document.querySelector('.th_wins');
+    const TIME_HEADING = document.querySelector('.th_time');
+    if (WINS_HEADING && WINS_HEADING.classList.length > 2) {
+        const LAST_ELEM_IN_ARR = WINS_HEADING.classList[WINS_HEADING.classList.length - 1];
+        if (LAST_ELEM_IN_ARR === 'ASC' || LAST_ELEM_IN_ARR === 'DESC') {
+            order = WINS_HEADING.classList[WINS_HEADING.classList.length - 1];
+            sort = 'wins';
+            if (order === 'ASC' || order === 'DESC') {
+                (0, view_winners_1.drawWinnersLines)(currentPage, sort, order);
+            }
+        }
+    }
+    else if (TIME_HEADING && TIME_HEADING.classList.length > 2) {
+        const LAST_ELEM_IN_ARR = TIME_HEADING.classList[TIME_HEADING.classList.length - 1];
+        if (LAST_ELEM_IN_ARR === 'ASC' || LAST_ELEM_IN_ARR === 'DESC') {
+            order = TIME_HEADING.classList[TIME_HEADING.classList.length - 1];
+            sort = 'time';
+            if (order === 'ASC' || order === 'DESC')
+                (0, view_winners_1.drawWinnersLines)(currentPage, sort, order);
+        }
+    }
+}
+const paginationWinners = (target, page) => {
     let currentPage = page;
-    const BTN = target;
-    if (BTN instanceof HTMLButtonElement) {
-        if (BTN.classList.contains('win-next')) {
-            currentPage += 1;
-            if (currentPage === pages) {
-                BTN.disabled = true;
-            }
-            const PREV = BTN.previousElementSibling;
-            if (PREV instanceof HTMLButtonElement) {
-                PREV.disabled = false;
-            }
+    let currentPages;
+    (0, api_1.getWinners)([{ key: '_limit', value: app_data_1.WINNERS_PER_PAGE }]).then((res) => {
+        currentPages = Math.ceil(res.winnersNumber / app_data_1.WINNERS_PER_PAGE);
+        const PAGES_STR = localStorage.getItem('winners pages');
+        if (PAGES_STR) {
+            currentPage = JSON.parse(PAGES_STR).at(0);
         }
-        else {
-            currentPage -= 1;
-            if (currentPage === 1) {
-                BTN.disabled = true;
+        const BTN = target;
+        if (BTN instanceof HTMLButtonElement) {
+            if (BTN.classList.contains('win-next')) {
+                currentPage += 1;
+                if (currentPage === currentPages)
+                    BTN.disabled = true;
+                const PREV = BTN.previousElementSibling;
+                if (PREV instanceof HTMLButtonElement)
+                    PREV.disabled = false;
             }
-            const NEXT = BTN.nextElementSibling;
-            if (NEXT instanceof HTMLButtonElement) {
-                NEXT.disabled = false;
+            else {
+                currentPage -= 1;
+                if (currentPage === 1)
+                    BTN.disabled = true;
+                const NEXT = BTN.nextElementSibling;
+                if (NEXT instanceof HTMLButtonElement)
+                    NEXT.disabled = false;
             }
-        }
-        const TABLE_BODY = document.querySelector('.winners_tbody');
-        if (TABLE_BODY) {
-            TABLE_BODY.remove();
-            while (TABLE_BODY.firstChild) {
+            const TABLE_BODY = document.querySelector('.winners_tbody');
+            while (TABLE_BODY instanceof HTMLElement && TABLE_BODY.firstChild) {
                 TABLE_BODY.removeChild(TABLE_BODY.firstChild);
             }
+            localStorage.setItem('winners pages', JSON.stringify([currentPage, currentPages]));
+            getSortOrder(currentPage);
+            (0, view_winners_1.setHeadings)(currentPage, currentPages);
         }
-        (0, view_winners_1.drawWinners)(currentPage);
-        localStorage.setItem('winners pages', JSON.stringify([currentPage, pages]));
-    }
+    });
 };
 exports.paginationWinners = paginationWinners;
 
@@ -1723,11 +1769,20 @@ exports.paginationWinners = paginationWinners;
 /*!**********************************!*\
   !*** ./src/view/view_winners.ts ***!
   \**********************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.hideWinners = exports.drawWinners = void 0;
+exports.hideWinners = exports.drawWinners = exports.drawWinnersLines = exports.setHeadings = void 0;
 const types_1 = __webpack_require__(/*! ../types/types */ "./src/types/types.ts");
 const view_elements_1 = __webpack_require__(/*! ./view_elements */ "./src/view/view_elements.ts");
 const view_main_1 = __webpack_require__(/*! ./view_main */ "./src/view/view_main.ts");
@@ -1765,8 +1820,8 @@ function setPaginationBtns(page, pages) {
     if (WIN_PREV instanceof HTMLButtonElement && WIN_NEXT instanceof HTMLButtonElement) {
         WIN_PREV.style.display = 'inline-block';
         WIN_NEXT.style.display = 'inline-block';
-        WIN_PREV.addEventListener('click', (event) => (0, view_pagination_1.paginationWinners)(event.target, page, pages));
-        WIN_NEXT.addEventListener('click', (event) => (0, view_pagination_1.paginationWinners)(event.target, page, pages));
+        WIN_PREV.addEventListener('click', (event) => (0, view_pagination_1.paginationWinners)(event.target, page));
+        WIN_NEXT.addEventListener('click', (event) => (0, view_pagination_1.paginationWinners)(event.target, page));
         if (page === 1 && pages === 1) {
             WIN_NEXT.disabled = true;
             WIN_PREV.disabled = true;
@@ -1780,45 +1835,117 @@ function setPaginationBtns(page, pages) {
     }
 }
 const HEADING_TEXT = ['Number', 'Car', 'Name', 'Wins', 'Best time (seconds)'];
+function setHeadings(page, winnersPages, winnersNumber) {
+    if (winnersNumber) {
+        const GARAGE_HEADING = document.querySelector('.garage-heading');
+        if (GARAGE_HEADING)
+            GARAGE_HEADING.textContent = `Winners (${winnersNumber})`;
+    }
+    const PAGE_HEADING = document.querySelector('.page-count');
+    if (PAGE_HEADING)
+        PAGE_HEADING.textContent = `${page} / ${winnersPages}`;
+}
+exports.setHeadings = setHeadings;
+const drawWinnersLines = (page, sort = 'time', order = 'ASC') => __awaiter(void 0, void 0, void 0, function* () {
+    return (0, api_1.getWinners)([
+        { key: '_page', value: page },
+        { key: '_limit', value: app_data_1.WINNERS_PER_PAGE },
+        { key: '_sort', value: sort },
+        { key: '_order', value: order },
+    ]).then((response) => {
+        const TBODY = document.querySelector('.winners_tbody');
+        if (TBODY) {
+            response.winners.forEach((winner, ind) => {
+                const TR_BODY = (0, view_elements_1.createElem)(TBODY, types_1.HTMLTags.tr, '');
+                (0, view_elements_1.createElem)(TR_BODY, types_1.HTMLTags.td, '', (ind + 1).toString());
+                const TD_CAR = (0, view_elements_1.createElem)(TR_BODY, types_1.HTMLTags.td, 'winners_car');
+                TD_CAR.innerHTML =
+                    '<svg fill="#000000" width="45px" height="40px" viewBox="0 -39.69 122.88 122.88" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  style="enable-background:new 0 0 122.88 43.49" xml:space="preserve"> <style type="text/css">.st0{fill-rule:evenodd;clip-rule:evenodd;}</style> <g> <path class="st0" d="M103.94,23.97c5.39,0,9.76,4.37,9.76,9.76c0,5.39-4.37,9.76-9.76,9.76c-5.39,0-9.76-4.37-9.76-9.76 C94.18,28.34,98.55,23.97,103.94,23.97L103.94,23.97z M23,29.07v3.51h3.51C26.09,30.86,24.73,29.49,23,29.07L23,29.07z M26.52,34.87H23v3.51C24.73,37.97,26.09,36.6,26.52,34.87L26.52,34.87z M20.71,38.39v-3.51H17.2 C17.62,36.6,18.99,37.96,20.71,38.39L20.71,38.39z M17.2,32.59h3.51v-3.51C18.99,29.49,17.62,30.86,17.2,32.59L17.2,32.59z M105.09,29.07v3.51h3.51C108.18,30.86,106.82,29.49,105.09,29.07L105.09,29.07z M108.6,34.87h-3.51v3.51 C106.82,37.97,108.18,36.6,108.6,34.87L108.6,34.87z M102.8,38.39v-3.51h-3.51C99.71,36.6,101.07,37.96,102.8,38.39L102.8,38.39z M99.28,32.59h3.51v-3.51C101.07,29.49,99.71,30.86,99.28,32.59L99.28,32.59z M49.29,12.79c-1.54-0.35-3.07-0.35-4.61-0.28 C56.73,6.18,61.46,2.07,75.57,2.9l-1.94,12.87L50.4,16.65c0.21-0.61,0.33-0.94,0.37-1.55C50.88,13.36,50.86,13.15,49.29,12.79 L49.29,12.79z M79.12,3.13L76.6,15.6l24.13-0.98c2.48-0.1,2.91-1.19,1.41-3.28c-0.68-0.95-1.44-1.89-2.31-2.82 C93.59,1.86,87.38,3.24,79.12,3.13L79.12,3.13z M0.46,27.28H1.2c0.46-2.04,1.37-3.88,2.71-5.53c2.94-3.66,4.28-3.2,8.65-3.99 l24.46-4.61c5.43-3.86,11.98-7.3,19.97-10.2C64.4,0.25,69.63-0.01,77.56,0c4.54,0.01,9.14,0.28,13.81,0.84 c2.37,0.15,4.69,0.47,6.97,0.93c2.73,0.55,5.41,1.31,8.04,2.21l9.8,5.66c2.89,1.67,3.51,3.62,3.88,6.81l1.38,11.78h1.43v6.51 c-0.2,2.19-1.06,2.52-2.88,2.52h-2.37c0.92-20.59-28.05-24.11-27.42,1.63H34.76c3.73-17.75-14.17-23.91-22.96-13.76 c-2.67,3.09-3.6,7.31-3.36,12.3H2.03c-0.51-0.24-0.91-0.57-1.21-0.98c-1.05-1.43-0.82-5.74-0.74-8.23 C0.09,27.55-0.12,27.28,0.46,27.28L0.46,27.28z M21.86,23.97c5.39,0,9.76,4.37,9.76,9.76c0,5.39-4.37,9.76-9.76,9.76 c-5.39,0-9.76-4.37-9.76-9.76C12.1,28.34,16.47,23.97,21.86,23.97L21.86,23.97z"/></g> </svg>';
+                const svgEl = TD_CAR.firstChild;
+                if (winner.id) {
+                    (0, api_1.getCar)(winner.id).then((res) => {
+                        if (svgEl instanceof SVGElement)
+                            svgEl.style.fill = res.color;
+                        (0, view_elements_1.createElem)(TR_BODY, types_1.HTMLTags.td, '', res.name);
+                        (0, view_elements_1.createElem)(TR_BODY, types_1.HTMLTags.td, '', winner.wins.toString());
+                        (0, view_elements_1.createElem)(TR_BODY, types_1.HTMLTags.td, '', winner.time.toString());
+                    });
+                }
+            });
+        }
+        return response;
+    });
+});
+exports.drawWinnersLines = drawWinnersLines;
+function sortWinners(target) {
+    const TARGET = target;
+    let order;
+    let sort;
+    if (TARGET instanceof HTMLElement) {
+        if (TARGET.classList.contains('ASC')) {
+            document.querySelectorAll('.ASC').forEach((el) => el.classList.remove('ASC'));
+            document.querySelectorAll('.DESC').forEach((el) => el.classList.remove('DESC'));
+            TARGET.classList.add('DESC');
+            order = 'DESC';
+        }
+        else {
+            document.querySelectorAll('.ASC').forEach((el) => el.classList.remove('ASC'));
+            document.querySelectorAll('.DESC').forEach((el) => el.classList.remove('DESC'));
+            TARGET.classList.add('ASC');
+            order = 'ASC';
+        }
+        if (TARGET.classList.contains('th_wins')) {
+            sort = 'wins';
+        }
+        else {
+            sort = 'time';
+        }
+        const arr = localStorage.getItem('winners pages');
+        const TABLE_BODY = document.querySelector('.winners_tbody');
+        while (TABLE_BODY instanceof HTMLElement && TABLE_BODY.firstChild) {
+            TABLE_BODY.removeChild(TABLE_BODY.firstChild);
+        }
+        if (arr) {
+            const page = JSON.parse(arr);
+            (0, exports.drawWinnersLines)(page[0], sort, order);
+        }
+        else {
+            (0, exports.drawWinnersLines)(1, sort, order);
+        }
+    }
+}
+function addSortingListeners() {
+    const WINS_CELL = document.querySelector('.th_wins');
+    const BEST_TIME_CELL = document.querySelector('.th_time');
+    if (WINS_CELL instanceof HTMLElement && BEST_TIME_CELL instanceof HTMLElement) {
+        WINS_CELL.addEventListener('click', (event) => sortWinners(event.target));
+        BEST_TIME_CELL.addEventListener('click', (event) => sortWinners(event.target));
+    }
+}
 const drawWinners = (page = currentWinnersPage) => {
     if (TABLE)
         TABLE.remove();
     hideGarage();
+    let PAGE = page;
+    const PAGE_ARR = localStorage.getItem('winners pages');
+    if (PAGE_ARR)
+        PAGE = JSON.parse(PAGE_ARR).at(0);
     TABLE = (0, view_elements_1.createElem)(view_main_1.WRAPPER, types_1.HTMLTags.table, 'winners_table');
     const THEAD = (0, view_elements_1.createElem)(TABLE, types_1.HTMLTags.thead, 'winners_thead');
     const TR = (0, view_elements_1.createElem)(THEAD, types_1.HTMLTags.tr, '');
-    HEADING_TEXT.forEach((colName) => (0, view_elements_1.createElem)(TR, types_1.HTMLTags.th, '', colName));
-    const TBODY = (0, view_elements_1.createElem)(TABLE, types_1.HTMLTags.tbody, 'winners_tbody');
-    (0, api_1.getWinners)([
-        { key: '_page', value: page },
-        { key: '_limit', value: app_data_1.WINNERS_PER_PAGE },
-        { key: '_sort', value: 'time' },
-    ]).then((response) => {
-        response.winners.forEach((winner, ind) => {
-            const TR_BODY = (0, view_elements_1.createElem)(TBODY, types_1.HTMLTags.tr, '');
-            (0, view_elements_1.createElem)(TR_BODY, types_1.HTMLTags.td, '', (ind + 1).toString());
-            const TD_CAR = (0, view_elements_1.createElem)(TR_BODY, types_1.HTMLTags.td, 'winners_car');
-            TD_CAR.innerHTML =
-                '<svg fill="#000000" width="45px" height="40px" viewBox="0 -39.69 122.88 122.88" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  style="enable-background:new 0 0 122.88 43.49" xml:space="preserve"> <style type="text/css">.st0{fill-rule:evenodd;clip-rule:evenodd;}</style> <g> <path class="st0" d="M103.94,23.97c5.39,0,9.76,4.37,9.76,9.76c0,5.39-4.37,9.76-9.76,9.76c-5.39,0-9.76-4.37-9.76-9.76 C94.18,28.34,98.55,23.97,103.94,23.97L103.94,23.97z M23,29.07v3.51h3.51C26.09,30.86,24.73,29.49,23,29.07L23,29.07z M26.52,34.87H23v3.51C24.73,37.97,26.09,36.6,26.52,34.87L26.52,34.87z M20.71,38.39v-3.51H17.2 C17.62,36.6,18.99,37.96,20.71,38.39L20.71,38.39z M17.2,32.59h3.51v-3.51C18.99,29.49,17.62,30.86,17.2,32.59L17.2,32.59z M105.09,29.07v3.51h3.51C108.18,30.86,106.82,29.49,105.09,29.07L105.09,29.07z M108.6,34.87h-3.51v3.51 C106.82,37.97,108.18,36.6,108.6,34.87L108.6,34.87z M102.8,38.39v-3.51h-3.51C99.71,36.6,101.07,37.96,102.8,38.39L102.8,38.39z M99.28,32.59h3.51v-3.51C101.07,29.49,99.71,30.86,99.28,32.59L99.28,32.59z M49.29,12.79c-1.54-0.35-3.07-0.35-4.61-0.28 C56.73,6.18,61.46,2.07,75.57,2.9l-1.94,12.87L50.4,16.65c0.21-0.61,0.33-0.94,0.37-1.55C50.88,13.36,50.86,13.15,49.29,12.79 L49.29,12.79z M79.12,3.13L76.6,15.6l24.13-0.98c2.48-0.1,2.91-1.19,1.41-3.28c-0.68-0.95-1.44-1.89-2.31-2.82 C93.59,1.86,87.38,3.24,79.12,3.13L79.12,3.13z M0.46,27.28H1.2c0.46-2.04,1.37-3.88,2.71-5.53c2.94-3.66,4.28-3.2,8.65-3.99 l24.46-4.61c5.43-3.86,11.98-7.3,19.97-10.2C64.4,0.25,69.63-0.01,77.56,0c4.54,0.01,9.14,0.28,13.81,0.84 c2.37,0.15,4.69,0.47,6.97,0.93c2.73,0.55,5.41,1.31,8.04,2.21l9.8,5.66c2.89,1.67,3.51,3.62,3.88,6.81l1.38,11.78h1.43v6.51 c-0.2,2.19-1.06,2.52-2.88,2.52h-2.37c0.92-20.59-28.05-24.11-27.42,1.63H34.76c3.73-17.75-14.17-23.91-22.96-13.76 c-2.67,3.09-3.6,7.31-3.36,12.3H2.03c-0.51-0.24-0.91-0.57-1.21-0.98c-1.05-1.43-0.82-5.74-0.74-8.23 C0.09,27.55-0.12,27.28,0.46,27.28L0.46,27.28z M21.86,23.97c5.39,0,9.76,4.37,9.76,9.76c0,5.39-4.37,9.76-9.76,9.76 c-5.39,0-9.76-4.37-9.76-9.76C12.1,28.34,16.47,23.97,21.86,23.97L21.86,23.97z"/></g> </svg>';
-            const svgEl = TD_CAR.firstChild;
-            if (winner.id) {
-                (0, api_1.getCar)(winner.id).then((res) => {
-                    if (svgEl instanceof SVGElement)
-                        svgEl.style.fill = res.color;
-                    (0, view_elements_1.createElem)(TR_BODY, types_1.HTMLTags.td, '', res.name);
-                    (0, view_elements_1.createElem)(TR_BODY, types_1.HTMLTags.td, '', winner.wins.toString());
-                    (0, view_elements_1.createElem)(TR_BODY, types_1.HTMLTags.td, '', winner.time.toString());
-                });
-            }
-        });
-        const GARAGE_HEADING = document.querySelector('.garage-heading');
-        if (GARAGE_HEADING)
-            GARAGE_HEADING.textContent = `Winners (${response.winnersNumber})`;
-        const PAGE_HEADING = document.querySelector('.page-count');
+    HEADING_TEXT.forEach((colName, ind) => {
+        const TH = (0, view_elements_1.createElem)(TR, types_1.HTMLTags.th, 'winners_thead_tr', colName);
+        if (ind === 3)
+            TH.classList.add('th_wins');
+        if (ind === 4)
+            TH.className = 'winners_thead_tr th_time ASC';
+    });
+    (0, view_elements_1.createElem)(TABLE, types_1.HTMLTags.tbody, 'winners_tbody');
+    (0, exports.drawWinnersLines)(PAGE).then((response) => {
         const winnersPages = Math.ceil(response.winnersNumber / app_data_1.WINNERS_PER_PAGE);
-        if (PAGE_HEADING)
-            PAGE_HEADING.textContent = `${page} / ${winnersPages}`;
-        setPaginationBtns(page, winnersPages);
+        setHeadings(PAGE, winnersPages, response.winnersNumber);
+        setPaginationBtns(PAGE, winnersPages);
+        addSortingListeners();
     });
 };
 exports.drawWinners = drawWinners;
