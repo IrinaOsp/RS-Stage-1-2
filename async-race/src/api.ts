@@ -16,10 +16,8 @@ const generateQueryString: generateStr = (queryParams = []) =>
 export const getCars: (x: Query) => Promise<getCarsResult> = async (queryParams) => {
   const response = await fetch(`${baseUrl}${path.garage}${generateQueryString(queryParams)}`);
   const carsNumber = Number(response.headers.get('X-Total-Count'));
-  // console.log(carsNumber);
 
   const cars: Icar[] = await response.json();
-  // console.log({ cars, carsNumber });
   return { cars, carsNumber };
 };
 export const getCar: (param: number) => Promise<Icar> = async (id) => {
@@ -61,7 +59,6 @@ export const deleteCar: (param: number) => Promise<Record<never, never>> = async
       throw new Error(res.statusText);
     })
     .catch((e) => e.message);
-  // console.log(response);
   return response;
 };
 export const startStopEngine: (queryParams: Query) => Promise<number> = async (queryParams) => {
@@ -69,7 +66,6 @@ export const startStopEngine: (queryParams: Query) => Promise<number> = async (q
     method: 'PATCH',
   });
   const startParams = await response.json();
-  // console.log(startParams);
   return startParams.distance / startParams.velocity;
 };
 
@@ -93,10 +89,8 @@ export const driveMode: (queryParams: Query) => Promise<Response> = async (query
 export const getWinners: (x: Query) => Promise<getWinnersResult> = async (queryParams) => {
   const response = await fetch(`${baseUrl}${path.winners}${generateQueryString(queryParams)}`);
   const winnersNumber = Number(response.headers.get('X-Total-Count'));
-  // console.log(winnersNumber);
 
   const winners: Iwinner[] = await response.json();
-  // console.log({ winners, winnersNumber });
   return { winners, winnersNumber };
 };
 export const getWinner: (param: number) => Promise<Iwinner | string> = async (id) => {

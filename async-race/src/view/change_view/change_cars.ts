@@ -21,7 +21,6 @@ export const drawAddedCar: () => void = () => {
 };
 
 export const updateCarView: () => void = () => {
-  // console.log('updateCar');
   let name = '';
   let color = '';
   let id = 0;
@@ -48,7 +47,6 @@ function componentToHex(c: number): string {
 function rgbToHex(rgb: string): string {
   const arr = rgb.slice(4, -1).split(', ');
   const res = `#${arr.map((el) => componentToHex(Number(el))).join('')}`;
-  // console.log(res)
   return res;
 }
 
@@ -58,7 +56,6 @@ export const selectCar: (param: Event) => void = (event) => {
     event.target.closest('.car-container')?.querySelector('.car')?.classList.add('selected');
     const SELECTED_CAR = document.querySelector('.selected');
     if (SELECTED_CAR) {
-      // const styles = window.getComputedStyle(SELECTED_CAR);
       const UPDATE_NAME = document.querySelector('.update-name');
       const UPDATE_COLOR = document.querySelector('.update-color');
       if (UPDATE_NAME instanceof HTMLInputElement && UPDATE_COLOR instanceof HTMLInputElement) {

@@ -37,7 +37,6 @@ export const drawGarageInputs: () => void = () => {
 };
 
 export const drawGarageCars: (name: string, color: string, id: number) => void = (name, color, id) => {
-  // console.log('drawGarageCars');
   const CAR_CONTAINER = createElem(WRAPPER, HTMLTags.div, 'car-container');
   CAR_CONTAINER.id = `a${id}`;
   const CONTAINER_HEAD = createElem(CAR_CONTAINER, HTMLTags.div, 'car_subcontainer');
