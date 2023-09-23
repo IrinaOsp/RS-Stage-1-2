@@ -34,44 +34,6 @@ const BODY = document.querySelector('.body');
 }());
 
 // Slider on main page
-
-const BTNRIGHT = document.querySelector('.slider-right');
-const BTNLEFT = document.querySelector('.slider-left');
-const CAROUSEL = document.getElementById('carousel');
-const PET_ITEMS = document.querySelectorAll('.friends-slider-item');
-
-
-const PETS_NAMES = [];
-    //get array of random numbers
-function getRandomNum(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-let numbersArray
-function getArray() {
-    let set = new Set()
-    let randomNum
-    while (set.size < 8) {
-        randomNum = getRandomNum(0, 7)
-        set.add(randomNum)
-    }
-    numbersArray = Array.from(set)
-    numbersArray.push(numbersArray[getRandomNum(0, 2)])
-    return numbersArray
-}
-let petsnumbersArray = getArray()
-console.log('petsnumbersArray' + petsnumbersArray)
-    //get slider items
-    /*
-    fetch('./JS/pets_info.json')
-    .then(response => response.json())
-    .then(data => {
-      // обработка полученных данных
-      console.log(data);
-    })
-    .catch(error => console.error(error));
-*/
 const PETS = [
     {
       "name": "Jennifer",
@@ -163,129 +125,226 @@ const PETS = [
     }
   ]
 
-function getSliderItems() {
-    // const res = await fetch('../JS/pets_info.json')
-    // PETS = await res.json()
-    PETS.forEach((item) => PETS_NAMES.push(item.name))
-    console.log(petsnumbersArray)
-    petsnumbersArray.forEach((item, index) => {
-        PET_ITEMS[index].firstElementChild.firstElementChild.src = `${PETS[item].img}`
-        PET_ITEMS[index].firstElementChild.firstElementChild.alt = `${PETS[item].name}`
-        PET_ITEMS[index].firstElementChild.lastElementChild.innerHTML = PETS[item].name
-        PET_ITEMS[index].id = PETS[item].name
-    })
+const BTNRIGHT = document.querySelector('.slider-right');
+const BTNLEFT = document.querySelector('.slider-left');
+const CAROUSEL = document.getElementById('carousel');
+const PET_ITEMS = document.querySelectorAll('.friends-slider-item');
+const ITEM_LEFT = document.querySelector("#item-left");
+const ITEM_ACTIVE = document.querySelector("#item-active");
+const ITEM_RIGHT = document.querySelector("#item-right");
+const PETS_NAMES = [];
+PETS.forEach((item) => PETS_NAMES.push(item.name));
+    //get array of random numbers
+function getRandomNum(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-getSliderItems()
-
+let offset = 0;
+let petsnumbersArray;
 let pastArr = [];
 let currArr = [];
 let nextArr = [];
-function setArrays () {
-console.log('setArrays start')
-    for (i=0; i<numbersArray.length; i++) {
-        if (i<3) {
-            pastArr.push(numbersArray[i])
-        }
-        if (i>=3 && i<6) {
-            currArr.push(numbersArray[i])
-        }
-        if (i>=6 && i<numbersArray.length) {
-            console.log('check')
-            nextArr.push(numbersArray[i])
-        }
+
+const setOffset = () => {
+    if (window.innerWidth > 1245) {
+        offset = 1035
+    } else if (window.innerWidth > 700 && window.innerWidth <= 1245) {
+        offset = 620
+    } else {
+        offset = 305
     }
-    if (pastArr.length<3) {
-        console.log('check2')
-        nextArr.push(numbersArray[4])
+    CAROUSEL.style.right = offset + 'px';
+    console.log(offset);
+    petsnumbersArray = getArray();
+    getSliderItems();
+    console.log('petsnumbersArray' + petsnumbersArray)
+    return offset;
+};
+
+window.addEventListener('resize', setOffset);
+window.addEventListener('load', setOffset);
+
+function getArray() {
+    pastArr = [];
+    currArr = [];
+    nextArr = [];
+    petsnumbersArray = [];
+    let set = new Set()
+    if (offset === 1035) {
+        while (set.size < 8) {
+            set.add(getRandomNum(0, 7))
+        }
+        petsnumbersArray = Array.from(set)
+        petsnumbersArray.push(petsnumbersArray[getRandomNum(0, 2)])
+        pastArr.push(...petsnumbersArray.slice(0, 3));
+        currArr.push(...petsnumbersArray.slice(3, 6));
+        nextArr.push(...petsnumbersArray.slice(6));
+        console.log('arrs ', pastArr, currArr, nextArr)
+
+        return petsnumbersArray
+    } else if (offset === 620) {
+        while (set.size < 6) {
+            set.add(getRandomNum(0, 7))
+        }
+        petsnumbersArray = Array.from(set);
+        pastArr.push(...petsnumbersArray.slice(0, 2));
+        currArr.push(...petsnumbersArray.slice(2, 4));
+        nextArr.push(...petsnumbersArray.slice(4));
+        console.log('arrs ', pastArr, currArr, nextArr)
+
+        return petsnumbersArray
     }
+    while (set.size < 3) {
+        set.add(getRandomNum(0, 7))
+    }
+    petsnumbersArray = Array.from(set);
+    pastArr.push(petsnumbersArray[0]);
+    currArr.push(petsnumbersArray[1]);
+    nextArr.push(petsnumbersArray[2]);
+    console.log('arrs ', pastArr, currArr, nextArr)
+
+    return petsnumbersArray
 }
-setArrays()
-console.log('arrs ')
-console.log(pastArr)
-console.log(currArr)
-console.log(nextArr)
+    //get slider items
+
+function getSliderItems() {
+    ITEM_LEFT.innerHTML = '';
+    ITEM_ACTIVE.innerHTML = '';
+    ITEM_RIGHT.innerHTML = '';
+    petsnumbersArray.forEach((item, index) => {
+        const card = createCards(item);
+        if (offset === 1035) {
+            if (index < 3) ITEM_LEFT.appendChild(card);
+            if (index < 6 && index >= 3) ITEM_ACTIVE.appendChild(card);
+            if (index < 9 && index >= 6) ITEM_RIGHT.appendChild(card);
+        } else if (offset === 620) {
+            if (index < 2) ITEM_LEFT.appendChild(card);
+            if (index < 4 && index >= 2) ITEM_ACTIVE.appendChild(card);
+            if (index < 6 && index >= 4) ITEM_RIGHT.appendChild(card);
+        } else {
+            if (index === 1) ITEM_LEFT.appendChild(card);
+            if (index === 2) ITEM_ACTIVE.appendChild(card);
+            if (index === 3) ITEM_RIGHT.appendChild(card);
+        }
+    })
+}
+
+const createCards = (ind) => {
+    const card = document.createElement("div");
+    card.classList.add("friends-slider-item");
+    const figure = document.createElement('figure');
+    const img = document.createElement('img');
+    img.src = PETS[ind].img;
+    img.alt = PETS[ind].name;
+    const figcaption = document.createElement('figcaption');
+    figcaption.innerText = PETS[ind].name;
+    const link = document.createElement('a');
+    link.classList.add('slider-button');
+    link.href = '#!';
+    link.innerHTML = 'Learn more';
+    figure.appendChild(img);
+    figure.appendChild(figcaption);
+    card.appendChild(figure);
+    card.appendChild(link);
+    return card;
+}
+let NewPetsNumbersArray;
 
 const moveLeft = () => {
-    console.log('start')
-    CAROUSEL.classList.add('transition-left')
-
     BTNLEFT.removeEventListener('click', moveLeft); //убирает возможность кликать по кнопке во время анимации
     BTNRIGHT.removeEventListener('click', moveRight); //убирает возможность кликать по кнопке во время анимации
+
+    CAROUSEL.style.transition = 'all 2s';
+    let length;
+    if (offset === 1035) {
+        CAROUSEL.style.right = '-45px';
+        length = 3;
+    } else if (offset === 620) {
+        CAROUSEL.style.right = '0px';
+        length = 2;
+    } else {
+        CAROUSEL.style.right = '0px';
+        length = 1;
+    }
 
     nextArr=currArr
     currArr=pastArr;
     pastArr=[];
-    let NewPetsNumbersArray = [...currArr, ...nextArr]
-    console.log(NewPetsNumbersArray)
+    NewPetsNumbersArray = []
+    NewPetsNumbersArray = [...currArr, ...nextArr];
+    console.log(NewPetsNumbersArray);
 
-    while (pastArr.length<=2) {
+    while (pastArr.length < length) {
         let num = getRandomNum(0, 7)
-
-        if (!NewPetsNumbersArray.slice(0, 3).includes(num) && !pastArr.includes(num)) {
+        if (!NewPetsNumbersArray.slice(0, length).includes(num) && !pastArr.includes(num)) {
             pastArr.push(num)
-            console.log(pastArr)
         }
     }
-
-    NewPetsNumbersArray.unshift(pastArr[2])
-    NewPetsNumbersArray.unshift(pastArr[1])
-    NewPetsNumbersArray.unshift(pastArr[0])
+    NewPetsNumbersArray.unshift(...pastArr)
     console.log(NewPetsNumbersArray)
-
-    setTimeout(function () {
-        CAROUSEL.classList.remove('transition-left')
-        console.log(NewPetsNumbersArray)
-        NewPetsNumbersArray.forEach((item, index) => {
-            PET_ITEMS[index].firstElementChild.firstElementChild.src = `${PETS[item].img}`
-            PET_ITEMS[index].firstElementChild.firstElementChild.alt = `${PETS[item].name}`
-            PET_ITEMS[index].firstElementChild.lastElementChild.innerHTML = PETS[item].name
-            PET_ITEMS[index].id = PETS[item].name
+    setTimeout(() => {
+        ITEM_RIGHT.innerHTML = ITEM_ACTIVE.innerHTML;
+        ITEM_ACTIVE.innerHTML = ITEM_LEFT.innerHTML;
+        ITEM_LEFT.innerHTML = '';
+        pastArr.forEach(item => {
+            console.log(item);
+            const card = createCards(item);
+            ITEM_LEFT.appendChild(card);
         })
-    }, 999)
-        console.log(NewPetsNumbersArray)
+        CAROUSEL.style.transition = null
+        CAROUSEL.style.right = offset + 'px';
         BTNLEFT.addEventListener('click', moveLeft);
         BTNRIGHT.addEventListener('click', moveRight);
-
+    }, 2000);
 }
 const moveRight = () => {
-    CAROUSEL.classList.add('transition-right')
+    CAROUSEL.style.transition = 'all 2s';
+    let length;
+    if (offset === 1035) {
+        CAROUSEL.style.right = '2115px';
+        length = 3;
+    } else if (offset === 620) {
+        CAROUSEL.style.right = '1240px';
+        length = 2;
+    } else {
+        CAROUSEL.style.right = '620px';
+        length = 1;
+    }
     BTNLEFT.removeEventListener('click', moveLeft); //убирает возможность кликать по кнопке во время анимации
     BTNRIGHT.removeEventListener('click', moveRight); //убирает возможность кликать по кнопке во время анимации
-    nextArr=currArr
-    currArr=pastArr;
-    pastArr=[];
-    NewPetsNumbersArray = [...currArr, ...nextArr]
-    while (pastArr.length<=2) {
+    pastArr=currArr
+    currArr=nextArr;
+    nextArr=[];
+    NewPetsNumbersArray = [];
+    NewPetsNumbersArray = [...pastArr, ...currArr]
+    while (nextArr.length < length) {
         let num = getRandomNum(0, 7)
-
-        if (!NewPetsNumbersArray.slice(0, 3).includes(num) && !pastArr.includes(num)) {
-            pastArr.push(num)
+        if (!NewPetsNumbersArray.slice(length).includes(num) && !nextArr.includes(num)) {
+            nextArr.push(num)
         }
     }
-    NewPetsNumbersArray.unshift(pastArr[2])
-    NewPetsNumbersArray.unshift(pastArr[1])
-    NewPetsNumbersArray.unshift(pastArr[0])
+    NewPetsNumbersArray.push(...nextArr)
     console.log(NewPetsNumbersArray)
-
-    setTimeout(function () {
-        CAROUSEL.classList.remove('transition-right')
-        console.log(NewPetsNumbersArray)
-        NewPetsNumbersArray.forEach((item, index) => {
-            PET_ITEMS[index].firstElementChild.firstElementChild.src = `${PETS[item].img}`
-            PET_ITEMS[index].firstElementChild.firstElementChild.alt = `${PETS[item].name}`
-            PET_ITEMS[index].firstElementChild.lastElementChild.innerHTML = PETS[item].name
-            PET_ITEMS[index].id = PETS[item].name
+    setTimeout(() => {
+        CAROUSEL.style.right = offset + 'px';
+        CAROUSEL.style.transition = null
+        ITEM_LEFT.innerHTML = ITEM_ACTIVE.innerHTML;
+        ITEM_ACTIVE.innerHTML = ITEM_RIGHT.innerHTML;
+        ITEM_RIGHT.innerHTML = '';
+        nextArr.forEach(item => {
+            console.log(item);
+            const card = createCards(item);
+            ITEM_RIGHT.appendChild(card);
         })
-    }, 999)
         BTNLEFT.addEventListener('click', moveLeft);
         BTNRIGHT.addEventListener('click', moveRight);
+    }, 2000);
 
 }
-
 
 BTNLEFT.addEventListener('click', moveLeft);
 BTNRIGHT.addEventListener('click', moveRight);
-//window.addEventListener('load', setOffset)
 
 //Pop up
 
@@ -298,11 +357,9 @@ const POPUP_TEXT = document.querySelector('.popup-text')
 const POPUP_LIST = document.querySelector('.popup-list')
 const POPUP_CLOSE = document.querySelector('.popup-close-btn')
 
-PET_ITEMS.forEach((item) => {
-    item.addEventListener('click', (event) => {
-        let cardNum = PETS_NAMES.indexOf(event.target.closest('.friends-slider-item').firstElementChild.lastElementChild.innerHTML)
-        createCard(cardNum)
-    })
+CAROUSEL.addEventListener('click', (event) => {
+    let cardNum = PETS_NAMES.indexOf(event.target.closest('.friends-slider-item').firstElementChild.lastElementChild.innerHTML)
+    createCard(cardNum)
 })
 
 function createCard(i) {

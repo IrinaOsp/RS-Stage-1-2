@@ -542,32 +542,28 @@ ul .disabled-link {
   flex: 3;
   max-width: 1080px;
   position: relative;
-  right: 1035px;
+  transition: none;
 }
-@media screen and (max-width: 1180px) {
+@media screen and (max-width: 1245px) {
   .friends .friends-slider {
-    -moz-column-gap: 30px;
-         column-gap: 30px;
+    max-width: 580px;
+    gap: 40px;
   }
 }
-@media screen and (max-width: 1078px) {
+@media screen and (max-width: 700px) {
   .friends .friends-slider {
-    grid-template-columns: repeat(2, 1fr);
-    -moz-column-gap: 40px;
-         column-gap: 40px;
-  }
-}
-@media screen and (max-width: 760px) {
-  .friends .friends-slider {
-    grid-template-columns: repeat(1, 1fr);
-    -moz-column-gap: 0;
-         column-gap: 0;
-  }
-}
-@media screen and (max-width: 460px) {
-  .friends .friends-slider {
+    max-width: 270px;
     margin-left: auto;
     margin-right: auto;
+  }
+}
+.friends .friends-slider-set {
+  display: flex;
+  gap: 90px;
+}
+@media screen and (max-width: 1245px) {
+  .friends .friends-slider-set {
+    gap: 40px;
   }
 }
 .friends .friends-slider-item {
@@ -591,11 +587,6 @@ ul .disabled-link {
   letter-spacing: 0.06em;
   color: #545454;
   text-align: center;
-}
-@media screen and (max-width: 1078px) {
-  .friends .friends-slider-item:last-child {
-    display: none;
-  }
 }
 @media screen and (max-width: 760px) {
   .friends .friends-slider-item:nth-child(2) {
@@ -621,11 +612,11 @@ ul .disabled-link {
 }
 .friends .transition-right {
   animation-name: move-right;
-  animation-duration: 1s;
+  animation-duration: 1.5s;
 }
 @keyframes move-left {
   from {
-    left: -990px;
+    left: -1035px;
   }
   to {
     left: 0px;
@@ -633,7 +624,7 @@ ul .disabled-link {
 }
 .friends .transition-left {
   animation-name: move-left;
-  animation-duration: 1s;
+  animation-duration: 1.5s;
 }
 .friends .card {
   width: 200px;
