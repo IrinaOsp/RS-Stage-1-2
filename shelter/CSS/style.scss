@@ -471,6 +471,7 @@ a {
         cursor: pointer;
         img {
             margin-bottom: 22px;
+            border-radius: 9px;
         }
         figcaption{
             margin-bottom: 29.8px;
@@ -612,12 +613,13 @@ a {
 }
 .popup-img {
     width: 55.56%;
-    background: no-repeat center/contain;
+    background: no-repeat center/cover;
     border-top-left-radius: inherit;
     border-bottom-left-radius: inherit;
     border-top-right-radius: 0;
     @media screen and (max-width: 724px)  {
-        width: 40%;
+        width: 50%;
+        background-size: 160%;
     }
     @media screen and (max-width: 515px)  {
         display: none;
@@ -628,6 +630,7 @@ a {
     padding-right: 20px;
     overflow: hidden;
     @media screen and (max-width: 1000px)  {
+        margin-left: 11px;
         padding-right: 9px;
         max-width: calc(100% - 55.56% - 9px);
     }
@@ -637,6 +640,7 @@ a {
     @media screen and (max-width: 515px)  {
         max-width: 100%;
         padding-right: 0;
+        margin-left: 0;
     }
     .popup-heading{
         margin-top: 50px;
@@ -1200,6 +1204,7 @@ a {
             max-width: 436px;
             img {
                 margin-bottom: 23px;
+                border-radius: 9px;
             }
             figcaption{
                 padding-bottom: 30px;
