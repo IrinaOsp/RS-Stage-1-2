@@ -33,7 +33,7 @@ const BODY = document.querySelector('.body');
     }
 }());
 
-//Pop up
+// Pagination
 const PETS = [
     {
       "name": "Jennifer",
@@ -125,8 +125,13 @@ const PETS = [
     }
   ]
 
+const PETS_CONTAINER = document.querySelector('.our-friends-wrapper');
+const PAGE_NUMBER = document.querySelector('.page-number');
+const BTN_LAST_PAGE = document.querySelector('.last');
+const BTN_FIRST_PAGE = document.querySelector('.first');
+const BTN_NEXT_PAGE = document.querySelector('.next');
+const BTN_PREVIOUS_PAGE = document.querySelector('.previous');
 
-const PET_ITEMS = document.querySelectorAll('.friends-slider-item');
 const POPUP_BACKGROUND = document.querySelector('.popup-background');
 const POPUP_CONTENT = document.querySelector('.popup-content');
 const POPUP_IMG = document.querySelector('.popup-img');
@@ -137,48 +142,139 @@ const POPUP_LIST = document.querySelector('.popup-list')
 const POPUP_CLOSE = document.querySelector('.popup-close-btn')
 const PETS_NAMES = [];
 
-function getRandomNum(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-let numbersArray
-function getArray() {
-    let set = new Set()
-    let randomNum
-    while (set.size < 8) {
-        randomNum = getRandomNum(0, 7)
-        set.add(randomNum)
+let currentPageNumber = 1;
+PAGE_NUMBER.innerHTML = currentPageNumber;
+
+function checkValidity(arr, subArrayLength) {
+  for (let i = 0; i < arr.length; i += subArrayLength) {
+    const subArray = arr.slice(i, i + subArrayLength);
+    const uniqueValues = [...new Set(subArray)];
+    if (uniqueValues.length !== subArrayLength) {
+      return false;
     }
-    numbersArray = Array.from(set)
-    numbersArray.push(numbersArray[getRandomNum(0, 2)])
-    return numbersArray
+  }
+  return true;
 }
-let petsnumbersArray = getArray()
 
-function getSliderItems() {
-    // const res = await fetch('../JS/pets_info.json')
-    // PETS = await res.json()
-    PETS.forEach((item) => PETS_NAMES.push(item.name))
-    console.log(petsnumbersArray)
-    // petsnumbersArray.forEach((item, index) => {
-    //     //console.log(PET_ITEMS[index].firstElementChild)
-    //     PET_ITEMS[index].firstElementChild.firstElementChild.src = `${PETS[item].img}`
-    //     PET_ITEMS[index].firstElementChild.firstElementChild.alt = `${PETS[item].name}`
-    //     PET_ITEMS[index].firstElementChild.lastElementChild.innerHTML = PETS[item].name
-    //     PET_ITEMS[index].id = PETS[item].name
-    // })
+function generateUniqueArray(length) {
+  const totalElements = 48;
+  if (length > totalElements || length % 8 !== 0 || length % 6 !== 0 || length % 3 !== 0) {
+    return null;
+  }
+
+  const uniqueValues = [0, 1, 2, 3, 4, 5, 6, 7];
+  let resultArray = [];
+
+  while (true) {
+    shuffleArray(uniqueValues);
+    resultArray = [...resultArray, ...uniqueValues];
+
+    if (resultArray.length === length) {
+      if (checkValidity(resultArray, 8) && checkValidity(resultArray, 6) && checkValidity(resultArray, 3)) {
+        return resultArray;
+      } else {
+        resultArray = [];
+      }
+    }
+  }
 }
-getSliderItems()
 
-PET_ITEMS.forEach((item) => {
-    item.addEventListener('click', (event) => {
-        console.log(event.target.closest('.friends-slider-item').firstElementChild.lastElementChild.innerHTML)
-        let cardNum = PETS_NAMES.indexOf(event.target.closest('.friends-slider-item').firstElementChild.lastElementChild.innerHTML)
-        console.log(cardNum)
-        createCard(cardNum)
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+const resultArray = generateUniqueArray(48);
+
+let maxPageNumber;
+const getCardsNumber = () => {
+  if (window.innerWidth > 1279) {
+    maxPageNumber = 6;
+    return 8
+  } else if (window.innerWidth >= 660 && window.innerWidth <= 1279) {
+    maxPageNumber = 8;
+    return 6
+  } else {
+    maxPageNumber = 16;
+    return 3
+  }
+};
+
+window.addEventListener('resize', () => getPageItems(currentPageNumber));
+
+function getPageItems(pageNumber) {
+    PETS_CONTAINER.innerHTML = null;
+    const cardsNumber = getCardsNumber();
+    resultArray.forEach((item, index) => {
+      if (index >= (pageNumber - 1) * cardsNumber && index < pageNumber * cardsNumber) PETS_CONTAINER.appendChild(createCards(item));
     })
-})
+}
+getPageItems(currentPageNumber);
+
+function createCards (ind) {
+  const card = document.createElement("div");
+  card.classList.add("friends-slider-item");
+  const figure = document.createElement('figure');
+  const img = document.createElement('img');
+  img.src = PETS[ind].img;
+  img.alt = PETS[ind].name;
+  const figcaption = document.createElement('figcaption');
+  figcaption.innerText = PETS[ind].name;
+  const link = document.createElement('a');
+  link.classList.add('slider-button');
+  link.href = '#!';
+  link.innerHTML = 'Learn more';
+  figure.appendChild(img);
+  figure.appendChild(figcaption);
+  card.appendChild(figure);
+  card.appendChild(link);
+  return card;
+}
+
+function disableBtn(...btns) {
+  btns.forEach(btn => btn.classList.add('disabled-btn'));
+}
+function enableBtn(...btns) {
+  btns.forEach(btn => btn.classList.remove('disabled-btn'));
+}
+
+function handlePage(event) {
+  if (event.target.closest('.pets-buttons') === null) return;
+  if (event.target.closest('.pets-buttons').classList.contains('next')) {
+    currentPageNumber++;
+    enableBtn(BTN_PREVIOUS_PAGE, BTN_FIRST_PAGE);
+    if (currentPageNumber >= maxPageNumber) disableBtn(BTN_NEXT_PAGE, BTN_LAST_PAGE);
+  }
+  if (event.target.closest('.pets-buttons').classList.contains('previous')) {
+    currentPageNumber--;
+    enableBtn(BTN_NEXT_PAGE, BTN_LAST_PAGE);
+    if (currentPageNumber === 1) disableBtn(BTN_PREVIOUS_PAGE, BTN_FIRST_PAGE);
+  }
+  if (event.target.closest('.pets-buttons').classList.contains('first')) {
+    currentPageNumber = 1;
+    enableBtn(BTN_NEXT_PAGE, BTN_LAST_PAGE);
+    disableBtn(BTN_PREVIOUS_PAGE, BTN_FIRST_PAGE);
+  }
+  if (event.target.closest('.pets-buttons').classList.contains('last')) {
+    currentPageNumber = maxPageNumber;
+    enableBtn(BTN_PREVIOUS_PAGE, BTN_FIRST_PAGE);
+    disableBtn(BTN_NEXT_PAGE, BTN_LAST_PAGE);
+  }
+  PAGE_NUMBER.innerHTML = currentPageNumber;
+  getPageItems(currentPageNumber);
+}
+
+document.querySelector('.buttons-container').addEventListener('click', handlePage);
+
+// POPUP
+
+PETS_CONTAINER.addEventListener('click', (event) => {
+      let petName = event.target.closest('.friends-slider-item').firstElementChild.lastElementChild.innerHTML;
+      let ind = PETS.findIndex((el) => el.name === petName);
+      createCard(ind)
+});
 
 function createCard(i) {
     POPUP_BACKGROUND.classList.add('popup-active');
@@ -189,10 +285,10 @@ function createCard(i) {
     POPUP_SUBHEADING.firstElementChild.textContent = PETS[i].type;
     POPUP_SUBHEADING.lastElementChild.textContent = PETS[i].breed;
     POPUP_TEXT.textContent = PETS[i].description;
-    POPUP_LIST.firstElementChild.lastElementChild.innerHTML = PETS[i].age;
-    POPUP_LIST.children[1].lastElementChild.innerHTML = PETS[i].inoculations;
-    POPUP_LIST.children[2].lastElementChild.innerHTML = PETS[i].diseases;
-    POPUP_LIST.children[3].lastElementChild.innerHTML = PETS[i].parasites;
+    POPUP_LIST.firstElementChild.innerHTML = `<b>Age:</b> ${PETS[i].age}`;
+    POPUP_LIST.children[1].innerHTML = `<b>Inoculations:</b> ${PETS[i].inoculations.join(', ')}`;
+    POPUP_LIST.children[2].innerHTML = `<b>Diseases:</b> ${PETS[i].diseases.join(', ')}`;
+    POPUP_LIST.children[3].innerHTML = `<b>Parasites:</b> ${PETS[i].parasites.join(', ')}`;
 }
 
 POPUP_CLOSE.addEventListener('click', () => {
