@@ -155,10 +155,8 @@ const setOffset = () => {
         offset = 305
     }
     CAROUSEL.style.right = offset + 'px';
-    console.log(offset);
     petsnumbersArray = getArray();
     getSliderItems();
-    console.log('petsnumbersArray' + petsnumbersArray)
     return offset;
 };
 
@@ -180,7 +178,6 @@ function getArray() {
         pastArr.push(...petsnumbersArray.slice(0, 3));
         currArr.push(...petsnumbersArray.slice(3, 6));
         nextArr.push(...petsnumbersArray.slice(6));
-        console.log('arrs ', pastArr, currArr, nextArr)
 
         return petsnumbersArray
     } else if (offset === 620) {
@@ -191,7 +188,6 @@ function getArray() {
         pastArr.push(...petsnumbersArray.slice(0, 2));
         currArr.push(...petsnumbersArray.slice(2, 4));
         nextArr.push(...petsnumbersArray.slice(4));
-        console.log('arrs ', pastArr, currArr, nextArr)
 
         return petsnumbersArray
     }
@@ -202,7 +198,6 @@ function getArray() {
     pastArr.push(petsnumbersArray[0]);
     currArr.push(petsnumbersArray[1]);
     nextArr.push(petsnumbersArray[2]);
-    console.log('arrs ', pastArr, currArr, nextArr)
 
     return petsnumbersArray
 }
@@ -273,7 +268,6 @@ const moveLeft = () => {
     pastArr=[];
     NewPetsNumbersArray = []
     NewPetsNumbersArray = [...currArr, ...nextArr];
-    console.log(NewPetsNumbersArray);
 
     while (pastArr.length < length) {
         let num = getRandomNum(0, 7)
@@ -282,13 +276,11 @@ const moveLeft = () => {
         }
     }
     NewPetsNumbersArray.unshift(...pastArr)
-    console.log(NewPetsNumbersArray)
     setTimeout(() => {
         ITEM_RIGHT.innerHTML = ITEM_ACTIVE.innerHTML;
         ITEM_ACTIVE.innerHTML = ITEM_LEFT.innerHTML;
         ITEM_LEFT.innerHTML = '';
         pastArr.forEach(item => {
-            console.log(item);
             const card = createCards(item);
             ITEM_LEFT.appendChild(card);
         })
@@ -325,7 +317,6 @@ const moveRight = () => {
         }
     }
     NewPetsNumbersArray.push(...nextArr)
-    console.log(NewPetsNumbersArray)
     setTimeout(() => {
         CAROUSEL.style.right = offset + 'px';
         CAROUSEL.style.transition = null
@@ -333,7 +324,6 @@ const moveRight = () => {
         ITEM_ACTIVE.innerHTML = ITEM_RIGHT.innerHTML;
         ITEM_RIGHT.innerHTML = '';
         nextArr.forEach(item => {
-            console.log(item);
             const card = createCards(item);
             ITEM_RIGHT.appendChild(card);
         })
@@ -372,10 +362,10 @@ function createCard(i) {
     POPUP_SUBHEADING.firstElementChild.textContent = PETS[i].type;
     POPUP_SUBHEADING.lastElementChild.textContent = PETS[i].breed;
     POPUP_TEXT.textContent = PETS[i].description;
-    POPUP_LIST.firstElementChild.lastElementChild.innerHTML = PETS[i].age;
-    POPUP_LIST.children[1].lastElementChild.innerHTML = PETS[i].inoculations;
-    POPUP_LIST.children[2].lastElementChild.innerHTML = PETS[i].diseases;
-    POPUP_LIST.children[3].lastElementChild.innerHTML = PETS[i].parasites;
+    POPUP_LIST.firstElementChild.innerHTML = `<b>Age:</b> ${PETS[i].age}`;
+    POPUP_LIST.children[1].innerHTML = `<b>Inoculations:</b> ${PETS[i].inoculations.join(', ')}`;
+    POPUP_LIST.children[2].innerHTML = `<b>Diseases:</b> ${PETS[i].diseases.join(', ')}`;
+    POPUP_LIST.children[3].innerHTML = `<b>Parasites:</b> ${PETS[i].parasites.join(', ')}`;
 }
 
 POPUP_CLOSE.addEventListener('click', () => {

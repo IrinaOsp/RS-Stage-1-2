@@ -285,10 +285,10 @@ function createCard(i) {
     POPUP_SUBHEADING.firstElementChild.textContent = PETS[i].type;
     POPUP_SUBHEADING.lastElementChild.textContent = PETS[i].breed;
     POPUP_TEXT.textContent = PETS[i].description;
-    POPUP_LIST.firstElementChild.lastElementChild.innerHTML = PETS[i].age;
-    POPUP_LIST.children[1].lastElementChild.innerHTML = PETS[i].inoculations;
-    POPUP_LIST.children[2].lastElementChild.innerHTML = PETS[i].diseases;
-    POPUP_LIST.children[3].lastElementChild.innerHTML = PETS[i].parasites;
+    POPUP_LIST.firstElementChild.innerHTML = `<b>Age:</b> ${PETS[i].age}`;
+    POPUP_LIST.children[1].innerHTML = `<b>Inoculations:</b> ${PETS[i].inoculations.join(', ')}`;
+    POPUP_LIST.children[2].innerHTML = `<b>Diseases:</b> ${PETS[i].diseases.join(', ')}`;
+    POPUP_LIST.children[3].innerHTML = `<b>Parasites:</b> ${PETS[i].parasites.join(', ')}`;
 }
 
 POPUP_CLOSE.addEventListener('click', () => {

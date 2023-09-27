@@ -671,12 +671,14 @@ ul .disabled-link {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1;
 }
 
 .popup-content {
   display: none;
   position: relative;
-  width: 900px;
+  max-width: 900px;
+  min-width: 240px;
   height: -moz-fit-content;
   height: fit-content;
   margin-right: auto;
@@ -684,6 +686,7 @@ ul .disabled-link {
   background-color: #FFFFFF;
   box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
   border-radius: 9px;
+  z-index: 2;
 }
 @media screen and (max-width: 1000px) {
   .popup-content {
@@ -697,19 +700,18 @@ ul .disabled-link {
 }
 @media screen and (max-width: 650px) {
   .popup-content {
-    width: 83%;
+    width: 75%;
   }
 }
 @media screen and (max-width: 515px) {
   .popup-content {
     padding: 10px;
-    width: 75%;
   }
 }
 
 .popup-img {
   width: 55.56%;
-  background: no-repeat center/cover;
+  background: no-repeat center/contain;
   border-top-left-radius: inherit;
   border-bottom-left-radius: inherit;
   border-top-right-radius: 0;
@@ -728,6 +730,7 @@ ul .disabled-link {
 .popup-info {
   max-width: calc(44.44% - 29px);
   padding-right: 20px;
+  overflow: hidden;
 }
 @media screen and (max-width: 1000px) {
   .popup-info {
@@ -809,10 +812,10 @@ ul .disabled-link {
 .popup-info li {
   font: 400 15px/17px Georgia;
   letter-spacing: 0.06em;
-  display: flex;
-  justify-content: flex-start;
   margin-top: 10px;
   margin-bottom: 10px;
+  overflow-wrap: break-word;
+  color: #000;
 }
 .popup-info li:first-child {
   margin-top: 0;
@@ -831,15 +834,9 @@ ul .disabled-link {
 .popup-info li::before {
   content: "•";
   font-weight: bold;
-  display: block;
+  display: inline-block;
   width: 1em;
   color: #F1CDB3;
-}
-.popup-info li span {
-  font-weight: 700;
-}
-.popup-info li .popup-list-text {
-  font: inherit;
 }
 
 .popup-close-btn {
@@ -1466,6 +1463,11 @@ ul .disabled-link {
   height: 56px;
   display: flex;
   gap: 20px;
+}
+@media screen and (max-width: 370px) {
+  .our-friends .buttons-container {
+    gap: 10px;
+  }
 }
 .our-friends .buttons-container .pets-buttons {
   font: normal 400 20px/23px Georgia;
