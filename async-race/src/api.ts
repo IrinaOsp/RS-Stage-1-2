@@ -2,7 +2,7 @@ import { generateStr, Query, Icar, getCarsResult, getWinnersResult, Iwinner } fr
 import { abortController } from './race';
 import { popupMessage } from './util/popup_message';
 
-const baseUrl = 'http://127.0.0.1:3000/';
+const baseUrl = 'https://async-race-tb7l.onrender.com/';
 
 const path = {
   garage: 'garage',
