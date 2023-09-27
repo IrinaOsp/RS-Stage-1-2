@@ -1405,6 +1405,7 @@ ul .disabled-link {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
   grid-template-rows: repeat(2, 1fr);
+  justify-items: center;
   row-gap: 30px;
   -moz-column-gap: 40px;
        column-gap: 40px;
@@ -1423,6 +1424,7 @@ ul .disabled-link {
   align-items: center;
   background-color: #FAFAFA;
   border-radius: 9px;
+  max-width: 436px;
 }
 .our-friends .our-friends-wrapper .friends-slider-item img {
   margin-bottom: 23px;
@@ -1437,19 +1439,6 @@ ul .disabled-link {
   letter-spacing: 0.06em;
   color: #545454;
   text-align: center;
-}
-@media screen and (max-width: 800px) {
-  .our-friends .our-friends-wrapper .friends-slider-item:nth-child(7) {
-    display: none;
-  }
-  .our-friends .our-friends-wrapper .friends-slider-item:last-child {
-    display: none;
-  }
-}
-@media screen and (max-width: 659px) {
-  .our-friends .our-friends-wrapper .friends-slider-item:nth-last-child(-n+5) {
-    display: none;
-  }
 }
 @media (hover: hover) {
   .our-friends .our-friends-wrapper .friends-slider-item:hover {

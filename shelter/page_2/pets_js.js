@@ -33,7 +33,7 @@ const BODY = document.querySelector('.body');
     }
 }());
 
-//Pop up
+// Pagination
 const PETS = [
     {
       "name": "Jennifer",
@@ -125,8 +125,7 @@ const PETS = [
     }
   ]
 
-
-const PET_ITEMS = document.querySelectorAll('.friends-slider-item');
+const PETS_CONTAINER = document.querySelector('.our-friends-wrapper');
 const POPUP_BACKGROUND = document.querySelector('.popup-background');
 const POPUP_CONTENT = document.querySelector('.popup-content');
 const POPUP_IMG = document.querySelector('.popup-img');
@@ -142,7 +141,7 @@ function getRandomNum(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-let numbersArray
+
 function getArray() {
     let set = new Set()
     let randomNum
@@ -150,35 +149,68 @@ function getArray() {
         randomNum = getRandomNum(0, 7)
         set.add(randomNum)
     }
-    numbersArray = Array.from(set)
-    numbersArray.push(numbersArray[getRandomNum(0, 2)])
+    const numbersArray = Array.from(set)
     return numbersArray
 }
-let petsnumbersArray = getArray()
-
-function getSliderItems() {
-    // const res = await fetch('../JS/pets_info.json')
-    // PETS = await res.json()
-    PETS.forEach((item) => PETS_NAMES.push(item.name))
-    console.log(petsnumbersArray)
-    // petsnumbersArray.forEach((item, index) => {
-    //     //console.log(PET_ITEMS[index].firstElementChild)
-    //     PET_ITEMS[index].firstElementChild.firstElementChild.src = `${PETS[item].img}`
-    //     PET_ITEMS[index].firstElementChild.firstElementChild.alt = `${PETS[item].name}`
-    //     PET_ITEMS[index].firstElementChild.lastElementChild.innerHTML = PETS[item].name
-    //     PET_ITEMS[index].id = PETS[item].name
-    // })
+const petsnumbersArray = [];
+function getFullArray() {
+    while (petsnumbersArray.length < 48) {
+      petsnumbersArray.push(...getArray());
+    }
+    console.log(petsnumbersArray);
+    return petsnumbersArray
 }
-getSliderItems()
+getFullArray();
 
-PET_ITEMS.forEach((item) => {
-    item.addEventListener('click', (event) => {
-        console.log(event.target.closest('.friends-slider-item').firstElementChild.lastElementChild.innerHTML)
-        let cardNum = PETS_NAMES.indexOf(event.target.closest('.friends-slider-item').firstElementChild.lastElementChild.innerHTML)
-        console.log(cardNum)
-        createCard(cardNum)
+const getCardsNumber = () => {
+  if (window.innerWidth > 1279) {
+    return 8
+  } else if (window.innerWidth >= 660 && window.innerWidth <= 1279) {
+    return 6
+  } else {
+    return 3
+  }
+};
+getCardsNumber();
+window.addEventListener('resize', getPageItems);
+
+function getPageItems() {
+    PETS_CONTAINER.innerHTML = null;
+    const cardsNumber = getCardsNumber();
+    console.log(cardsNumber)
+    petsnumbersArray.forEach((item, index) => {
+      if (index < cardsNumber) PETS_CONTAINER.appendChild(createCards(item));
     })
-})
+}
+getPageItems();
+
+function createCards (ind) {
+  const card = document.createElement("div");
+  card.classList.add("friends-slider-item");
+  const figure = document.createElement('figure');
+  const img = document.createElement('img');
+  img.src = PETS[ind].img;
+  img.alt = PETS[ind].name;
+  const figcaption = document.createElement('figcaption');
+  figcaption.innerText = PETS[ind].name;
+  const link = document.createElement('a');
+  link.classList.add('slider-button');
+  link.href = '#!';
+  link.innerHTML = 'Learn more';
+  figure.appendChild(img);
+  figure.appendChild(figcaption);
+  card.appendChild(figure);
+  card.appendChild(link);
+  return card;
+}
+
+// POPUP
+
+PETS_CONTAINER.addEventListener('click', (event) => {
+      let petName = event.target.closest('.friends-slider-item').firstElementChild.lastElementChild.innerHTML;
+      let ind = PETS.findIndex((el) => el.name === petName);
+      createCard(ind)
+});
 
 function createCard(i) {
     POPUP_BACKGROUND.classList.add('popup-active');
