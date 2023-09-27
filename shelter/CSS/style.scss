@@ -1241,26 +1241,27 @@ a {
     }
     .buttons-container {
         height: 56px;
+        display: flex;
+        gap: 20px;
         .pets-buttons {
+            font: $font-figcaption;
+            color: #292929;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
             background-color: transparent;
-            border: none;
-            margin-right: 16px;
-            height: fit-content;
+            border: #F1CDB3 2px solid;
             cursor: pointer;
-            &:last-child {
-                margin-right: 0;
-            }
-            @media screen and (max-width: 440px) {
-                margin-right: 5px;
-                &:last-child {
-                    margin-right: 0;
-                }
-            }
-
         }
         .disabled-btn {
             cursor: default;
             pointer-events: none;
+            border: #CDCDCD 2px solid;
+            color: #CDCDCD;
+        }
+        .page-number {
+            background-color: #F1CDB3;
+            border: none;
         }
     }
 }

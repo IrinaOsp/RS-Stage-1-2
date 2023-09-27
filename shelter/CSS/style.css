@@ -1464,27 +1464,26 @@ ul .disabled-link {
 }
 .our-friends .buttons-container {
   height: 56px;
+  display: flex;
+  gap: 20px;
 }
 .our-friends .buttons-container .pets-buttons {
+  font: normal 400 20px/23px Georgia;
+  color: #292929;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
   background-color: transparent;
-  border: none;
-  margin-right: 16px;
-  height: -moz-fit-content;
-  height: fit-content;
+  border: #F1CDB3 2px solid;
   cursor: pointer;
-}
-.our-friends .buttons-container .pets-buttons:last-child {
-  margin-right: 0;
-}
-@media screen and (max-width: 440px) {
-  .our-friends .buttons-container .pets-buttons {
-    margin-right: 5px;
-  }
-  .our-friends .buttons-container .pets-buttons:last-child {
-    margin-right: 0;
-  }
 }
 .our-friends .buttons-container .disabled-btn {
   cursor: default;
   pointer-events: none;
+  border: #CDCDCD 2px solid;
+  color: #CDCDCD;
+}
+.our-friends .buttons-container .page-number {
+  background-color: #F1CDB3;
+  border: none;
 }/*# sourceMappingURL=style.css.map */

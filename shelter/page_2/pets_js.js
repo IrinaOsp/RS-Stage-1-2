@@ -126,6 +126,12 @@ const PETS = [
   ]
 
 const PETS_CONTAINER = document.querySelector('.our-friends-wrapper');
+const PAGE_NUMBER = document.querySelector('.page-number');
+const BTN_LAST_PAGE = document.querySelector('.last');
+const BTN_FIRST_PAGE = document.querySelector('.first');
+const BTN_NEXT_PAGE = document.querySelector('.next');
+const BTN_PREVIOUS_PAGE = document.querySelector('.previous');
+
 const POPUP_BACKGROUND = document.querySelector('.popup-background');
 const POPUP_CONTENT = document.querySelector('.popup-content');
 const POPUP_IMG = document.querySelector('.popup-img');
@@ -136,53 +142,76 @@ const POPUP_LIST = document.querySelector('.popup-list')
 const POPUP_CLOSE = document.querySelector('.popup-close-btn')
 const PETS_NAMES = [];
 
-function getRandomNum(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+let currentPageNumber = 1;
+PAGE_NUMBER.innerHTML = currentPageNumber;
+
+function checkValidity(arr, subArrayLength) {
+  for (let i = 0; i < arr.length; i += subArrayLength) {
+    const subArray = arr.slice(i, i + subArrayLength);
+    const uniqueValues = [...new Set(subArray)];
+    if (uniqueValues.length !== subArrayLength) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function generateUniqueArray(length) {
+  const totalElements = 48;
+  if (length > totalElements || length % 8 !== 0 || length % 6 !== 0 || length % 3 !== 0) {
+    return null;
   }
 
-function getArray() {
-    let set = new Set()
-    let randomNum
-    while (set.size < 8) {
-        randomNum = getRandomNum(0, 7)
-        set.add(randomNum)
-    }
-    const numbersArray = Array.from(set)
-    return numbersArray
-}
-const petsnumbersArray = [];
-function getFullArray() {
-    while (petsnumbersArray.length < 48) {
-      petsnumbersArray.push(...getArray());
-    }
-    console.log(petsnumbersArray);
-    return petsnumbersArray
-}
-getFullArray();
+  const uniqueValues = [0, 1, 2, 3, 4, 5, 6, 7];
+  let resultArray = [];
 
+  while (true) {
+    shuffleArray(uniqueValues);
+    resultArray = [...resultArray, ...uniqueValues];
+
+    if (resultArray.length === length) {
+      if (checkValidity(resultArray, 8) && checkValidity(resultArray, 6) && checkValidity(resultArray, 3)) {
+        return resultArray;
+      } else {
+        resultArray = [];
+      }
+    }
+  }
+}
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+const resultArray = generateUniqueArray(48);
+
+let maxPageNumber;
 const getCardsNumber = () => {
   if (window.innerWidth > 1279) {
+    maxPageNumber = 6;
     return 8
   } else if (window.innerWidth >= 660 && window.innerWidth <= 1279) {
+    maxPageNumber = 8;
     return 6
   } else {
+    maxPageNumber = 16;
     return 3
   }
 };
-getCardsNumber();
-window.addEventListener('resize', getPageItems);
 
-function getPageItems() {
+window.addEventListener('resize', () => getPageItems(currentPageNumber));
+
+function getPageItems(pageNumber) {
     PETS_CONTAINER.innerHTML = null;
     const cardsNumber = getCardsNumber();
-    console.log(cardsNumber)
-    petsnumbersArray.forEach((item, index) => {
-      if (index < cardsNumber) PETS_CONTAINER.appendChild(createCards(item));
+    resultArray.forEach((item, index) => {
+      if (index >= (pageNumber - 1) * cardsNumber && index < pageNumber * cardsNumber) PETS_CONTAINER.appendChild(createCards(item));
     })
 }
-getPageItems();
+getPageItems(currentPageNumber);
 
 function createCards (ind) {
   const card = document.createElement("div");
@@ -203,6 +232,41 @@ function createCards (ind) {
   card.appendChild(link);
   return card;
 }
+
+function disableBtn(...btns) {
+  btns.forEach(btn => btn.classList.add('disabled-btn'));
+}
+function enableBtn(...btns) {
+  btns.forEach(btn => btn.classList.remove('disabled-btn'));
+}
+
+function handlePage(event) {
+  if (event.target.closest('.pets-buttons') === null) return;
+  if (event.target.closest('.pets-buttons').classList.contains('next')) {
+    currentPageNumber++;
+    enableBtn(BTN_PREVIOUS_PAGE, BTN_FIRST_PAGE);
+    if (currentPageNumber >= maxPageNumber) disableBtn(BTN_NEXT_PAGE, BTN_LAST_PAGE);
+  }
+  if (event.target.closest('.pets-buttons').classList.contains('previous')) {
+    currentPageNumber--;
+    enableBtn(BTN_NEXT_PAGE, BTN_LAST_PAGE);
+    if (currentPageNumber === 1) disableBtn(BTN_PREVIOUS_PAGE, BTN_FIRST_PAGE);
+  }
+  if (event.target.closest('.pets-buttons').classList.contains('first')) {
+    currentPageNumber = 1;
+    enableBtn(BTN_NEXT_PAGE, BTN_LAST_PAGE);
+    disableBtn(BTN_PREVIOUS_PAGE, BTN_FIRST_PAGE);
+  }
+  if (event.target.closest('.pets-buttons').classList.contains('last')) {
+    currentPageNumber = maxPageNumber;
+    enableBtn(BTN_PREVIOUS_PAGE, BTN_FIRST_PAGE);
+    disableBtn(BTN_NEXT_PAGE, BTN_LAST_PAGE);
+  }
+  PAGE_NUMBER.innerHTML = currentPageNumber;
+  getPageItems(currentPageNumber);
+}
+
+document.querySelector('.buttons-container').addEventListener('click', handlePage);
 
 // POPUP
 
