@@ -1,0 +1,208 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: #000;
+}
+.header {
+  margin: 10px 0 20px;
+}
+button {
+  text-transform: uppercase;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.button_header {
+  margin-left: 10px;
+  padding: 2px 4px;
+  background-color: #9dba1d;
+  border-bottom: 4px solid #617211;
+}
+.main {
+  margin-top: 10px;
+  padding: 10px;
+}
+.button-garage {
+  padding: 1px 13px;
+  background-color: rgb(196, 226, 241);
+  border-bottom: 3px solid rgb(145, 191, 213);
+  font-size: 0.7em;
+  grid-column: span 1;
+}
+.button-garage:disabled {
+  cursor: not-allowed;
+}
+.control-block {
+  max-width: 400px;
+  margin-bottom: 30px;
+  display: grid;
+  grid-template-columns: 100px 3fr 1fr;
+  grid-template-rows: auto;
+  row-gap: 10px;
+  column-gap: 5px;
+  align-content: center;
+  justify-content: center;
+}
+.input-name {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+.control-block button:last-child {
+  grid-column-start: 3;
+  grid-column-end: 5;
+}
+.input-color {
+  height: 1.5em;
+  border: none;
+  padding: 0;
+}
+.button-yellow {
+  justify-self: center;
+  width: 100px;
+  background-color: #d5f3a0;
+  border-color: #9eb575;
+}
+.wrapper {
+  margin-bottom: 25px;
+}
+.garage-heading {
+  margin-bottom: 10px;
+  color: #fff;
+}
+.page-heading {
+  margin-bottom: 10px;
+  color: #fff;
+}
+.car-container {
+  border-bottom: 2px #fff dashed;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+.car_subcontainer {
+  display: flex;
+  justify-content: start;
+  width: 100%;
+}
+.car-name {
+  margin-left: 10px;
+  color: orange;
+  font-weight: 600;
+}
+.button-move {
+  margin: 10px 3px 5px;
+  padding: 1px 4px;
+  height: 22px;
+  background-color: black;
+  border: 1px solid;
+  border-radius: 5px;
+  font-size: 0.8em;
+}
+.car-container button.move {
+  border-color: #d5f3a0;
+  color: #d5f3a0;
+}
+.car-container button.stop {
+  border-color: #d06b49;
+  color: #d06b49;
+}
+.car-container button.move:hover, .car-container button.stop:hover {
+  border-color: rgb(196, 226, 241);
+  color: rgb(196, 226, 241);
+}
+.car-container button.move:disabled,
+.car-container button.stop:disabled,
+.car-container button.move:disabled:hover
+.car-container button.stop:disabled:hover {
+  border-color: gray;
+  color: gray;
+  cursor: not-allowed;
+}
+.car {
+  width: 75px;
+  height: 50px;
+  margin: 3px 10px 0 20px;
+  transform: scale(-1, 1);
+  filter: drop-shadow(0px -1px 4px rgb(255, 255, 255));
+  position: relative;
+  left: 0;
+}
+.flag {
+  width: 60px;
+  height: 50px;
+  background: url('./assets/flag.svg') no-repeat bottom/65%;
+  position: absolute;
+  right: 70px;
+  top: 15px
+}
+.winners_table {
+  color: #fff;
+  border: 1px solid gray;
+  text-align: center;
+}
+.winners_thead {
+  background-color: rgb(61, 95, 245);
+}
+.winners_thead th {
+  padding: 0 10px 0;
+}
+.th_wins, .th_time {
+  position: relative;
+}
+.th_wins::before, .th_wins::after, .th_time::before, .th_time::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  border: 4px solid transparent;
+  border-bottom: 4px solid gray;
+}
+.th_wins::after, .th_time::after {
+  top: 10px;
+  border-top: 4px solid gray;
+  border-bottom: none;
+}
+.ASC::before, .ASC::before {
+  border-bottom: 4px solid #fff;
+}
+.DESC::after, .DESC::after {
+  border-top: 4px solid #fff;
+}
+td.winners_car {
+  transform: scale(-0.8, 0.8);
+  filter: drop-shadow(0px -1px 4px rgb(255, 255, 255));
+}
+.prev, .win-prev {
+  margin-right: 15px;
+}
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  width: 200px;
+  height: 100px;
+  padding-top: 35px;
+  text-align: center;
+  background-color: #d5f3a0;
+}
+/* info popup styles */
+.popup-message {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  display: none;
+}
+.close-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 20px;
+  cursor: pointer;
+}
